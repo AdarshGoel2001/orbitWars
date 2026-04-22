@@ -32,8 +32,8 @@ orbitWars/
 ├── bench.py                # per-turn latency bench (cold vs warm, CPU + MPS)
 ├── bc_data.py              # behavior-cloning shard capture from heuristic-vs-heuristic games
 ├── bc_train.py             # behavior-cloning trainer over bc_data.py shards
-├── rl_rollout.py           # self-play game collector; logs per-sub-move (s, a, logπ, v, r)
-├── rl_opponent_pool.py     # OpponentPool: 50/50 heuristic vs. past model snapshots
+├── rl_rollout.py           # self-play game collector; per-turn Φ-shaped rewards
+├── rl_opponent_pool.py     # OpponentPool: 33% heuristic / 67% past model snapshots
 ├── rl_ppo.py               # GAE + clipped PPO update step
 ├── rl_train.py             # main PPO loop: load BC ckpt → rollout → update → snapshot
 ├── checkpoints/bc_baseline.pt  # first BC model
@@ -272,20 +272,30 @@ chase further MPS micro-optimizations unless the user asks.
 
 ## `rl_rollout.py` / `rl_opponent_pool.py` / `rl_ppo.py` / `rl_train.py` — PPO self-play
 
-Scaffolding for Step 6 of the build order. Written after BC baseline trained;
-**not yet end-to-end verified**.
+Scaffolding for Step 6 of the build order. Rollout + PPO loop verified
+end-to-end (telescoping reward matches final margin to machine precision,
+GAE/PPO update runs with finite losses). Not yet trained for real.
 
 - **`rl_rollout.play_one_game(model, opp_fn, opp_name, device, deterministic)`**
   — plays one full game, logging one `SubmoveRecord` per model sub-move:
   `(edge_features, legal_mask, action_mask, action_idx, logprob, value, reward)`.
-  Uses `apply_planned_move` for within-turn state; terminal reward is
-  normalized score margin `(my_ships − opp_ships) / total_ships` — sparse, on
-  the final sub-move only. Returns a `GameTrajectory`.
+  Uses `apply_planned_move` for within-turn state. **Reward is per-turn
+  potential-based shaping** (dense): after each env step, compute
+  `Φ = (my_ships − opp_ships) / total_ships` on the post-step obs and
+  assign `Δ Φ` to the last sub-move record of that turn. No separate
+  terminal reward — the last turn's delta naturally picks up the final
+  margin, and the sum of deltas across a trajectory equals
+  `Φ(game_end) − Φ(game_start) ≈ Φ(game_end)` because the symmetric start
+  gives `Φ(game_start) ≈ 0`. If a turn has no records, emission is skipped
+  and `phi_old` stays put so telescoping is preserved.
 - **`rl_opponent_pool.OpponentPool`** — samples opponents for self-play.
-  Default `heuristic_weight=0.5`; the other 50% draws from past model
-  snapshots (detached CPU copies). FIFO eviction at `max_snapshots=8`.
-  `add_snapshot(model, name)` called from the trainer every
-  `--snapshot-every` iterations.
+  With `heuristic_weight=0.5` and hardcoded `snapshot_weight=1.0` the
+  actual mix once snapshots exist is **33% heuristic / 67% snapshot**
+  (not 50/50). Before the first snapshot is added (iterations 0..4 with
+  default `--snapshot-every=5`), opponent is 100% heuristic. Snapshots
+  are detached CPU copies; FIFO eviction at `max_snapshots=8`. No sniper
+  and no random agent in the pool — the learner only ever plays vs.
+  heuristic or its own stale snapshots.
 - **`rl_ppo.ppo_update_step(model, trajectories, optimizer, device)`** —
   flattens sub-move records, computes GAE (γ=0.99, λ=0.95), normalizes
   advantages, runs 4 epochs of mini-batch PPO with clip=0.2, value_coef=0.5,
@@ -293,6 +303,17 @@ Scaffolding for Step 6 of the build order. Written after BC baseline trained;
 - **`rl_train.py`** — main loop: load BC checkpoint (accepts both
   `{"model_state": ...}` and raw `state_dict`), rollout `--games-per-iter`
   games, PPO update, snapshot every `--snapshot-every` iterations.
+
+**Why dense Φ-shaping instead of sparse terminal:** with γ=0.99 and a
+~1500-sub-move trajectory, terminal reward's contribution to early
+sub-moves is multiplied by γ^1500 — essentially invisible. Per-turn
+Δ Φ shaping is potential-based (Ng et al. 1999), so it preserves the
+optimal policy but gives the value head dense regression targets on every
+turn. This is what lets the value function learn to bridge ETA delays
+(a fleet launched on turn 100 landing on turn 115 shows up in V(s_100)
+as a higher expected Φ, propagating credit back to the launch action
+via advantage bootstrap — not via the actual reward, which doesn't
+materialize until turn 115).
 
 ```bash
 .venv/bin/python rl_train.py --checkpoint checkpoints/bc_baseline.pt \
@@ -362,7 +383,7 @@ Legality has **two masks**:
 3. ✅ **Random model-space agent** — `random_model_space_agent`. Smoke-tests the full env→mask→action→step pipeline.
 4. ✅ **Transformer skeleton** — `OrbitWarsTransformer` in `model.py`. Forward-pass verified; illegal-edge mass = 0; `StatefulModelAgent` plays complete games under latency budget.
 5. 🟨 **Behavior cloning** — capture (`bc_data.py`) + trainer (`bc_train.py`) + first `checkpoints/bc_baseline.pt` all exist. BC teacher is the heuristic (not sniper — see memory for why). Next piece is evaluating `bc_baseline.pt` vs random/sniper/heuristic to confirm the checkpoint is worth starting RL from.
-6. 🟨 **Self-play PPO** — `rl_rollout.py` / `rl_opponent_pool.py` / `rl_ppo.py` / `rl_train.py` written, **not yet end-to-end tested**. Win rate vs. heuristic is the north-star metric. Opponent pool already mixes heuristic at 50%.
+6. 🟨 **Self-play PPO** — `rl_rollout.py` / `rl_opponent_pool.py` / `rl_ppo.py` / `rl_train.py` written; rollout + update-step verified in smoke test (telescoping reward exact, PPO losses finite); not yet trained for real. Win rate vs. heuristic is the north-star metric. Opponent pool mixes 33% heuristic / 67% past snapshots once snapshots exist (100% heuristic before that).
 7. ⬜ **`eval.py`** — N-game tournaments, win rate + score-margin with CIs. Used continuously during Step 6.
 
 ### Debugging layers (symptom → likely culprit)

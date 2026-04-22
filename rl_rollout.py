@@ -4,8 +4,12 @@ Plays one game between a learner model and an opponent (heuristic or
 model snapshot). Logs per-sub-move (edge_features, action_mask, action_idx,
 logprob, value) tuples for the learner's seat.
 
-MDP step = one sub-move. Episode reward is terminal-only: normalized score
-margin (my_ships - opp_ships) / (my_ships + opp_ships).
+MDP step = one sub-move. Rewards come from per-turn potential-based shaping:
+at the end of each env step, compute Φ = (my_ships - opp_ships) / total_ships
+on the post-step obs, and assign Δ Φ (change since last emission) to the
+last sub-move record of that turn. The deltas telescope to Φ(game_end),
+which is the same quantity the terminal reward used to be — so we no longer
+emit a separate terminal reward.
 """
 from __future__ import annotations
 
@@ -62,6 +66,20 @@ def _count_ships(obs, seat: int) -> int:
         if int(f[1]) == seat:
             total += int(f[6])
     return total
+
+
+def _compute_phi(obs, learner_seat: int, opp_seat: int) -> float:
+    """Potential function: normalized ship margin in [-1, +1].
+
+    Matches the game's win condition (total ships at game end), so per-turn
+    Δ Φ telescopes to Φ(game_end) across a trajectory.
+    """
+    my_ships = _count_ships(obs, learner_seat)
+    opp_ships = _count_ships(obs, opp_seat)
+    total = my_ships + opp_ships
+    if total <= 0:
+        return 0.0
+    return (my_ships - opp_ships) / total
 
 
 def _rollout_submoves(
@@ -167,6 +185,13 @@ def play_one_game(
     learner_view: Optional[GameView] = None
     records: list[SubmoveRecord] = []
 
+    # Φ at the last point we emitted a shaping reward. Initialized from the
+    # post-step-zero obs so the first turn's delta spans start-of-game → end
+    # of turn 1. If a turn produces no records, phi_old stays put and the
+    # next emission naturally spans both turns — telescoping is preserved.
+    initial_obs = env.state[learner_seat].observation
+    phi_old = _compute_phi(initial_obs, learner_seat, opp_seat)
+
     while not env.done:
         obs_pair = [env.state[0].observation, env.state[1].observation]
         learner_obs = obs_pair[learner_seat]
@@ -183,6 +208,8 @@ def play_one_game(
         else:
             learner_view.update_from_obs(learner_mut)
 
+        n_records_before = len(records)
+
         # Learner's sub-moves.
         learner_action = _rollout_submoves(
             learner_model, learner_view, records, deterministic, device
@@ -197,16 +224,22 @@ def play_one_game(
         actions[opp_seat] = opp_action
         env.step(actions)
 
-    # Terminal reward: normalized score margin.
+        # Per-turn shaping: attach Δ Φ to the last sub-move of this turn.
+        if len(records) > n_records_before:
+            post_obs = env.state[learner_seat].observation
+            phi_new = _compute_phi(post_obs, learner_seat, opp_seat)
+            records[-1].reward += phi_new - phi_old
+            phi_old = phi_new
+
+    # Final margin for logging (not a reward — the per-turn shaping deltas
+    # already telescope to Φ(game_end) ≈ margin).
     final_obs = env.state[learner_seat].observation
     my_ships = _count_ships(final_obs, learner_seat)
     opp_ships = _count_ships(final_obs, opp_seat)
     total_ships = my_ships + opp_ships
     margin = (my_ships - opp_ships) / max(1.0, total_ships) if total_ships > 0 else 0.0
 
-    # Assign terminal reward to last sub-move.
     if records:
-        records[-1].reward = margin
         records[-1].done = True
 
     return GameTrajectory(
