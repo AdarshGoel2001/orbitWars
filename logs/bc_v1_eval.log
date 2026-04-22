@@ -1,0 +1,15 @@
+loading checkpoints/bc_v1.pt on cuda
+  vs heuristic game 1/2 seat=0 ours=-1.0 opp=1.0 margin=-2.0 status=['DONE', 'DONE']
+  vs heuristic game 2/2 seat=1 ours=-1.0 opp=1.0 margin=-2.0 status=['DONE', 'DONE']
+  -> vs heuristic: 0W/2L/0D  avg margin -2.0  (474.7s)
+  vs sniper game 1/2 seat=0 ours=1.0 opp=-1.0 margin=+2.0 status=['DONE', 'DONE']
+  vs sniper game 2/2 seat=1 ours=-1.0 opp=1.0 margin=-2.0 status=['DONE', 'DONE']
+  -> vs sniper: 1W/1L/0D  avg margin +0.0  (197.3s)
+  vs random game 1/2 seat=0 ours=1.0 opp=-1.0 margin=+2.0 status=['DONE', 'DONE']
+  vs random game 2/2 seat=1 ours=-1.0 opp=1.0 margin=-2.0 status=['DONE', 'DONE']
+  -> vs random: 1W/1L/0D  avg margin +0.0  (210.2s)
+
+SUMMARY
+  vs heuristic : 0W/2L/0D  margin=-2.0
+  vs sniper    : 1W/1L/0D  margin=+0.0
+  vs random    : 1W/1L/0D  margin=+0.0

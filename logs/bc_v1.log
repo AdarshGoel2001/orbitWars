@@ -1,0 +1,350 @@
+{
+  "device": "cuda",
+  "params": 208835,
+  "train_shards": 31,
+  "val_shards": 3,
+  "train_examples": 15872,
+  "val_examples": 1536,
+  "batch_size": 8,
+  "stop_weight": 0.5,
+  "resume": null,
+  "start_epoch": 1,
+  "end_epoch": 50
+}
+  step=100 loss=2.6827 acc=0.525 ex/s=35.1
+  step=200 loss=2.2073 acc=0.554 ex/s=35.6
+  step=300 loss=2.2237 acc=0.519 ex/s=35.6
+  step=400 loss=2.1889 acc=0.527 ex/s=35.5
+  step=500 loss=2.1399 acc=0.531 ex/s=35.5
+  step=600 loss=2.0442 acc=0.541 ex/s=35.4
+  step=700 loss=1.9649 acc=0.549 ex/s=35.4
+  step=800 loss=1.8933 acc=0.550 ex/s=35.3
+  step=900 loss=1.7973 acc=0.565 ex/s=35.3
+  step=1000 loss=1.7452 acc=0.571 ex/s=35.2
+  step=1100 loss=1.6879 acc=0.580 ex/s=35.2
+  step=1200 loss=1.6576 acc=0.583 ex/s=35.2
+  step=1300 loss=1.6353 acc=0.585 ex/s=35.1
+  step=1400 loss=1.5862 acc=0.594 ex/s=35.1
+  step=1500 loss=1.5430 acc=0.603 ex/s=35.1
+  step=1600 loss=1.5070 acc=0.610 ex/s=35.1
+  step=1700 loss=1.4942 acc=0.610 ex/s=35.0
+  step=1800 loss=1.4677 acc=0.613 ex/s=35.0
+  step=1900 loss=1.4447 acc=0.616 ex/s=35.0
+{
+  "epoch": 1,
+  "train": {
+    "loss": 1.4245432785230092,
+    "accuracy": 0.6195816532258065,
+    "move_accuracy": 0.5026581317131388,
+    "stop_accuracy": 0.7815176558978212,
+    "examples": 15872,
+    "move_examples": 9217,
+    "stop_examples": 6655,
+    "seconds": 454.2406300189996
+  },
+  "val": {
+    "loss": 1.9960362231892457,
+    "accuracy": 0.623046875,
+    "move_accuracy": 0.4353059177532598,
+    "stop_accuracy": 0.9703153988868275,
+    "examples": 1536,
+    "move_examples": 997,
+    "stop_examples": 539,
+    "seconds": 13.32431745499889
+  }
+}
+  step=100 loss=1.0889 acc=0.713 ex/s=34.3
+  step=200 loss=1.1007 acc=0.681 ex/s=34.3
+  step=300 loss=1.1501 acc=0.675 ex/s=34.3
+  step=400 loss=1.1365 acc=0.671 ex/s=34.4
+  step=500 loss=1.0810 acc=0.684 ex/s=34.5
+  step=600 loss=1.0892 acc=0.687 ex/s=34.5
+  step=700 loss=1.0775 acc=0.691 ex/s=34.5
+  step=800 loss=1.0592 acc=0.698 ex/s=34.5
+  step=900 loss=1.0589 acc=0.696 ex/s=34.5
+  step=1000 loss=1.0425 acc=0.699 ex/s=34.5
+  step=1100 loss=1.0273 acc=0.705 ex/s=34.5
+  step=1200 loss=1.0311 acc=0.700 ex/s=34.5
+  step=1300 loss=1.0548 acc=0.692 ex/s=34.6
+  step=1400 loss=1.0618 acc=0.689 ex/s=34.7
+  step=1500 loss=1.0935 acc=0.682 ex/s=34.6
+  step=1600 loss=1.0898 acc=0.681 ex/s=34.6
+  step=1700 loss=1.0820 acc=0.682 ex/s=34.5
+  step=1800 loss=1.0748 acc=0.686 ex/s=34.4
+  step=1900 loss=1.0663 acc=0.688 ex/s=34.3
+{
+  "epoch": 2,
+  "train": {
+    "loss": 1.0555892898457035,
+    "accuracy": 0.6918472782258065,
+    "move_accuracy": 0.6120212650537051,
+    "stop_accuracy": 0.8024042073628851,
+    "examples": 15872,
+    "move_examples": 9217,
+    "stop_examples": 6655,
+    "seconds": 464.20375153199893
+  },
+  "val": {
+    "loss": 1.2610052155165856,
+    "accuracy": 0.6881510416666666,
+    "move_accuracy": 0.5436308926780341,
+    "stop_accuracy": 0.9554730983302412,
+    "examples": 1536,
+    "move_examples": 997,
+    "stop_examples": 539,
+    "seconds": 13.852140138000323
+  }
+}
+  step=100 loss=1.3216 acc=0.620 ex/s=32.3
+  step=200 loss=1.1322 acc=0.666 ex/s=32.5
+  step=300 loss=1.0738 acc=0.677 ex/s=32.4
+  step=400 loss=1.0568 acc=0.685 ex/s=32.8
+  step=500 loss=1.0554 acc=0.679 ex/s=33.1
+  step=600 loss=1.0409 acc=0.686 ex/s=33.3
+  step=700 loss=1.0467 acc=0.690 ex/s=33.5
+  step=800 loss=1.0095 acc=0.701 ex/s=33.6
+  step=900 loss=0.9965 acc=0.704 ex/s=33.7
+  step=1000 loss=0.9872 acc=0.705 ex/s=33.8
+  step=1100 loss=0.9646 acc=0.710 ex/s=33.8
+  step=1200 loss=0.9739 acc=0.709 ex/s=33.9
+  step=1300 loss=0.9681 acc=0.711 ex/s=33.9
+  step=1400 loss=0.9581 acc=0.715 ex/s=34.0
+  step=1500 loss=0.9495 acc=0.719 ex/s=34.0
+  step=1600 loss=0.9424 acc=0.721 ex/s=33.9
+  step=1700 loss=0.9305 acc=0.725 ex/s=34.0
+  step=1800 loss=0.9229 acc=0.728 ex/s=34.0
+  step=1900 loss=0.9108 acc=0.732 ex/s=34.1
+{
+  "epoch": 3,
+  "train": {
+    "loss": 0.913464420832057,
+    "accuracy": 0.7310357862903226,
+    "move_accuracy": 0.6574807421069763,
+    "stop_accuracy": 0.8329075882794891,
+    "examples": 15872,
+    "move_examples": 9217,
+    "stop_examples": 6655,
+    "seconds": 466.34900380399995
+  },
+  "val": {
+    "loss": 0.8785052082578962,
+    "accuracy": 0.740234375,
+    "move_accuracy": 0.6780341023069207,
+    "stop_accuracy": 0.8552875695732839,
+    "examples": 1536,
+    "move_examples": 997,
+    "stop_examples": 539,
+    "seconds": 12.694265538000764
+  }
+}
+  step=100 loss=1.0398 acc=0.725 ex/s=34.4
+  step=200 loss=1.0181 acc=0.717 ex/s=34.6
+  step=300 loss=0.9223 acc=0.744 ex/s=34.9
+  step=400 loss=0.9211 acc=0.753 ex/s=34.9
+  step=500 loss=0.8926 acc=0.758 ex/s=34.8
+  step=600 loss=0.9528 acc=0.743 ex/s=34.9
+  step=700 loss=0.9373 acc=0.745 ex/s=34.9
+  step=800 loss=0.9175 acc=0.750 ex/s=34.8
+  step=900 loss=0.8993 acc=0.754 ex/s=34.8
+  step=1000 loss=0.9097 acc=0.751 ex/s=34.8
+  step=1100 loss=0.8900 acc=0.753 ex/s=34.8
+  step=1200 loss=0.8753 acc=0.755 ex/s=34.8
+  step=1300 loss=0.8824 acc=0.753 ex/s=34.8
+  step=1400 loss=0.8817 acc=0.752 ex/s=34.8
+  step=1500 loss=0.8688 acc=0.754 ex/s=34.8
+  step=1600 loss=0.8737 acc=0.753 ex/s=34.8
+  step=1700 loss=0.8957 acc=0.746 ex/s=34.8
+  step=1800 loss=0.9056 acc=0.741 ex/s=34.8
+  step=1900 loss=0.8969 acc=0.743 ex/s=34.8
+{
+  "epoch": 4,
+  "train": {
+    "loss": 0.8941227557517132,
+    "accuracy": 0.7436365927419355,
+    "move_accuracy": 0.6724530758381252,
+    "stop_accuracy": 0.8422238918106687,
+    "examples": 15872,
+    "move_examples": 9217,
+    "stop_examples": 6655,
+    "seconds": 456.28543216199796
+  },
+  "val": {
+    "loss": 0.908834862846561,
+    "accuracy": 0.7298177083333334,
+    "move_accuracy": 0.60481444332999,
+    "stop_accuracy": 0.961038961038961,
+    "examples": 1536,
+    "move_examples": 997,
+    "stop_examples": 539,
+    "seconds": 13.206807970000227
+  }
+}
+  step=100 loss=0.8679 acc=0.743 ex/s=34.6
+  step=200 loss=0.7501 acc=0.777 ex/s=34.7
+  step=300 loss=0.8164 acc=0.767 ex/s=34.6
+  step=400 loss=0.7687 acc=0.777 ex/s=34.6
+  step=500 loss=0.7969 acc=0.765 ex/s=34.6
+  step=600 loss=0.7826 acc=0.765 ex/s=34.7
+  step=700 loss=0.8105 acc=0.759 ex/s=34.7
+  step=800 loss=0.8223 acc=0.750 ex/s=34.7
+  step=900 loss=0.8374 acc=0.747 ex/s=34.7
+  step=1000 loss=0.8303 acc=0.752 ex/s=34.7
+  step=1100 loss=0.8361 acc=0.753 ex/s=34.8
+  step=1200 loss=0.8672 acc=0.744 ex/s=34.6
+  step=1300 loss=0.8564 acc=0.750 ex/s=34.5
+  step=1400 loss=0.8561 acc=0.752 ex/s=34.5
+  step=1500 loss=0.8688 acc=0.747 ex/s=34.4
+  step=1600 loss=0.8537 acc=0.751 ex/s=34.4
+  step=1700 loss=0.8548 acc=0.751 ex/s=34.2
+  step=1800 loss=0.8573 acc=0.752 ex/s=34.2
+  step=1900 loss=0.8529 acc=0.753 ex/s=34.2
+{
+  "epoch": 5,
+  "train": {
+    "loss": 0.8491004118870713,
+    "accuracy": 0.7544732862903226,
+    "move_accuracy": 0.6838450688944342,
+    "stop_accuracy": 0.8522915101427498,
+    "examples": 15872,
+    "move_examples": 9217,
+    "stop_examples": 6655,
+    "seconds": 463.9436280289992
+  },
+  "val": {
+    "loss": 1.0985021973998907,
+    "accuracy": 0.7102864583333334,
+    "move_accuracy": 0.6840521564694082,
+    "stop_accuracy": 0.7588126159554731,
+    "examples": 1536,
+    "move_examples": 997,
+    "stop_examples": 539,
+    "seconds": 13.040971354999783
+  }
+}
+  step=100 loss=0.5755 acc=0.850 ex/s=33.4
+  step=200 loss=0.6544 acc=0.838 ex/s=34.0
+  step=300 loss=0.7399 acc=0.811 ex/s=34.1
+  step=400 loss=0.6968 acc=0.820 ex/s=34.1
+  step=500 loss=0.6807 acc=0.824 ex/s=34.2
+  step=600 loss=0.6946 acc=0.820 ex/s=34.3
+  step=700 loss=0.6901 acc=0.819 ex/s=34.3
+  step=800 loss=0.7102 acc=0.815 ex/s=34.3
+  step=900 loss=0.7580 acc=0.795 ex/s=34.3
+  step=1000 loss=0.7708 acc=0.789 ex/s=34.3
+  step=1100 loss=0.7746 acc=0.789 ex/s=34.3
+  step=1200 loss=0.7765 acc=0.787 ex/s=34.4
+  step=1300 loss=0.7638 acc=0.791 ex/s=34.4
+  step=1400 loss=0.7648 acc=0.791 ex/s=34.4
+  step=1500 loss=0.7599 acc=0.793 ex/s=34.3
+  step=1600 loss=0.7635 acc=0.792 ex/s=34.4
+  step=1700 loss=0.7669 acc=0.793 ex/s=34.3
+  step=1800 loss=0.7762 acc=0.791 ex/s=34.3
+  step=1900 loss=0.7944 acc=0.785 ex/s=34.4
+{
+  "epoch": 6,
+  "train": {
+    "loss": 0.7982810349750517,
+    "accuracy": 0.7838961693548387,
+    "move_accuracy": 0.721709883910166,
+    "stop_accuracy": 0.8700225394440271,
+    "examples": 15872,
+    "move_examples": 9217,
+    "stop_examples": 6655,
+    "seconds": 461.7888280420011
+  },
+  "val": {
+    "loss": 1.3831643155238755,
+    "accuracy": 0.6536458333333334,
+    "move_accuracy": 0.49247743229689067,
+    "stop_accuracy": 0.9517625231910947,
+    "examples": 1536,
+    "move_examples": 997,
+    "stop_examples": 539,
+    "seconds": 13.4226454439995
+  }
+}
+  step=100 loss=0.7352 acc=0.779 ex/s=34.6
+  step=200 loss=0.6935 acc=0.796 ex/s=33.6
+  step=300 loss=0.7188 acc=0.791 ex/s=34.0
+  step=400 loss=0.7752 acc=0.772 ex/s=34.0
+  step=500 loss=0.7804 acc=0.774 ex/s=34.0
+  step=600 loss=0.7672 acc=0.776 ex/s=34.0
+  step=700 loss=0.7647 acc=0.776 ex/s=34.0
+  step=800 loss=0.7533 acc=0.779 ex/s=34.0
+  step=900 loss=0.7456 acc=0.779 ex/s=34.0
+  step=1000 loss=0.7587 acc=0.774 ex/s=34.0
+  step=1100 loss=0.7431 acc=0.777 ex/s=34.0
+  step=1200 loss=0.7500 acc=0.777 ex/s=34.0
+  step=1300 loss=0.7693 acc=0.771 ex/s=34.0
+  step=1400 loss=0.7642 acc=0.775 ex/s=34.0
+  step=1500 loss=0.7490 acc=0.780 ex/s=34.0
+  step=1600 loss=0.7482 acc=0.784 ex/s=34.0
+  step=1700 loss=0.7451 acc=0.784 ex/s=34.0
+  step=1800 loss=0.7368 acc=0.787 ex/s=34.1
+  step=1900 loss=0.7291 acc=0.790 ex/s=34.1
+{
+  "epoch": 7,
+  "train": {
+    "loss": 0.7501441969413257,
+    "accuracy": 0.7848412298387096,
+    "move_accuracy": 0.720299446674623,
+    "stop_accuracy": 0.8742299023290759,
+    "examples": 15872,
+    "move_examples": 9217,
+    "stop_examples": 6655,
+    "seconds": 465.9906038060035
+  },
+  "val": {
+    "loss": 1.0549830908230433,
+    "accuracy": 0.69140625,
+    "move_accuracy": 0.5446339017051154,
+    "stop_accuracy": 0.9628942486085343,
+    "examples": 1536,
+    "move_examples": 997,
+    "stop_examples": 539,
+    "seconds": 13.4627770219995
+  }
+}
+  step=100 loss=0.6119 acc=0.806 ex/s=34.5
+  step=200 loss=0.7848 acc=0.771 ex/s=34.5
+  step=300 loss=0.7077 acc=0.794 ex/s=34.4
+  step=400 loss=0.7652 acc=0.788 ex/s=34.4
+  step=500 loss=0.7479 acc=0.788 ex/s=34.4
+  step=600 loss=0.7421 acc=0.785 ex/s=34.4
+  step=700 loss=0.7108 acc=0.791 ex/s=34.4
+  step=800 loss=0.7175 acc=0.789 ex/s=34.4
+  step=900 loss=0.7173 acc=0.792 ex/s=34.5
+  step=1000 loss=0.7113 acc=0.796 ex/s=34.5
+  step=1100 loss=0.7129 acc=0.797 ex/s=34.5
+  step=1200 loss=0.7192 acc=0.797 ex/s=34.3
+  step=1300 loss=0.7459 acc=0.788 ex/s=34.3
+  step=1400 loss=0.7489 acc=0.786 ex/s=34.3
+  step=1500 loss=0.7400 acc=0.789 ex/s=34.3
+  step=1600 loss=0.7337 acc=0.790 ex/s=34.3
+  step=1700 loss=0.7407 acc=0.790 ex/s=34.3
+  step=1800 loss=0.7437 acc=0.790 ex/s=34.3
+  step=1900 loss=0.7559 acc=0.785 ex/s=34.3
+{
+  "epoch": 8,
+  "train": {
+    "loss": 0.749099255480389,
+    "accuracy": 0.7878024193548387,
+    "move_accuracy": 0.7252902245850059,
+    "stop_accuracy": 0.8743801652892562,
+    "examples": 15872,
+    "move_examples": 9217,
+    "stop_examples": 6655,
+    "seconds": 462.5204888540029
+  },
+  "val": {
+    "loss": 0.9124633410898847,
+    "accuracy": 0.771484375,
+    "move_accuracy": 0.6810431293881645,
+    "stop_accuracy": 0.9387755102040817,
+    "examples": 1536,
+    "move_examples": 997,
+    "stop_examples": 539,
+    "seconds": 14.364077095997345
+  }
+}
+  step=100 loss=0.6341 acc=0.849 ex/s=34.4
