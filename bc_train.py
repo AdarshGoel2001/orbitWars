@@ -117,16 +117,16 @@ class BcShardDataset(IterableDataset):
 
 
 def make_loader(dataset: BcShardDataset, batch_size: int):
-    return DataLoader(dataset, batch_size=batch_size, num_workers=0, pin_memory=False)
+    return DataLoader(dataset, batch_size=batch_size, num_workers=0, pin_memory=True)
 
 
 def move_batch(batch, device: torch.device):
     edge_features, legal_mask, action_mask, action_idx = batch
     return (
-        edge_features.to(device, non_blocking=False),
-        legal_mask.to(device, non_blocking=False),
-        action_mask.to(device, non_blocking=False),
-        action_idx.to(device, non_blocking=False),
+        edge_features.to(device, non_blocking=True),
+        legal_mask.to(device, non_blocking=True),
+        action_mask.to(device, non_blocking=True),
+        action_idx.to(device, non_blocking=True),
     )
 
 
@@ -169,9 +169,6 @@ def run_epoch(model, loader, device, optimizer=None, log_every: int = 0,
                 torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
                 optimizer.step()
 
-        if device.type == "mps":
-            torch.mps.synchronize()
-
         batch_n = int(action_idx.numel())
         total_loss += float(loss.item()) * batch_n
         total += batch_n
@@ -196,6 +193,8 @@ def run_epoch(model, loader, device, optimizer=None, log_every: int = 0,
                 flush=True,
             )
 
+    if device.type == "mps":
+        torch.mps.synchronize()
     avg_loss = total_loss / max(1, total)
     return {
         "loss": avg_loss,
@@ -247,7 +246,7 @@ def parse_args():
     parser.add_argument("--resume", type=Path, default=None,
                         help="checkpoint to resume from, usually checkpoints/bc_model.last.pt")
     parser.add_argument("--epochs", type=int, default=5)
-    parser.add_argument("--batch-size", type=int, default=16)
+    parser.add_argument("--batch-size", type=int, default=8)
     parser.add_argument("--lr", type=float, default=3e-4)
     parser.add_argument("--weight-decay", type=float, default=1e-4)
     parser.add_argument("--stop-weight", type=float, default=0.5,

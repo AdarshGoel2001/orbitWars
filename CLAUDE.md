@@ -32,11 +32,17 @@ orbitWars/
 ├── bench.py                # per-turn latency bench (cold vs warm, CPU + MPS)
 ├── bc_data.py              # behavior-cloning shard capture from heuristic-vs-heuristic games
 ├── bc_train.py             # behavior-cloning trainer over bc_data.py shards
+├── rl_rollout.py           # self-play game collector; logs per-sub-move (s, a, logπ, v, r)
+├── rl_opponent_pool.py     # OpponentPool: 50/50 heuristic vs. past model snapshots
+├── rl_ppo.py               # GAE + clipped PPO update step
+├── rl_train.py             # main PPO loop: load BC ckpt → rollout → update → snapshot
+├── checkpoints/bc_baseline.pt  # first BC model
+├── data/bc, data/bc_worker_{1,2,3}  # BC shards from parallel capture workers
 ├── LONG_TERM_FIXES.md      # deferred correctness items (e.g. same-turn combat grouping)
 └── .venv/                  # kaggle-environments + flask + torch
 ```
 
-Current status: harness, radar, capped/radar-masked heuristic, random model-space agent, transformer skeleton, BC data capture, and BC trainer are all in place. **Next: collect a larger BC corpus, train the first model, then add eval vs random/sniper/heuristic.** See "Build order" below.
+Current status: harness, radar, heuristic, random agent, transformer skeleton, BC capture/trainer, and a first `bc_baseline.pt` checkpoint are all in place. RL scaffolding (`rl_rollout.py`, `rl_opponent_pool.py`, `rl_ppo.py`, `rl_train.py`) is written but **untested end-to-end**. **Next: eval `bc_baseline.pt` vs random/sniper/heuristic, then kick off `rl_train.py`.** See "Build order" below.
 
 ## Game mechanics — quick reference
 
@@ -250,6 +256,51 @@ Default behavior:
 - downweights stop labels with `--stop-weight 0.5` by default because BC data
   includes many stop examples and an unweighted model can learn to stop too
   eagerly early in training
+- pinned memory + `non_blocking=True` H2D transfers; `mps.synchronize()` only
+  at epoch boundaries (per-step sync stalled the async pipeline and roughly
+  halved throughput — do not reintroduce it)
+- default `--batch-size 8`; B=16 OOMs on 8GB MPS because the attention matrix
+  for 2500 tokens is `B × heads × 2500²` (≈1.6 GB/layer at B=16)
+
+### Throughput notes (M2 MPS, 8GB)
+
+BC training on MPS is bandwidth-limited by attention over 2500 tokens, not by
+H2D or data loading. Observed ~1.7–1.8 ex/s at B=8 after pipeline fixes
+(pinned memory, async transfers, no per-step sync). Full corpus × 30 epochs is
+on the order of tens of hours. CUDA migration is the planned escape; do not
+chase further MPS micro-optimizations unless the user asks.
+
+## `rl_rollout.py` / `rl_opponent_pool.py` / `rl_ppo.py` / `rl_train.py` — PPO self-play
+
+Scaffolding for Step 6 of the build order. Written after BC baseline trained;
+**not yet end-to-end verified**.
+
+- **`rl_rollout.play_one_game(model, opp_fn, opp_name, device, deterministic)`**
+  — plays one full game, logging one `SubmoveRecord` per model sub-move:
+  `(edge_features, legal_mask, action_mask, action_idx, logprob, value, reward)`.
+  Uses `apply_planned_move` for within-turn state; terminal reward is
+  normalized score margin `(my_ships − opp_ships) / total_ships` — sparse, on
+  the final sub-move only. Returns a `GameTrajectory`.
+- **`rl_opponent_pool.OpponentPool`** — samples opponents for self-play.
+  Default `heuristic_weight=0.5`; the other 50% draws from past model
+  snapshots (detached CPU copies). FIFO eviction at `max_snapshots=8`.
+  `add_snapshot(model, name)` called from the trainer every
+  `--snapshot-every` iterations.
+- **`rl_ppo.ppo_update_step(model, trajectories, optimizer, device)`** —
+  flattens sub-move records, computes GAE (γ=0.99, λ=0.95), normalizes
+  advantages, runs 4 epochs of mini-batch PPO with clip=0.2, value_coef=0.5,
+  entropy_coef=0.01. Returns `{loss, policy_loss, value_loss, entropy}`.
+- **`rl_train.py`** — main loop: load BC checkpoint (accepts both
+  `{"model_state": ...}` and raw `state_dict`), rollout `--games-per-iter`
+  games, PPO update, snapshot every `--snapshot-every` iterations.
+
+```bash
+.venv/bin/python rl_train.py --checkpoint checkpoints/bc_baseline.pt \
+    --out checkpoints/rl_model.pt --iterations 100 --games-per-iter 8
+```
+
+**Before trusting RL output**: run one iteration end-to-end and sanity-check
+the log line for NaN losses, zero entropy, or margin stuck at ±1.
 
 ## Architecture
 
@@ -310,8 +361,8 @@ Legality has **two masks**:
 2. ✅ **Heuristic agent** — `heuristic_agent` in `agents.py`. Defend → ROI-expand → hoard. 10/10 vs sniper. Doubles as (a) BC teacher, (b) permanent eval baseline, (c) PPO opponent-pool member.
 3. ✅ **Random model-space agent** — `random_model_space_agent`. Smoke-tests the full env→mask→action→step pipeline.
 4. ✅ **Transformer skeleton** — `OrbitWarsTransformer` in `model.py`. Forward-pass verified; illegal-edge mass = 0; `StatefulModelAgent` plays complete games under latency budget.
-5. 🟨 **Behavior cloning** — capture exists in `bc_data.py`; trainer exists in `bc_train.py`. Next piece is running a larger corpus and evaluating the trained model vs random/sniper/heuristic. BC teacher is the heuristic (not sniper — see memory for why).
-6. ⬜ **Self-play PPO** — win rate vs. heuristic is the north-star metric. Mix heuristic into the opponent pool to prevent overfit.
+5. 🟨 **Behavior cloning** — capture (`bc_data.py`) + trainer (`bc_train.py`) + first `checkpoints/bc_baseline.pt` all exist. BC teacher is the heuristic (not sniper — see memory for why). Next piece is evaluating `bc_baseline.pt` vs random/sniper/heuristic to confirm the checkpoint is worth starting RL from.
+6. 🟨 **Self-play PPO** — `rl_rollout.py` / `rl_opponent_pool.py` / `rl_ppo.py` / `rl_train.py` written, **not yet end-to-end tested**. Win rate vs. heuristic is the north-star metric. Opponent pool already mixes heuristic at 50%.
 7. ⬜ **`eval.py`** — N-game tournaments, win rate + score-margin with CIs. Used continuously during Step 6.
 
 ### Debugging layers (symptom → likely culprit)
