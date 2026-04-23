@@ -95,7 +95,7 @@ All verified against `kaggle_environments/envs/orbit_wars/README.md` and empiric
 **Agent I/O**
 - Observation: `{ step, player, planets, fleets, angular_velocity, initial_planets, comets, comet_planet_ids, next_fleet_id, remainingOverageTime }`
 - Action: `[[from_planet_id, angle_rad, num_ships], …]`
-- `actTimeout: 1` second per turn + `remainingOverageTime: 60` seconds shared across the game
+- `actTimeout: 1` second per turn + `remainingOverageTime: 2` seconds shared across the game
 
 **Gotcha**: at step 0 `planets` is empty. Must `env.step([[], []])` once to populate the world. The UI does this in `new_env()`.
 
@@ -141,7 +141,7 @@ Flask app, single-file, embedded HTML/JS. Launches at http://127.0.0.1:5000.
 - Outer-ring table on the right panel
 - Aim-mode toggle: **Lead** (uses lead-intercept angle) / **Raw** (atan2 to current position)
 - Ship presets: 25% / 50% / 100% of source garrison
-- **Realtime mode**: enforces the agent's 1 s per-turn + 60 s overage budget on the human. Timer keeps running across clicks; if it expires mid-click-sequence, the selected-source persists into the next turn so the target click still registers.
+- **Realtime mode**: enforces the agent's 1 s per-turn + 2 s overage budget on the human. Timer keeps running across clicks; if it expires mid-click-sequence, the selected-source persists into the next turn so the target click still registers.
 
 **Configuration knobs** at the top of `server.py`
 - `HUMAN = 0`, `AGENT = 1` — player seats
@@ -176,7 +176,7 @@ GameView supports two kinds of in-place mutation so we don't rebuild from scratc
 
 ### Latency (per-turn, 100-turn heuristic-vs-heuristic game, M2 CPU)
 
-Measured by `bench.py`. `actTimeout` is 1 s/turn + 60 s total overage — both paths below fit comfortably.
+Measured by `bench.py`. `actTimeout` is 1 s/turn + 2 s total overage — both paths below fit comfortably.
 
 | Component | cost |
 |---|---|
@@ -417,7 +417,7 @@ The user did *not* use ROI-by-production (targeting high-prod planets over low-p
 - **Venv discipline**: no global installs. Use `.venv/bin/python` for everything.
 - Don't edit `getting-started.ipynb` — it's the Kaggle tutorial and is truncated anyway.
 - Prefer editing existing files over creating new ones. New files only when the split is clear (e.g., `harness.py` is a genuine new module, not a reshuffle).
-- Memory at `~/.claude/projects/-Users-martian-Documents-Code-orbitWars/memory/` holds durable project context. Update or replace entries when facts change; don't leave stale ones around.
+- Memory at `~/.Codex/projects/-Users-martian-Documents-Code-orbitWars/memory/` holds durable project context. Update or replace entries when facts change; don't leave stale ones around.
 
 ## Quick experiments
 
