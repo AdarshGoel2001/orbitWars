@@ -1,4 +1,5 @@
 import math
+import os
 from flask import Flask, jsonify, request, render_template_string
 
 from kaggle_environments import make
@@ -10,7 +11,22 @@ import targeting as T
 
 HUMAN = 0
 AGENT = 1
-AGENT_FN = heuristic_agent
+
+
+def _build_agent():
+    agent_name = os.environ.get("ORBIT_AGENT", "heuristic")
+    if agent_name == "cpu_model":
+        from agents_cpu import load_cpu_model_agent
+
+        checkpoint = os.environ.get("ORBIT_CPU_CHECKPOINT", "checkpoints/bc_cpu_model.pt")
+        device = os.environ.get("ORBIT_CPU_DEVICE", "cpu")
+        return load_cpu_model_agent(checkpoint, device=device), f"cpu_model:{checkpoint}"
+    if agent_name == "sniper":
+        return nearest_planet_sniper, "sniper"
+    return heuristic_agent, "heuristic"
+
+
+AGENT_FN, AGENT_NAME = _build_agent()
 
 app = Flask(__name__)
 _env = None
@@ -22,6 +38,8 @@ def new_env():
     _env.reset()
     # First step populates the world (planets are empty at step 0).
     _env.step([[], []])
+    if hasattr(AGENT_FN, "reset"):
+        AGENT_FN.reset()
 
 
 def scores(obs):
@@ -51,6 +69,7 @@ def snapshot():
         "angular_velocity": obs["angular_velocity"],
         "comet_planet_ids": obs["comet_planet_ids"],
         "human_player": HUMAN,
+        "agent_name": AGENT_NAME,
         "scores": scores(obs),
         "done": _env.done,
         "statuses": [_env.state[i].status for i in range(2)],
@@ -146,7 +165,7 @@ PAGE = r"""<!doctype html>
 <html>
 <head>
 <meta charset="utf-8">
-<title>Orbit Wars — play vs. sniper</title>
+<title>Orbit Wars — play vs. agent</title>
 <style>
   * { box-sizing: border-box; }
   body { font: 14px/1.4 system-ui, sans-serif; background: #0a0a14; color: #e6e6ee; margin: 0; padding: 20px; }
@@ -193,7 +212,7 @@ PAGE = r"""<!doctype html>
   <div class="panel">
     <div class="row scores">
       <span class="chip you">You: <span id="score-you">0</span></span>
-      <span class="chip them">Bot: <span id="score-them">0</span></span>
+      <span class="chip them"><span id="agent-label">Bot</span>: <span id="score-them">0</span></span>
       <span class="chip step">T<span id="step">0</span>/<span id="max-step">500</span></span>
     </div>
     <div class="row">
@@ -389,6 +408,7 @@ async function refresh(newState) {
   }
   document.getElementById("score-you").textContent = state.scores[0] ?? 0;
   document.getElementById("score-them").textContent = state.scores[1] ?? 0;
+  document.getElementById("agent-label").textContent = state.agent_name || "Bot";
   document.getElementById("step").textContent = state.step;
   document.getElementById("max-step").textContent = state.episode_steps;
   const banner = document.getElementById("banner");

@@ -1,0 +1,23 @@
+{
+  "examples": 4180,
+  "feature_dim": 11,
+  "games": 5,
+  "max_moves": 3,
+  "move_examples": 3274,
+  "moves": 3274,
+  "seconds": 475.862,
+  "shards": [
+    "bc_cpu_shard_00000.npz",
+    "bc_cpu_shard_00001.npz",
+    "bc_cpu_shard_00002.npz",
+    "bc_cpu_shard_00003.npz",
+    "bc_cpu_shard_00004.npz",
+    "bc_cpu_shard_00005.npz",
+    "bc_cpu_shard_00006.npz",
+    "bc_cpu_shard_00007.npz",
+    "bc_cpu_shard_00008.npz"
+  ],
+  "stop_action": "n_tokens",
+  "stop_examples": 906,
+  "turns": 887
+}

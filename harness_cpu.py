@@ -29,7 +29,8 @@ Feature layout (indices are FEATURE_* constants):
     6 src_net_threat       enemy_inbound − friendly_inbound at src
     7 tgt_production       tgt production rate
     8 tgt_will_fall        bool: tgt (mine) is projected to flip
-    9 turns_left           episode turns remaining (broadcast scalar)
+    9 src_can_fund         bool: source ships >= harness-computed need
+   10 turns_left           episode turns remaining (broadcast scalar)
 """
 
 from __future__ import annotations
@@ -59,14 +60,15 @@ FEATURE_SRC_SHIPS = 5
 FEATURE_SRC_NET_THREAT = 6
 FEATURE_TGT_PRODUCTION = 7
 FEATURE_TGT_WILL_FALL = 8
-FEATURE_TURNS_LEFT = 9
-FEATURE_DIM = 10
+FEATURE_SRC_CAN_FUND = 9
+FEATURE_TURNS_LEFT = 10
+FEATURE_DIM = 11
 
 FEATURE_NAMES = [
     "eta", "ships_needed",
     "kind_reinforce", "kind_attack_enemy", "kind_attack_neutral",
     "src_ships", "src_net_threat",
-    "tgt_production", "tgt_will_fall",
+    "tgt_production", "tgt_will_fall", "src_can_fund",
     "turns_left",
 ]
 
@@ -78,6 +80,7 @@ FEATURE_SCALES = np.array([
     50.0,   # src_net_threat
     5.0,    # tgt_production
     1.0,
+    1.0,    # src_can_fund
     500.0,  # turns_left
 ], dtype=np.float32)
 
@@ -331,53 +334,55 @@ class GameView_CPU:
         tgt_pid = tgt[0]
         tgt_owner = tgt[1]
 
-        # Fast lead-intercept at max-speed estimate (used for eta/ships_needed).
-        ships_for_speed = max(1, int(src_ships_avail))
-        intercept = self._lead_intercept(
-            (sx, sy), tgt_pid, ships_for_speed, src_radius=src_r,
-        )
-        if intercept is None:
+        src_ships_int = int(src_ships_avail)
+        ships = max(1, src_ships_int)
+        intercept = None
+        eta = None
+        ships_needed_f = 1.0
+        need = 1
+
+        # Fleet speed depends on ships, and attack need depends on ETA. Iterate
+        # until the token's ETA, ships_needed, and deterministic ships agree.
+        for _ in range(6):
+            intercept = self._lead_intercept((sx, sy), tgt_pid, ships, src_radius=src_r)
+            if intercept is None:
+                return None
+            eta = int(intercept["eta"])
+
+            future_garrison = self._project_garrison(tgt_pid, eta)
+            if tgt_owner == self.player:
+                ships_needed_f = (
+                    max(1.0, float(-future_garrison)) if future_garrison < 0 else 1.0
+                )
+            else:
+                defender = -future_garrison if future_garrison < 0 else future_garrison
+                ships_needed_f = max(1.0, float(defender) + 1.0)
+
+            if tgt_owner == self.player:
+                flip_eta = self.first_flip_eta(tgt_pid)
+                if flip_eta is None:
+                    need = 1
+                else:
+                    deficit = -self._project_garrison(tgt_pid, flip_eta)
+                    need = max(1, int(math.ceil(deficit)) + self.safety_margin)
+            else:
+                need = max(1, int(math.ceil(ships_needed_f)) + self.safety_margin)
+
+            next_ships = min(src_ships_int, need)
+            if next_ships <= 0:
+                return None
+            if next_ships == ships:
+                break
+            ships = next_ships
+
+        if intercept is None or eta is None:
             return None
-        eta = intercept["eta"]
 
         if not self._sun_crossing_clear((sx, sy), intercept):
             return None
 
-        # Future-garrison projection at arrival → ships_needed feature.
-        future_garrison = self._project_garrison(tgt_pid, eta)
-        if tgt_owner == self.player:
-            ships_needed_f = (
-                max(1.0, float(-future_garrison)) if future_garrison < 0 else 1.0
-            )
-        else:
-            defender = -future_garrison if future_garrison < 0 else future_garrison
-            ships_needed_f = max(1.0, float(defender) + 1.0)
-
-        # Deterministic ship count (defense deficit vs attack need).
-        if tgt_owner == self.player:
-            flip_eta = self.first_flip_eta(tgt_pid)
-            if flip_eta is None:
-                need = 1
-            else:
-                deficit = -self._project_garrison(tgt_pid, flip_eta)
-                need = max(1, int(math.ceil(deficit)) + self.safety_margin)
-        else:
-            need = max(1, int(math.ceil(ships_needed_f)) + self.safety_margin)
-        ships = min(int(src_ships_avail), need)
-        if ships <= 0:
-            return None
-
-        # Re-solve angle with the actual ship count (speed depends on ships).
-        # Skip if ship count matches the speed estimate we already used.
-        if ships == ships_for_speed:
-            final_angle = float(intercept["angle"])
-        else:
-            final_intercept = self._lead_intercept(
-                (sx, sy), tgt_pid, ships, src_radius=src_r,
-            )
-            if final_intercept is None:
-                return None
-            final_angle = float(final_intercept["angle"])
+        src_can_fund = src_ships_int >= need
+        final_angle = float(intercept["angle"])
 
         # Radar-validate: the launched fleet's first hit must be tgt_pid.
         hit = radar.simulate_launch(src, final_angle, ships)
@@ -398,6 +403,7 @@ class GameView_CPU:
         f[FEATURE_SRC_NET_THREAT] = src_info["net_threat"]
         f[FEATURE_TGT_PRODUCTION] = tgt_info["production"]
         f[FEATURE_TGT_WILL_FALL] = 1.0 if tgt_info["will_fall"] else 0.0
+        f[FEATURE_SRC_CAN_FUND] = 1.0 if src_can_fund else 0.0
         f[FEATURE_TURNS_LEFT] = float(self.turns_left)
         return f, int(ships), final_angle
 

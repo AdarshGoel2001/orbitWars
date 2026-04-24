@@ -32,15 +32,17 @@ CPU. Old stack stays intact for A/B comparison.
 - No padding, no fixed slot grid.
 - **Comets dropped entirely in v1**. Planets in `obs.comet_planet_ids`
   are filtered out at ingest. Re-introduce later as a feature addition.
-- **10 features** (vs 11 in old harness): dropped `tgt_expiry` (comet
-  turns-until-gone — only meaningful with comets).
+- **11 features**: dropped `tgt_expiry` from the old harness because comets
+  are excluded, and added `src_can_fund` so the model can see targetable
+  but currently underfunded attacks instead of inferring affordability from
+  raw `src_ships` and `ships_needed`.
 
 Feature order: `eta, ships_needed, kind_reinforce, kind_attack_enemy,
 kind_attack_neutral, src_ships, src_net_threat, tgt_production,
-tgt_will_fall, turns_left`.
+tgt_will_fall, src_can_fund, turns_left`.
 
 - Reuses `radar.py` and `targeting.py` unchanged.
-- Output `TokenBundle`: `edges (N, 10)`, `src_ids (N,)`, `tgt_ids (N,)`,
+- Output `TokenBundle`: `edges (N, 11)`, `src_ids (N,)`, `tgt_ids (N,)`,
   `ships (N,)`, `angles (N,)`, `planet_ids (P,)`.
 - Incremental updates: dirty-flag + lazy rebuild (no strip patching).
   `apply_planned_move(token_idx)` and `update_from_obs(new_obs)` are
@@ -94,6 +96,8 @@ logits, value = model(edges, src_ids, tgt_ids,
 |---|---|---|
 | `harness_cpu.py` | `GameView_CPU`, `TokenBundle`, dynamic edges | ✅ Done |
 | `model_cpu.py` | `OrbitWarsEdgeTransformer`, threshold-gated attention | ✅ Done |
+| `agents_cpu.py` | CPU-token heuristic teacher | ✅ Done |
+| `bc_data_cpu.py` | Ragged CPU BC shard capture | ✅ Smoke pass |
 | `tests/test_model_cpu_parity.py` | Padded-batch vs unpadded-single parity test | ✅ Passes |
 | `bench_cpu.py` | Numpy forward + latency benchmark | ✅ Passes |
 
@@ -126,13 +130,13 @@ timed out at ~3.16 s first action. New design is ~100× faster.
 **Decision**: re-capture BC data using the new harness rather than
 converting old shards. Simpler, avoids comet-mismatch bookkeeping.
 
-- Write `bc_data_cpu.py` — heuristic-vs-heuristic games through
-  `GameView_CPU`, write compressed shards with new format
+- `bc_data_cpu.py` — heuristic-vs-heuristic games through `GameView_CPU`,
+  writes compressed ragged shards in the new format
 - Write `bc_train_cpu.py` — pad-collate, masked cross-entropy,
   train on GPU (CUDA when available; MPS fallback)
 
 **Proposed shard format**: one `.npz` per shard with ragged packing:
-  - `edges_packed (total_N, 10)`, `src_ids_packed`, `tgt_ids_packed`
+  - `edges_packed (total_N, 11)`, `src_ids_packed`, `tgt_ids_packed`
   - `offsets (K+1,)` — `edges_packed[offsets[i]:offsets[i+1]]` = example i
   - `action_idx (K,)` — new-space: position in packed edges or `N` for stop
   - `n_tokens (K,)` — convenience
