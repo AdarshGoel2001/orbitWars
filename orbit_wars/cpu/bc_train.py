@@ -130,8 +130,8 @@ class CpuBcShardDataset(IterableDataset):
 
 def collate_cpu(batch):
     batch_size = len(batch)
-    n_max = max(int(item["n_tokens"]) for item in batch)
-    feature_dim = int(batch[0]["edges"].shape[-1]) if n_max else 0
+    n_max = max(1, max(int(item["n_tokens"]) for item in batch))
+    feature_dim = int(batch[0]["edges"].shape[-1])
 
     edges = torch.zeros(batch_size, n_max, feature_dim, dtype=torch.float32)
     src_ids = torch.zeros(batch_size, n_max, dtype=torch.long)

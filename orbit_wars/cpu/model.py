@@ -76,7 +76,7 @@ class FeedForward(nn.Module):
         self.fc2 = nn.Linear(d_ff, d_model)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        return self.fc2(F.gelu(self.fc1(x)))
+        return self.fc2(F.gelu(self.fc1(x), approximate="tanh"))
 
 
 class EncoderBlock(nn.Module):
@@ -132,11 +132,11 @@ class ValueHead(nn.Module):
         self.pool = AttentionPool(d_model)
         self.mlp = nn.Sequential(
             nn.Linear(d_model, hidden),
-            nn.GELU(),
+            nn.GELU(approximate="tanh"),
             nn.Linear(hidden, hidden),
-            nn.GELU(),
+            nn.GELU(approximate="tanh"),
             nn.Linear(hidden, hidden // 2),
-            nn.GELU(),
+            nn.GELU(approximate="tanh"),
             nn.Linear(hidden // 2, 1),
         )
 

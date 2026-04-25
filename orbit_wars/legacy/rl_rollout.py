@@ -239,7 +239,7 @@ def play_one_game(
     total_ships = my_ships + opp_ships
     margin = (my_ships - opp_ships) / max(1.0, total_ships) if total_ships > 0 else 0.0
 
-    if records:
+    if records and env.done:
         records[-1].done = True
 
     return GameTrajectory(

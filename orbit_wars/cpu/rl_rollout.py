@@ -236,7 +236,7 @@ def play_one_game(
     total_ships = my_ships + opp_ships
     margin = (my_ships - opp_ships) / max(1.0, total_ships)
 
-    if records:
+    if records and env.done:
         records[-1].done = True
 
     final_step = (
