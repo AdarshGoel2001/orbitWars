@@ -159,6 +159,13 @@ def parse_args():
         "consumes a queue of finished trajectories and runs PPO whenever "
         "--games-per-iter have accumulated. Tolerates mild staleness; logs it.",
     )
+    parser.add_argument(
+        "--rotating-learner",
+        action="store_true",
+        help="Async variant: PPO runs inside whichever worker finishes its "
+        "current game first after the buffer fills. Avoids parent-process MKL "
+        "contention with the worker pool. Implies --async-rollout.",
+    )
     return parser.parse_args()
 
 
@@ -244,21 +251,36 @@ def main():
         writer.close()
         return
 
-    if args.async_rollout:
-        from orbit_wars.cpu.rl_async import run_async
-
+    if args.rotating_learner or args.async_rollout:
         args.num_workers = max(1, int(args.num_workers))
-        run_async(
-            args=args,
-            model=model,
-            optimizer=optimizer,
-            opponent_pool=opponent_pool,
-            start_iteration=start_iteration,
-            device=device,
-            writer=writer,
-            save_resume_checkpoint_fn=save_resume_checkpoint,
-            target_kl=target_kl,
-        )
+        if args.rotating_learner:
+            from orbit_wars.cpu.rl_async_rotating import run_async_rotating
+
+            run_async_rotating(
+                args=args,
+                model=model,
+                optimizer=optimizer,
+                opponent_pool=opponent_pool,
+                start_iteration=start_iteration,
+                device=device,
+                writer=writer,
+                save_resume_checkpoint_fn=save_resume_checkpoint,
+                target_kl=target_kl,
+            )
+        else:
+            from orbit_wars.cpu.rl_async import run_async
+
+            run_async(
+                args=args,
+                model=model,
+                optimizer=optimizer,
+                opponent_pool=opponent_pool,
+                start_iteration=start_iteration,
+                device=device,
+                writer=writer,
+                save_resume_checkpoint_fn=save_resume_checkpoint,
+                target_kl=target_kl,
+            )
         return
 
     num_workers = max(1, int(args.num_workers))
