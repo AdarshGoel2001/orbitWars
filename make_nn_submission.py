@@ -26,11 +26,11 @@ WEIGHTS_FILENAME = "weights.npz"
 ARCHIVE_WEIGHTS_PATH = Path(WEIGHTS_FILENAME)
 
 CORE_SOURCES = [
-    "action_space.py",
-    "radar.py",
-    "targeting.py",
-    "harness.py",
-    "agents.py",
+    ("action_space.py", ROOT / "orbit_wars/core/action_space.py"),
+    ("radar.py", ROOT / "orbit_wars/core/radar.py"),
+    ("targeting.py", ROOT / "orbit_wars/core/targeting.py"),
+    ("harness.py", ROOT / "orbit_wars/legacy/harness.py"),
+    ("agents.py", ROOT / "orbit_wars/legacy/agents.py"),
 ]
 
 
@@ -158,8 +158,8 @@ def _checkpoint_assignment(encoded: str | None) -> str:
 
 
 def _append_core_sources(parts: list[str]) -> None:
-    for name in CORE_SOURCES:
-        source = (ROOT / name).read_text()
+    for name, path in CORE_SOURCES:
+        source = path.read_text()
         parts.append(f"\n# --- {name} ---\n")
         parts.append(_strip_local_imports(source))
 

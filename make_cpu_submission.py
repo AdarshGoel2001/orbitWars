@@ -54,10 +54,16 @@ def _literal(encoded: str) -> str:
 
 
 def _append_sources(parts: list[str]):
-    for name in ("action_space.py", "radar.py", "targeting.py", "harness_cpu.py"):
-        parts.append(f"\n# --- {name} ---\n")
-        parts.append(_strip_local_imports((ROOT / name).read_text()))
-        if name == "targeting.py":
+    sources = [
+        ("action_space.py", ROOT / "orbit_wars/core/action_space.py"),
+        ("radar.py", ROOT / "orbit_wars/core/radar.py"),
+        ("targeting.py", ROOT / "orbit_wars/core/targeting.py"),
+        ("harness_cpu.py", ROOT / "orbit_wars/cpu/harness.py"),
+    ]
+    for label, path in sources:
+        parts.append(f"\n# --- {label} ---\n")
+        parts.append(_strip_local_imports(path.read_text()))
+        if label == "targeting.py":
             parts.append(
                 "\n"
                 "class _TargetingNamespace:\n"

@@ -21,28 +21,101 @@ On import, `kaggle-environments` emits a benign `Loading environment cabt failed
 ```
 orbitWars/
 ├── getting-started.ipynb   # Kaggle tutorial (truncated at 50MB — don't try to fully parse)
-├── radar.py                # env-faithful fleet trajectory simulator (authoritative)
-├── targeting.py            # pure-math primitives; threats_per_planet uses Radar
-├── harness.py              # GameView: edge tensors + action_mask + incremental updates
-├── model.py                # OrbitWarsTransformer (edge+stop policy, value head)
-├── action_space.py         # MAX_MODEL_MOVES = 3
-├── agents.py               # nearest_planet_sniper, heuristic_agent, random_model_space_agent,
-│                           # model_agent_actions, StatefulModelAgent
-├── server.py               # Flask UI + human-vs-agent game runner
-├── bench.py                # per-turn latency bench (cold vs warm, CPU + MPS)
-├── bc_data.py              # behavior-cloning shard capture from heuristic-vs-heuristic games
-├── bc_train.py             # behavior-cloning trainer over bc_data.py shards
-├── rl_rollout.py           # self-play game collector; per-turn Φ-shaped rewards
-├── rl_opponent_pool.py     # OpponentPool: 33% heuristic / 67% past model snapshots
-├── rl_ppo.py               # GAE + clipped PPO update step
-├── rl_train.py             # main PPO loop: load BC ckpt → rollout → update → snapshot
+├── orbit_wars/
+│   ├── core/               # shared action_space, radar, targeting
+│   ├── cpu/                # active dynamic-edge CPU stack
+│   ├── legacy/             # old padded 50×50 stack + old RL scaffolding
+│   └── apps/server.py      # Flask UI implementation
+├── *_cpu.py, harness.py, model.py, agents.py, ...  # thin root compatibility wrappers
+├── make_cpu_submission.py  # Builds pure-NumPy dynamic-edge Kaggle submission
+├── make_nn_submission.py   # Legacy NN submission builder
+├── make_submission.py      # Heuristic submission builder
+├── submission_cpu.py       # Generated CPU dynamic-edge NumPy submission artifact
 ├── checkpoints/bc_baseline.pt  # first BC model
+├── checkpoints/bc_cpu_model.pt # active CPU BC baseline checkpoint
 ├── data/bc, data/bc_worker_{1,2,3}  # BC shards from parallel capture workers
+├── data/bc_cpu, data/bc_cpu_worker_{1..4} # active CPU BC shards
 ├── LONG_TERM_FIXES.md      # deferred correctness items (e.g. same-turn combat grouping)
 └── .venv/                  # kaggle-environments + flask + torch
 ```
 
-Current status: harness, radar, heuristic, random agent, transformer skeleton, BC capture/trainer, and a first `bc_baseline.pt` checkpoint are all in place. RL scaffolding (`rl_rollout.py`, `rl_opponent_pool.py`, `rl_ppo.py`, `rl_train.py`) is written but **untested end-to-end**. **Next: eval `bc_baseline.pt` vs random/sniper/heuristic, then kick off `rl_train.py`.** See "Build order" below.
+## Current active direction — CPU dynamic-edge stack
+
+As of 2026-04-24, the active deployable path is the parallel `_cpu.py` stack,
+not the old padded 50×50 model. The old stack stays in the repo for reference
+and A/B comparison, but new BC/RL/submission work should target:
+
+```text
+GameView_CPU → OrbitWarsEdgeTransformer → bc_data_cpu.py / bc_train_cpu.py
+→ rl_train_cpu.py → make_cpu_submission.py → submission_cpu.py
+```
+
+The implementation now lives under `orbit_wars/`; root `*.py` files are
+compatibility wrappers so existing commands and Kaggle bundling scripts keep
+working.
+
+What is done:
+- `harness_cpu.py` emits one token per radar-valid targetable edge rather than
+  a padded 50×50 grid. Comets are dropped in v1.
+- `model_cpu.py` trains in PyTorch on CPU/MPS/CUDA but skips the value head at
+  inference.
+- `agents_cpu.py` contains the CPU-token heuristic teacher, `StatefulCpuModelAgent`,
+  and checkpoint loader for UI/eval.
+- `bc_data_cpu.py` captured a new CPU-format dataset from scratch; do not
+  convert or reuse old padded BC shards unless explicitly asked.
+- `bc_train_cpu.py` trained `checkpoints/bc_cpu_model.pt` from 19,545 examples
+  across 40 shards.
+- `make_cpu_submission.py` generated `submission_cpu.py`, a pure-NumPy
+  submission with embedded weights and no `torch` import.
+- `rl_train_cpu.py` is the active PPO entrypoint. Implementation lives in
+  `orbit_wars/cpu/rl_*.py` and uses ragged CPU token rollouts with padded PPO
+  minibatches.
+
+Latest CPU BC checkpoint:
+- `checkpoints/bc_cpu_model.pt` is epoch 10, best validation checkpoint.
+- Validation: total accuracy 0.959, move accuracy 0.941, stop accuracy 1.0.
+- Eval: 4/4 wins vs `nearest_planet_sniper`, 2/4 vs `heuristic_cpu`.
+
+Deployment status:
+- `submission_cpu.py` has been generated with `max_moves=2`.
+- The CLI upload succeeded with message `CPU dynamic-edge BC max_moves_2`;
+  the status was `PENDING` when last checked.
+- Local generated-submission latency with `max_moves=2`: mean 48 ms, p95 158 ms,
+  max 215 ms. This is plausible but risky on Kaggle because past submissions
+  saw roughly 5×–8× slowdown.
+- Local generated-submission latency with `max_moves=1`: mean 24.5 ms, p95 63.8 ms,
+  max 75.7 ms. This is much safer.
+- `max_moves=3` is not viable without further optimization: local p95 was
+  ~1529 ms.
+
+Next high-value work:
+1. Check Kaggle result for `submission_cpu.py`.
+2. Train from `checkpoints/bc_cpu_model.pt` with `rl_train_cpu.py`, watching
+   win rate vs `heuristic_agent_cpu`, entropy, approximate KL, and clip
+   fraction.
+3. If `max_moves=2` times out, submit/regenerate `max_moves=1`.
+4. If higher move count is needed, optimize `GameView_CPU` token rebuilding
+   before increasing `max_moves`.
+
+## Inaccuracies corrected / stale guidance
+
+- The old "Next: eval `bc_baseline.pt`, then kick off `rl_train.py`" guidance
+  is stale for the current deployable path. That is the padded-grid route.
+  The active route is CPU dynamic tokens, and RL must be ported before use.
+- `rl_rollout.py`, `rl_ppo.py`, and `rl_train.py` are legacy padded-stack
+  wrappers. Use `rl_train_cpu.py` for the active CPU model.
+- The old statement "next bottleneck is model-side, not harness-side" applies
+  to `harness.py` + `model.py`; it does **not** apply to `harness_cpu.py`.
+  In the CPU stack, NumPy forward is cheap and token construction/rebuilding is
+  the bottleneck when `max_moves > 1`.
+- `GameView_CPU` has cross-turn fleet-prediction reuse, but not token-level
+  incremental caching. `tokens()` rebuilds the full dynamic token list after
+  `update_from_obs()` and after every `apply_planned_move()`.
+- The active CPU feature layout is 11 features, but it is **not** the same 11
+  as old `harness.py`: old `tgt_expiry` was dropped and `src_can_fund` was
+  added.
+- The active teacher is `heuristic_agent_cpu` / `choose_heuristic_token_cpu`,
+  not `agents.heuristic_agent`, for CPU-format data.
 
 ## Game mechanics — quick reference
 
@@ -95,7 +168,7 @@ All verified against `kaggle_environments/envs/orbit_wars/README.md` and empiric
 **Agent I/O**
 - Observation: `{ step, player, planets, fleets, angular_velocity, initial_planets, comets, comet_planet_ids, next_fleet_id, remainingOverageTime }`
 - Action: `[[from_planet_id, angle_rad, num_ships], …]`
-- `actTimeout: 1` second per turn + `remainingOverageTime: 2` seconds shared across the game
+- `actTimeout: 1` second per turn + `remainingOverageTime: 60` seconds shared across the game
 
 **Gotcha**: at step 0 `planets` is empty. Must `env.step([[], []])` once to populate the world. The UI does this in `new_env()`.
 
@@ -141,13 +214,28 @@ Flask app, single-file, embedded HTML/JS. Launches at http://127.0.0.1:5000.
 - Outer-ring table on the right panel
 - Aim-mode toggle: **Lead** (uses lead-intercept angle) / **Raw** (atan2 to current position)
 - Ship presets: 25% / 50% / 100% of source garrison
-- **Realtime mode**: enforces the agent's 1 s per-turn + 2 s overage budget on the human. Timer keeps running across clicks; if it expires mid-click-sequence, the selected-source persists into the next turn so the target click still registers.
+- **Realtime mode**: enforces the agent's 1 s per-turn + 60 s overage budget on the human. Timer keeps running across clicks; if it expires mid-click-sequence, the selected-source persists into the next turn so the target click still registers.
 
 **Configuration knobs** at the top of `server.py`
 - `HUMAN = 0`, `AGENT = 1` — player seats
-- `AGENT_FN = heuristic_agent` — current default; swap to test other agents
+- default agent is `heuristic_agent`
+- To play against the trained CPU BC model:
 
-## `harness.py` — GameView & incremental state
+```bash
+ORBIT_AGENT=cpu_model \
+ORBIT_CPU_CHECKPOINT=checkpoints/bc_cpu_model.pt \
+ORBIT_CPU_DEVICE=cpu \
+.venv/bin/python server.py
+```
+
+The UI labels the loaded agent in `/state` as `agent_name`.
+
+## Legacy padded stack: `harness.py` / `model.py` / `agents.py`
+
+This stack still exists and is useful as a reference implementation, but it is
+not the active deployable path for Kaggle CPU inference.
+
+### `harness.py` — GameView & incremental state
 
 `GameView(obs)` builds `edge_features (50, 50, 11)`, `legal_mask (50, 50)`, and `planet_ids (50,)` from a single observation. The legal_mask covers sun-crossing only and is a cheap pre-filter; the **authoritative mask** for model actions is `view.action_mask(safety_margin)`, which radar-validates every legal edge under deterministic ship sizing.
 
@@ -176,7 +264,7 @@ GameView supports two kinds of in-place mutation so we don't rebuild from scratc
 
 ### Latency (per-turn, 100-turn heuristic-vs-heuristic game, M2 CPU)
 
-Measured by `bench.py`. `actTimeout` is 1 s/turn + 2 s total overage — both paths below fit comfortably.
+Measured by `bench.py`. `actTimeout` is 1 s/turn + 60 s total overage — both paths below fit comfortably.
 
 | Component | cost |
 |---|---|
@@ -193,22 +281,101 @@ Measured by `bench.py`. `actTimeout` is 1 s/turn + 2 s total overage — both pa
 
 **Next bottleneck is model-side, not harness-side.** Pursue batched/masked attention, smaller model, or cap `MAX_MODEL_MOVES = 2` at inference before further harness optimization.
 
-## `model.py` — OrbitWarsTransformer
+This last bottleneck note is **legacy-only**. In the CPU dynamic stack,
+`GameView_CPU.tokens()` rebuilding is the bottleneck once `max_moves > 1`.
+
+### `model.py` — OrbitWarsTransformer
 
 - Input: `(B, 50, 50, 11)` edge features, normalized by `FEATURE_SCALES` at input.
 - 3 × `TransformerEncoderLayer`, d_model=64, nhead=4, GELU.
 - **Two heads + stop**:
   - Policy: scalar per edge → masked softmax over `50*50 + 1 = 2501` slots (last slot = stop).
-  - Value: mean-pool → MLP → scalar.
+- Value: mean-pool → MLP → scalar.
 - ~208K params. Legality-masked logits: illegal edges get `-1e9` before softmax.
 
-## `agents.py` — agents & decoders
+### `agents.py` — agents & decoders
 
 - `nearest_planet_sniper(obs)` — Kaggle tutorial baseline. Emits `(src, angle, ships)` directly; kept for regression comparison. **Not** used as a BC teacher (see memory).
 - `heuristic_agent(obs, max_moves=MAX_MODEL_MOVES)` — rule-based teacher: defend falling planets → ROI-ranked expansion → hoard when `turns_left < 20`. Capped to the model's 3-move turn shape and uses `action_mask`, not just `legal_mask`, so BC labels stay inside the radar-validated action space. 10/10 vs sniper before the cap; quick post-cap regression was 3/3.
 - `random_model_space_agent(obs)` — uniform random over `action_mask`; smoke-tests the pipeline.
 - `model_agent_actions(model, obs)` — decode a model's policy into up to `MAX_MODEL_MOVES` actions. Uses `apply_planned_move` for sub-moves. Re-builds GameView each turn.
 - `StatefulModelAgent(model)` — callable wrapper that holds one `GameView` across turns via `update_from_obs`. Use for live self-play / UI when per-turn latency matters.
+
+## Active CPU dynamic stack: `harness_cpu.py` / `model_cpu.py`
+
+### `harness_cpu.py` — GameView_CPU & TokenBundle
+
+`GameView_CPU(obs)` emits a variable-length `TokenBundle` containing only
+targetable, radar-valid action edges:
+
+```text
+edges      (N, 11) float32
+src_ids    (N,) int32 slot ids
+tgt_ids    (N,) int32 slot ids
+ships      (N,) int32 deterministic ship count for this edge
+angles     (N,) float32 lead-intercept angle
+planet_ids (P,) int32 slot → env planet_id
+```
+
+Comets are excluded in v1: planets in `obs.comet_planet_ids` are filtered out.
+This simplifies token shape and avoids comet-expiry bookkeeping; it may cap
+eventual strength.
+
+Feature order:
+
+```text
+eta, ships_needed,
+kind_reinforce, kind_attack_enemy, kind_attack_neutral,
+src_ships, src_net_threat,
+tgt_production, tgt_will_fall,
+src_can_fund,
+turns_left
+```
+
+`src_can_fund` is important: the model can see underfunded targetable attacks
+while also knowing whether the source has enough ships to execute the
+harness-computed capture/defense amount. It is computed before the final
+`ships = min(src_available, need)` clamp.
+
+Ship sizing is deterministic:
+- Attacks send `ships_needed + safety_margin`, clamped to source availability.
+- Reinforcements send the projected defense deficit plus safety margin, or 1 if
+  the friendly target is not projected to fall.
+
+ETA/ship consistency: the CPU harness now iterates ship count and intercept so
+the token's `eta`, `ships_needed`, and deterministic `ships` agree better.
+This matters because fleet speed depends on ships.
+
+Incremental status:
+- Cross-turn `update_from_obs()` reuses carry-over fleet predictions where
+  possible (`eta -= steps_advanced`).
+- Token-level incremental updates are **not implemented**. Any `tokens()` call
+  after `update_from_obs()` or `apply_planned_move()` rebuilds the full token
+  list.
+- This is the main latency bottleneck for `max_moves > 1`.
+
+### `model_cpu.py` — OrbitWarsEdgeTransformer
+
+- Input: packed edge tokens `(B, N, 11)` plus `src_ids`, `tgt_ids`, and optional
+  `valid_mask`.
+- Default architecture: `d_model=32`, `d_ff=64`, 2 encoder blocks, single-head
+  fused Q/K/V attention.
+- Attention is threshold-gated:
+  - `N <= 256`: full self-attention
+  - `N > 256`: layer 1 attends within same source, layer 2 within same target
+- Stop action is logit index `N` for each sample.
+- Value head is larger on purpose for future PPO, but `compute_value=False`
+  skips it during inference.
+- Parameter count: 46,723 total; 17,634 inference parameters excluding value head.
+
+### `agents_cpu.py`
+
+- `choose_heuristic_token_cpu(view)` scores tokens directly in CPU action space.
+- `heuristic_agent_cpu(obs)` is the CPU-format teacher for BC capture.
+- `model_agent_actions_cpu(...)` decodes a trained `OrbitWarsEdgeTransformer`.
+- `StatefulCpuModelAgent` holds a `GameView_CPU` across turns.
+- `load_cpu_model_agent(checkpoint)` loads `checkpoints/bc_cpu_model.pt` for
+  eval or UI play.
 
 ## `bc_data.py` — behavior-cloning capture
 
@@ -270,58 +437,55 @@ H2D or data loading. Observed ~1.7–1.8 ex/s at B=8 after pipeline fixes
 on the order of tens of hours. CUDA migration is the planned escape; do not
 chase further MPS micro-optimizations unless the user asks.
 
-## `rl_rollout.py` / `rl_opponent_pool.py` / `rl_ppo.py` / `rl_train.py` — PPO self-play
+## CPU PPO self-play
 
-Scaffolding for Step 6 of the build order. Rollout + PPO loop verified
-end-to-end (telescoping reward matches final margin to machine precision,
-GAE/PPO update runs with finite losses). Not yet trained for real.
+The active RL stack lives in `orbit_wars/cpu/rl_*.py` with root wrappers
+`rl_train_cpu.py`, `rl_rollout_cpu.py`, `rl_ppo_cpu.py`, and
+`rl_opponent_pool_cpu.py`. The old `rl_*.py` wrappers still point at the
+legacy padded stack.
 
-- **`rl_rollout.play_one_game(model, opp_fn, opp_name, device, deterministic)`**
-  — plays one full game, logging one `SubmoveRecord` per model sub-move:
-  `(edge_features, legal_mask, action_mask, action_idx, logprob, value, reward)`.
-  Uses `apply_planned_move` for within-turn state. **Reward is per-turn
-  potential-based shaping** (dense): after each env step, compute
-  `Φ = (my_ships − opp_ships) / total_ships` on the post-step obs and
-  assign `Δ Φ` to the last sub-move record of that turn. No separate
-  terminal reward — the last turn's delta naturally picks up the final
-  margin, and the sum of deltas across a trajectory equals
-  `Φ(game_end) − Φ(game_start) ≈ Φ(game_end)` because the symmetric start
-  gives `Φ(game_start) ≈ 0`. If a turn has no records, emission is skipped
-  and `phi_old` stays put so telescoping is preserved.
-- **`rl_opponent_pool.OpponentPool`** — samples opponents for self-play.
-  With `heuristic_weight=0.5` and hardcoded `snapshot_weight=1.0` the
-  actual mix once snapshots exist is **33% heuristic / 67% snapshot**
-  (not 50/50). Before the first snapshot is added (iterations 0..4 with
-  default `--snapshot-every=5`), opponent is 100% heuristic. Snapshots
-  are detached CPU copies; FIFO eviction at `max_snapshots=8`. No sniper
-  and no random agent in the pool — the learner only ever plays vs.
-  heuristic or its own stale snapshots.
-- **`rl_ppo.ppo_update_step(model, trajectories, optimizer, device)`** —
-  flattens sub-move records, computes GAE (γ=0.99, λ=0.95), normalizes
-  advantages, runs 4 epochs of mini-batch PPO with clip=0.2, value_coef=0.5,
-  entropy_coef=0.01. Returns `{loss, policy_loss, value_loss, entropy}`.
-- **`rl_train.py`** — main loop: load BC checkpoint (accepts both
-  `{"model_state": ...}` and raw `state_dict`), rollout `--games-per-iter`
-  games, PPO update, snapshot every `--snapshot-every` iterations.
+- **Rollout** records ragged CPU token states: `edges (N, 11)`, `src_ids`,
+  `tgt_ids`, `n_tokens`, `action_idx`, old log-prob, value, and shaped reward.
+  Stop is per-record index `N`.
+- **PPO batching** pads each minibatch to `N_max` and remaps stop labels from
+  per-record `n_tokens` to the shared padded stop index `N_max`, matching
+  `bc_train_cpu.collate_cpu`.
+- **Opponent pool** starts at 100% `heuristic_agent_cpu`. Once snapshots exist,
+  default weights are `heuristic_weight=0.5` and `snapshot_weight=1.0`, so the
+  mix is 33% heuristic and 67% past snapshots. Snapshots are FIFO-evicted.
+- **Resume** writes `checkpoints/rl_cpu_model.last.pt` every iteration with
+  model, optimizer, opponent-pool state, args, and iteration index. Final clean
+  completion writes `checkpoints/rl_cpu_model.pt`.
 
-**Why dense Φ-shaping instead of sparse terminal:** with γ=0.99 and a
-~1500-sub-move trajectory, terminal reward's contribution to early
-sub-moves is multiplied by γ^1500 — essentially invisible. Per-turn
-Δ Φ shaping is potential-based (Ng et al. 1999), so it preserves the
-optimal policy but gives the value head dense regression targets on every
-turn. This is what lets the value function learn to bridge ETA delays
-(a fleet launched on turn 100 landing on turn 115 shows up in V(s_100)
-as a higher expected Φ, propagating credit back to the launch action
-via advantage bootstrap — not via the actual reward, which doesn't
-materialize until turn 115).
+Smoke-tested command:
 
 ```bash
-.venv/bin/python rl_train.py --checkpoint checkpoints/bc_baseline.pt \
-    --out checkpoints/rl_model.pt --iterations 100 --games-per-iter 8
+.venv/bin/python rl_train_cpu.py \
+    --checkpoint checkpoints/bc_cpu_model.pt \
+    --out /tmp/rl_cpu_smoke.pt \
+    --iterations 1 --games-per-iter 1 --max-turns 25 \
+    --device cpu --ppo-epochs 1 --ppo-batch-size 8
 ```
 
-**Before trusting RL output**: run one iteration end-to-end and sanity-check
-the log line for NaN losses, zero entropy, or margin stuck at ±1.
+Suggested real run:
+
+```bash
+.venv/bin/python rl_train_cpu.py \
+    --checkpoint checkpoints/bc_cpu_model.pt \
+    --out checkpoints/rl_cpu_model.pt \
+    --iterations 200 --games-per-iter 8 \
+    --ppo-batch-size 64 --lr 3e-5 --snapshot-every 5
+```
+
+Device note: `--device auto` now uses CUDA when available, otherwise CPU. MPS is
+opt-in because measured short PPO smokes were slower on MPS than CPU on this
+Mac (`2 × 80` capped turns: CPU rollout/update `42.8s / 0.4s`; MPS
+`50.2s / 8.1s`).
+
+Watch `win_rate_vs_heuristic`, `mean_margin`, `entropy`, `approx_kl`, and
+`clip_frac`. If KL stays well below `0.01` for many iterations and margins do
+not improve, consider a small LR increase; if early stopping fires frequently
+or clip fraction jumps, lower LR.
 
 ## Architecture
 
@@ -417,7 +581,7 @@ The user did *not* use ROI-by-production (targeting high-prod planets over low-p
 - **Venv discipline**: no global installs. Use `.venv/bin/python` for everything.
 - Don't edit `getting-started.ipynb` — it's the Kaggle tutorial and is truncated anyway.
 - Prefer editing existing files over creating new ones. New files only when the split is clear (e.g., `harness.py` is a genuine new module, not a reshuffle).
-- Memory at `~/.Codex/projects/-Users-martian-Documents-Code-orbitWars/memory/` holds durable project context. Update or replace entries when facts change; don't leave stale ones around.
+- Memory at `~/.claude/projects/-Users-martian-Documents-Code-orbitWars/memory/` holds durable project context. Update or replace entries when facts change; don't leave stale ones around.
 
 ## Quick experiments
 

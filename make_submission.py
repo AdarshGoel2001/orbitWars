@@ -15,11 +15,11 @@ ROOT = Path(__file__).resolve().parent
 OUT = ROOT / "submission.py"
 
 SOURCES = [
-    "action_space.py",
-    "radar.py",
-    "targeting.py",
-    "harness.py",
-    "agents.py",
+    ("action_space.py", ROOT / "orbit_wars/core/action_space.py"),
+    ("radar.py", ROOT / "orbit_wars/core/radar.py"),
+    ("targeting.py", ROOT / "orbit_wars/core/targeting.py"),
+    ("harness.py", ROOT / "orbit_wars/legacy/harness.py"),
+    ("agents.py", ROOT / "orbit_wars/legacy/agents.py"),
 ]
 
 
@@ -60,8 +60,8 @@ def build() -> str:
         "from __future__ import annotations\n\n",
     ]
 
-    for name in SOURCES:
-        source = (ROOT / name).read_text()
+    for name, path in SOURCES:
+        source = path.read_text()
         parts.append(f"\n# --- {name} ---\n")
         parts.append(_strip_local_imports(source))
 
