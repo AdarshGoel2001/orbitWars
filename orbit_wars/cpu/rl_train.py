@@ -12,6 +12,13 @@ import time
 
 import numpy as np
 import torch
+import torch.multiprocessing as torch_mp
+
+# Avoid "Too many open files" when shipping model + opponent-pool state_dicts to
+# many parallel rollout workers. The default "file_descriptor" strategy uses one
+# fd per shared tensor; with games_per_iter=16 × ~50 tensors per task that
+# blows past the default ulimit.
+torch_mp.set_sharing_strategy("file_system")
 
 from orbit_wars.cpu.model import OrbitWarsEdgeTransformer, count_parameters
 from orbit_wars.cpu.rl_opponent_pool import OpponentPool
@@ -145,6 +152,13 @@ def parse_args():
         "runs games concurrently via a spawn-based ProcessPoolExecutor. "
         "Workers always use CPU with torch.set_num_threads(1).",
     )
+    parser.add_argument(
+        "--async-rollout",
+        action="store_true",
+        help="Use the async rollout driver: workers run continuously, learner "
+        "consumes a queue of finished trajectories and runs PPO whenever "
+        "--games-per-iter have accumulated. Tolerates mild staleness; logs it.",
+    )
     return parser.parse_args()
 
 
@@ -228,6 +242,23 @@ def main():
     if start_iteration >= args.iterations:
         print(f"already completed {start_iteration} iterations; nothing to do", flush=True)
         writer.close()
+        return
+
+    if args.async_rollout:
+        from orbit_wars.cpu.rl_async import run_async
+
+        args.num_workers = max(1, int(args.num_workers))
+        run_async(
+            args=args,
+            model=model,
+            optimizer=optimizer,
+            opponent_pool=opponent_pool,
+            start_iteration=start_iteration,
+            device=device,
+            writer=writer,
+            save_resume_checkpoint_fn=save_resume_checkpoint,
+            target_kl=target_kl,
+        )
         return
 
     num_workers = max(1, int(args.num_workers))

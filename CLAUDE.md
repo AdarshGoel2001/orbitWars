@@ -31,17 +31,22 @@ orbitWars/
 ├── make_nn_submission.py   # Legacy NN submission builder
 ├── make_submission.py      # Heuristic submission builder
 ├── submission_cpu.py       # Generated CPU dynamic-edge NumPy submission artifact
-├── checkpoints/bc_baseline.pt  # first BC model
-├── checkpoints/bc_cpu_model.pt # active CPU BC baseline checkpoint
-├── data/bc, data/bc_worker_{1,2,3}  # BC shards from parallel capture workers
+├── checkpoints/bc_baseline.pt    # first BC model (legacy padded stack)
+├── checkpoints/bc_cpu_model.pt   # active CPU BC baseline checkpoint
+├── checkpoints/rl_cpu_model.pt   # active CPU RL final checkpoint (PPO from BC)
+├── checkpoints/rl_cpu_model.last.pt  # resume state: model + optimizer + opp-pool + iter
+├── data/bc, data/bc_worker_{1,2,3}      # BC shards (legacy padded stack)
 ├── data/bc_cpu, data/bc_cpu_worker_{1..4} # active CPU BC shards
+├── markdowns/              # ad-hoc design / planning notes
+├── logs/                   # nohup'd training run output (gitignored)
+├── runs/                   # TensorBoard event files (gitignored)
 ├── LONG_TERM_FIXES.md      # deferred correctness items (e.g. same-turn combat grouping)
 └── .venv/                  # kaggle-environments + flask + torch
 ```
 
 ## Current active direction — CPU dynamic-edge stack
 
-As of 2026-04-24, the active deployable path is the parallel `_cpu.py` stack,
+As of 2026-04-25, the active deployable path is the parallel `_cpu.py` stack,
 not the old padded 50×50 model. The old stack stays in the repo for reference
 and A/B comparison, but new BC/RL/submission work should target:
 
@@ -58,7 +63,8 @@ What is done:
 - `harness_cpu.py` emits one token per radar-valid targetable edge rather than
   a padded 50×50 grid. Comets are dropped in v1.
 - `model_cpu.py` trains in PyTorch on CPU/MPS/CUDA but skips the value head at
-  inference.
+  inference. GELU is `approximate="tanh"` so training matches the NumPy
+  submission exactly (no logit drift).
 - `agents_cpu.py` contains the CPU-token heuristic teacher, `StatefulCpuModelAgent`,
   and checkpoint loader for UI/eval.
 - `bc_data_cpu.py` captured a new CPU-format dataset from scratch; do not
@@ -66,15 +72,27 @@ What is done:
 - `bc_train_cpu.py` trained `checkpoints/bc_cpu_model.pt` from 19,545 examples
   across 40 shards.
 - `make_cpu_submission.py` generated `submission_cpu.py`, a pure-NumPy
-  submission with embedded weights and no `torch` import.
+  submission with embedded weights and no `torch` import. `axial_threshold` is
+  now read from the loaded model and stamped into the runtime, so future
+  overrides flow through correctly.
 - `rl_train_cpu.py` is the active PPO entrypoint. Implementation lives in
   `orbit_wars/cpu/rl_*.py` and uses ragged CPU token rollouts with padded PPO
-  minibatches.
+  minibatches. Supports `--num-workers N` for parallel rollout via
+  `ProcessPoolExecutor` (spawn context, `torch.set_num_threads(1)` per worker).
 
 Latest CPU BC checkpoint:
 - `checkpoints/bc_cpu_model.pt` is epoch 10, best validation checkpoint.
 - Validation: total accuracy 0.959, move accuracy 0.941, stop accuracy 1.0.
 - Eval: 4/4 wins vs `nearest_planet_sniper`, 2/4 vs `heuristic_cpu`.
+
+Latest CPU RL checkpoint:
+- `checkpoints/rl_cpu_model.pt` — first RL training pass complete. 60-iter
+  PPO from BC baseline; LR ramped 3e-5 → 1e-4 mid-run because `approx_kl`
+  stayed in 0.001–0.005 (policy barely moved). After ramp, KL crept to 0.005–0.022
+  band, entropy held 0.07–0.17, no early-stop / collapse. Win-rate-vs-heuristic
+  noisy but trended upward; needs proper N-game eval to confirm vs BC baseline.
+- `checkpoints/rl_cpu_model.last.pt` — resume state including optimizer,
+  opponent-pool snapshots, and iteration counter.
 
 Deployment status:
 - `submission_cpu.py` has been generated with `max_moves=2`.
@@ -90,18 +108,18 @@ Deployment status:
 
 Next high-value work:
 1. Check Kaggle result for `submission_cpu.py`.
-2. Train from `checkpoints/bc_cpu_model.pt` with `rl_train_cpu.py`, watching
-   win rate vs `heuristic_agent_cpu`, entropy, approximate KL, and clip
-   fraction.
-3. If `max_moves=2` times out, submit/regenerate `max_moves=1`.
-4. If higher move count is needed, optimize `GameView_CPU` token rebuilding
-   before increasing `max_moves`.
+2. N-game eval of `rl_cpu_model.pt` vs `heuristic_agent_cpu` (and vs
+   `bc_cpu_model.pt`) to confirm RL improvement is real, not noise.
+3. Bigger-batch RL: `--games-per-iter 16+` per update — current 4-game
+   batches are noise-dominated. Real win comes from variance reduction.
+4. Generate fresh `submission_cpu.py` from the trained RL checkpoint and
+   resubmit when results look meaningfully better than BC.
+5. If `max_moves=2` times out on Kaggle, submit/regenerate `max_moves=1`.
+6. If higher move count is needed, optimize `GameView_CPU.tokens()`
+   rebuilding before increasing `max_moves`.
 
 ## Inaccuracies corrected / stale guidance
 
-- The old "Next: eval `bc_baseline.pt`, then kick off `rl_train.py`" guidance
-  is stale for the current deployable path. That is the padded-grid route.
-  The active route is CPU dynamic tokens, and RL must be ported before use.
 - `rl_rollout.py`, `rl_ppo.py`, and `rl_train.py` are legacy padded-stack
   wrappers. Use `rl_train_cpu.py` for the active CPU model.
 - The old statement "next bottleneck is model-side, not harness-side" applies
@@ -116,6 +134,11 @@ Next high-value work:
   added.
 - The active teacher is `heuristic_agent_cpu` / `choose_heuristic_token_cpu`,
   not `agents.heuristic_agent`, for CPU-format data.
+- GAE bootstrap fix: `rl_rollout.py:239` previously zeroed the value bootstrap
+  unconditionally; now gated on `env.done` so `--max-turns` truncation
+  correctly leaves `done=False` and bootstraps with `V(s_T)`. Default
+  `--max-turns 500` rarely fires truncation, but smoke runs with low
+  `--max-turns` were biased before this fix.
 
 ## Game mechanics — quick reference
 
@@ -359,10 +382,13 @@ Incremental status:
 - Input: packed edge tokens `(B, N, 11)` plus `src_ids`, `tgt_ids`, and optional
   `valid_mask`.
 - Default architecture: `d_model=32`, `d_ff=64`, 2 encoder blocks, single-head
-  fused Q/K/V attention.
-- Attention is threshold-gated:
-  - `N <= 256`: full self-attention
-  - `N > 256`: layer 1 attends within same source, layer 2 within same target
+  fused Q/K/V attention. GELU is `approximate="tanh"` everywhere (FeedForward
+  + ValueHead) to match the NumPy submission's `_gelu` exactly.
+- Attention is threshold-gated by `axial_threshold` (default `DEFAULT_AXIAL_THRESHOLD = 256`):
+  - `N <= axial_threshold`: full self-attention
+  - `N > axial_threshold`: layer 1 attends within same source, layer 2 within same target
+  - The threshold is read from the loaded model when generating
+    `submission_cpu.py` and stamped into the runtime — overrides flow through.
 - Stop action is logit index `N` for each sample.
 - Value head is larger on purpose for future PPO, but `compute_value=False`
   skips it during inference.
@@ -452,10 +478,122 @@ legacy padded stack.
   `bc_train_cpu.collate_cpu`.
 - **Opponent pool** starts at 100% `heuristic_agent_cpu`. Once snapshots exist,
   default weights are `heuristic_weight=0.5` and `snapshot_weight=1.0`, so the
-  mix is 33% heuristic and 67% past snapshots. Snapshots are FIFO-evicted.
+  mix is 33% heuristic and 67% past snapshots. Snapshots are FIFO-evicted at
+  `--max-snapshots` (default 8). PFSP-style weighted sampling is **not**
+  implemented yet — defer until snapshots have meaningfully different skill
+  levels (i.e. `approx_kl` consistently above 0.01 across iters).
 - **Resume** writes `checkpoints/rl_cpu_model.last.pt` every iteration with
   model, optimizer, opponent-pool state, args, and iteration index. Final clean
   completion writes `checkpoints/rl_cpu_model.pt`.
+
+### Parallel rollout (`--num-workers N`)
+
+Each iteration plays `--games-per-iter` games. With `--num-workers 1` they run
+sequentially. With `N > 1`, a `ProcessPoolExecutor` (spawn context, persistent
+across iterations) hands games out to workers as they free up.
+
+- Each worker calls `play_one_game_worker` from `orbit_wars/cpu/rl_rollout.py`,
+  which sets `torch.set_num_threads(1)` and forces CPU regardless of the main
+  device — avoids BLAS oversubscription when N workers run in parallel.
+- Each iteration ships the current `model.state_dict()` and the full
+  `opponent_pool.state_dict()` to every task. Cheap (~46k params).
+- Per-worker seed is `args.seed + iteration*100_003 + game_i`, so games are
+  reproducible per (iter, game_i) and not duplicated across workers.
+- Wall clock per iter ≈ `sum(per-game time) / num_workers` plus straggler
+  variance. Workers do NOT idle waiting for siblings — `executor.map` hands
+  out the next task immediately on completion. But when `games_per_iter`
+  ≈ `num_workers`, variance can leave workers idle ~20-25% (long-game
+  bottleneck). Mitigation: use `games_per_iter ≥ 2× num_workers` *or* use
+  `--async-rollout` (below).
+
+### Async rollout (`--async-rollout`)
+
+Workers run continuously and never block on siblings. The learner consumes a
+shared queue and runs PPO whenever `--games-per-iter` finished trajectories
+have arrived. After each update, the learner atomically rewrites a shared
+weights file (`<out>.weights.pt`); workers `mtime`-poll it at game start and
+reload model + opponent-pool state when it changes.
+
+Implementation lives in `orbit_wars/cpu/rl_async.py`. Sync mode is unchanged
+and still the default. Both modes are drop-in resumable from the same
+`*.last.pt` (the on-disk checkpoint format is identical).
+
+When to use it: variable game length is the giveaway — if some games end at
+~50 turns and others at the `--max-turns` cap, sync workers idle waiting for
+the longest game in each batch. Async absorbs the variance because the next
+game starts the moment any one finishes.
+
+Mechanics worth knowing:
+- "Iteration" still means *one PPO update*. `--snapshot-every`, `--iterations`,
+  TB step indices, and the resume counter all use this. Resuming a sync
+  `last.pt` into async mode just works (and vice versa).
+- Determinism: per-worker seed is `seed + worker_id*1_000_003 + worker_local_game_i`.
+  Each worker's stream is reproducible, but global trajectory ordering is
+  intentionally not — that's the whole point. `--deterministic-rollout`
+  (greedy argmax) still works.
+- Staleness is logged as `async/staleness_{mean,p99,max}` (current iteration
+  minus the generation a trajectory was started under). PPO's clip ratio
+  handles small staleness fine while `approx_kl` stays under ~0.02; bail to
+  sync if you ever see staleness consistently >2 with KL trending up.
+- Opponent pool is owned by the learner. Snapshot adds happen post-PPO, then
+  get bundled into the next `weights.pt` write — workers see the new pool on
+  their next reload. Workers never call `add_snapshot`.
+- Shutdown is best-effort: workers may be mid-game when the learner exits.
+  The driver drains the queue while joining (60s deadline) and `terminate()`s
+  stragglers. `weights.pt` is unlinked on clean exit; if a SIGKILL/SIGTERM
+  leaves it behind, it's harmless — just delete it.
+
+A/B vs sync (M2 4P+4E, 4 workers, 4 games/update, max-turns 200, same seed,
+both starting from `bc_cpu_model.pt`, apples-to-apples 15 updates):
+
+| | sync | async | delta |
+|---|---|---|---|
+| wall clock (15 updates) | 4480s (74.7 min) | 1909s (31.8 min) | **2.35× speedup, −57%** |
+| mean rollout_s | 283 | 99 | sync waits on the slowest of 4 games every iter |
+| mean update_s | 15 | 29 | async batches average more submoves (workers run continuously) |
+| approx_kl mean | 0.0028 | 0.0071 | async sees mildly off-policy data; both ≪ target_kl 0.03 |
+| clip_frac mean | 0.018 | 0.026 | same root cause; small enough that PPO doesn't waste samples |
+| entropy mean | 0.096 | 0.110 | comparable; no collapse either side |
+| mean_margin (mean over iters) | −0.080 | +0.101 | within noise at n=15, 4 games/iter |
+| win_rate_vs_heuristic (mean) | 0.467 | 0.494 | within noise |
+
+Speedup is much larger than the original 15–20% estimate — game length at
+`max-turns=200` varies wider than I assumed (140–520 s/iter sync rollout),
+so the sync "wait for the longest of 4 games" tax is large.
+
+Staleness distribution observed (15 async iters):
+- per-iter `stale_mean` averaged 1.08 (so a trajectory is on average 1 update
+  old when consumed), worst-iter mean 1.50.
+- per-iter `stale_p99` averaged 1.72, worst 3.91.
+- `stale_max` ever observed: 4. With per-iter `approx_kl ≈ 0.007`, a 4-update
+  stale trajectory is ~0.028 KL off-policy — still inside the clip band.
+
+If `approx_kl` ever climbs to ≥0.05 per update, revisit: 3-update stale data
+would be ~0.15 KL off, far outside clip, and async would start wasting
+samples. At that point either lower lr, raise `--snapshot-every`, or fall
+back to sync.
+
+Smoke-tested command:
+
+```bash
+.venv/bin/python rl_train_cpu.py \
+    --checkpoint checkpoints/bc_cpu_model.pt \
+    --out /tmp/rl_async_smoke.pt \
+    --iterations 1 --games-per-iter 4 --max-turns 50 \
+    --device cpu --ppo-epochs 1 --ppo-batch-size 8 \
+    --num-workers 4 --async-rollout
+```
+
+### Hardware sizing
+
+- M2 (8 cores, 4P+4E): `--num-workers 4` is the sweet spot. More workers land
+  on E-cores (~40% the throughput of P-cores) and don't help. Measured ~1.6×
+  speedup vs serial.
+- Linux x86 (all-equal cores): use `--num-workers = nproc`. No P/E asymmetry.
+  Bottleneck shifts to memory bandwidth at high core counts.
+- GPU: not currently exercised. The 46k-param model is too small to benefit
+  from GPU rollout. Reserve GPU for batched learner-side PPO updates if
+  scaling beyond ~32 vCPUs.
 
 Smoke-tested command:
 
@@ -463,29 +601,36 @@ Smoke-tested command:
 .venv/bin/python rl_train_cpu.py \
     --checkpoint checkpoints/bc_cpu_model.pt \
     --out /tmp/rl_cpu_smoke.pt \
-    --iterations 1 --games-per-iter 1 --max-turns 25 \
-    --device cpu --ppo-epochs 1 --ppo-batch-size 8
+    --iterations 1 --games-per-iter 4 --max-turns 50 \
+    --device cpu --ppo-epochs 1 --ppo-batch-size 8 \
+    --num-workers 4
 ```
 
-Suggested real run:
+Suggested real run (resume + bigger batches):
 
 ```bash
 .venv/bin/python rl_train_cpu.py \
-    --checkpoint checkpoints/bc_cpu_model.pt \
+    --resume checkpoints/rl_cpu_model.last.pt \
     --out checkpoints/rl_cpu_model.pt \
-    --iterations 200 --games-per-iter 8 \
-    --ppo-batch-size 64 --lr 3e-5 --snapshot-every 5
+    --iterations 200 --games-per-iter 16 --num-workers 8 \
+    --ppo-batch-size 64 --lr 1e-4 --snapshot-every 5 \
+    --tb-logdir runs/rl_cpu_big
 ```
 
-Device note: `--device auto` now uses CUDA when available, otherwise CPU. MPS is
-opt-in because measured short PPO smokes were slower on MPS than CPU on this
-Mac (`2 × 80` capped turns: CPU rollout/update `42.8s / 0.4s`; MPS
-`50.2s / 8.1s`).
+Resume gotcha: when iter `N` completes, `last.pt` is saved with `iteration=N`,
+so resume returns `start_iteration = N+1`. Pass `--iterations` as the
+absolute target count, not "N more iterations from now."
+
+Device note: `--device auto` uses CUDA when available, otherwise CPU. MPS is
+opt-in because measured short PPO smokes were slower on MPS than CPU on M2
+(`2 × 80` capped turns: CPU rollout/update `42.8s / 0.4s`; MPS `50.2s / 8.1s`).
 
 Watch `win_rate_vs_heuristic`, `mean_margin`, `entropy`, `approx_kl`, and
 `clip_frac`. If KL stays well below `0.01` for many iterations and margins do
 not improve, consider a small LR increase; if early stopping fires frequently
-or clip fraction jumps, lower LR.
+or clip fraction jumps, lower LR. Per-iter `win_rate_vs_heuristic` is noisy
+(only 1–3 heuristic games per iter once snapshot pool fills) — for
+confident eval use a separate N-game tournament after training.
 
 ## Architecture
 
@@ -545,10 +690,10 @@ Legality has **two masks**:
 1. ✅ **`harness.py` / `radar.py`** — GameView with edge tensors, radar-validated action mask, deterministic ship sizing, incremental sub-move + cross-turn updates. Drift-checked against cold rebuild.
 2. ✅ **Heuristic agent** — `heuristic_agent` in `agents.py`. Defend → ROI-expand → hoard. 10/10 vs sniper. Doubles as (a) BC teacher, (b) permanent eval baseline, (c) PPO opponent-pool member.
 3. ✅ **Random model-space agent** — `random_model_space_agent`. Smoke-tests the full env→mask→action→step pipeline.
-4. ✅ **Transformer skeleton** — `OrbitWarsTransformer` in `model.py`. Forward-pass verified; illegal-edge mass = 0; `StatefulModelAgent` plays complete games under latency budget.
-5. 🟨 **Behavior cloning** — capture (`bc_data.py`) + trainer (`bc_train.py`) + first `checkpoints/bc_baseline.pt` all exist. BC teacher is the heuristic (not sniper — see memory for why). Next piece is evaluating `bc_baseline.pt` vs random/sniper/heuristic to confirm the checkpoint is worth starting RL from.
-6. 🟨 **Self-play PPO** — `rl_rollout.py` / `rl_opponent_pool.py` / `rl_ppo.py` / `rl_train.py` written; rollout + update-step verified in smoke test (telescoping reward exact, PPO losses finite); not yet trained for real. Win rate vs. heuristic is the north-star metric. Opponent pool mixes 33% heuristic / 67% past snapshots once snapshots exist (100% heuristic before that).
-7. ⬜ **`eval.py`** — N-game tournaments, win rate + score-margin with CIs. Used continuously during Step 6.
+4. ✅ **Transformer skeleton** — `OrbitWarsTransformer` (legacy padded) and `OrbitWarsEdgeTransformer` (active CPU dynamic). Forward-pass verified; illegal-edge mass = 0; stateful agents play complete games under latency budget.
+5. ✅ **Behavior cloning** — `bc_baseline.pt` (legacy padded) and `bc_cpu_model.pt` (active CPU stack) both trained. BC teacher is the heuristic (not sniper — see memory for why). CPU BC: 95.9% val accuracy, 4/4 vs sniper, 2/4 vs heuristic_cpu.
+6. 🟨 **Self-play PPO** — *Active CPU stack:* first 60-iter PPO run complete on `bc_cpu_model.pt` → `rl_cpu_model.pt`. Loop is healthy (no collapse, no early-stop) but policy moves slowly at 4 games/iter — bigger batches needed for clear win-rate-vs-BC gains. *Legacy padded stack:* never trained for real. Opponent pool mixes 33% heuristic / 67% past snapshots once snapshots exist (100% heuristic before that), FIFO eviction at 8 snapshots; PFSP not implemented.
+7. 🟨 **Eval** — `eval_bc.py` and `eval_bc_cpu.py` exist for ad-hoc head-to-head checks. No proper N-game tournament harness with CIs yet — needed before claiming RL beats BC.
 
 ### Debugging layers (symptom → likely culprit)
 

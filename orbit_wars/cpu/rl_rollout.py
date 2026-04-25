@@ -8,8 +8,12 @@ from typing import Callable, Optional
 
 import numpy as np
 import torch
+import torch.multiprocessing as torch_mp
 from kaggle_environments import make
 from torch.distributions import Categorical
+
+# Match parent process so worker also avoids fd-based tensor sharing.
+torch_mp.set_sharing_strategy("file_system")
 
 from orbit_wars.core.action_space import MAX_MODEL_MOVES
 from orbit_wars.cpu.harness import FEATURE_DIM, GameView_CPU
