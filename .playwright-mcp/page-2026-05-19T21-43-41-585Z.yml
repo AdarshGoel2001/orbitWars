@@ -1,0 +1,709 @@
+- generic [ref=e2]:
+  - navigation "Main Kaggle page navigation" [ref=e3]:
+    - generic [ref=e5]:
+      - button "Navigation menu" [ref=e7] [cursor=pointer]: menu
+      - link "Skip to content" [ref=e8] [cursor=pointer]:
+        - /url: "#site-content"
+        - text: Skip to
+        - text: content
+      - link "Return to Kaggle home page" [ref=e10] [cursor=pointer]:
+        - /url: /
+        - img "Kaggle" [ref=e11]
+    - button "Create" [ref=e13] [cursor=pointer]:
+      - img [ref=e14]
+      - generic [ref=e19]: Create
+    - generic [ref=e22]:
+      - list [ref=e23]:
+        - listitem "Home List Item" [ref=e24]:
+          - link "Home" [ref=e26] [cursor=pointer]:
+            - /url: /
+            - generic [ref=e27]:
+              - generic [ref=e30]: explore
+              - paragraph [ref=e32]: Home
+        - listitem "Competitions List Item" [ref=e33]:
+          - link "Competitions" [ref=e35] [cursor=pointer]:
+            - /url: /competitions
+            - generic [ref=e36]:
+              - generic [ref=e39]: emoji_events
+              - paragraph [ref=e41]: Competitions
+        - listitem "Benchmarks List Item" [ref=e43]:
+          - link "Benchmarks" [ref=e45] [cursor=pointer]:
+            - /url: /benchmarks
+            - generic [ref=e46]:
+              - generic [ref=e49]: leaderboard
+              - paragraph [ref=e51]: Benchmarks
+        - listitem "Game Arena List Item" [ref=e52]:
+          - link "Game Arena" [ref=e54] [cursor=pointer]:
+            - /url: /game-arena
+            - generic [ref=e55]:
+              - generic [ref=e58]: smart_toy
+              - paragraph [ref=e60]: Game Arena
+      - list [ref=e61]:
+        - listitem "Data Hub List Item" [ref=e62]:
+          - generic [ref=e63]:
+            - link "Data Hub" [ref=e64] [cursor=pointer]:
+              - /url: "#"
+              - generic [ref=e65]:
+                - generic [ref=e68]: code
+                - paragraph [ref=e70]: Data Hub
+            - button "Expand" [ref=e72] [cursor=pointer]: expand_more
+      - list [ref=e73]:
+        - listitem "More on Kaggle List Item" [ref=e74]:
+          - generic [ref=e75]:
+            - link "More on Kaggle" [ref=e76] [cursor=pointer]:
+              - /url: "#"
+              - generic [ref=e77]:
+                - generic [ref=e80]: format_list_bulleted
+                - paragraph [ref=e82]: More
+            - button "Expand" [ref=e84] [cursor=pointer]: expand_more
+  - navigation "Main menu, search and your account" [ref=e86]:
+    - generic [ref=e87]:
+      - generic [ref=e91]:
+        - generic [ref=e92]: search
+        - textbox "Search" [ref=e93]
+        - group
+      - generic [ref=e95]:
+        - link "Sign In" [ref=e97] [cursor=pointer]:
+          - /url: /account/login?phase=startSignInTab&returnUrl=%2Fcompetitions%2Forbit-wars%2Fdiscussion%2F697413
+          - button "Sign In" [ref=e98]:
+            - generic [ref=e99]: Sign In
+        - link "Register" [ref=e101] [cursor=pointer]:
+          - /url: /account/login?phase=startRegisterTab&returnUrl=%2Fcompetitions%2Forbit-wars%2Fdiscussion%2F697413
+          - button "Register" [ref=e102]:
+            - generic [ref=e103]: Register
+  - main [ref=e104]:
+    - generic [ref=e106]:
+      - generic [ref=e107]: Kaggle uses cookies from Google to deliver and enhance the quality of its services and to analyze traffic.
+      - generic [ref=e108]:
+        - link "Learn more" [ref=e109] [cursor=pointer]:
+          - /url: /cookies
+          - generic [ref=e110]: Learn more
+        - generic [ref=e111] [cursor=pointer]: OK, Got it.
+    - generic [ref=e114]:
+      - generic [ref=e116]:
+        - generic [ref=e117]:
+          - link "Kaggle's profile" [ref=e118] [cursor=pointer]:
+            - /url: /organizations/kaggle
+            - generic "Kaggle" [ref=e119]
+            - img [ref=e120]
+          - generic [ref=e123]:
+            - generic [ref=e125]: Kaggle
+            - generic [ref=e126]: · Featured Simulation Competition · a month to go
+          - generic [ref=e127]:
+            - button "Play in Browser" [ref=e128] [cursor=pointer]:
+              - generic [ref=e129]: chevron_right
+              - generic [ref=e130]: Play in Browser
+            - button "Join Competition" [ref=e132] [cursor=pointer]:
+              - generic [ref=e133]: Join Competition
+            - button "Competition options menu collapsed" [ref=e135] [cursor=pointer]: more_horiz
+        - generic [ref=e137]:
+          - heading "Orbit Wars" [level=1] [ref=e138]
+          - paragraph [ref=e140]: Conquer planets rotating around a sun in continuous 2D space. A real-time strategy game for 2 or 4 players.
+      - generic [ref=e144]:
+        - tablist [ref=e151]:
+          - tab "Overview, 1 of 7" [ref=e152] [cursor=pointer]:
+            - generic [ref=e153]: Overview
+          - tab "Data, 2 of 7" [ref=e154] [cursor=pointer]:
+            - generic [ref=e155]: Data
+          - tab "Code, 3 of 7" [ref=e156] [cursor=pointer]:
+            - generic [ref=e157]: Code
+          - tab "Models, 4 of 7" [ref=e158] [cursor=pointer]:
+            - generic [ref=e159]: Models
+          - tab "Discussion, 5 of 7" [selected] [ref=e160] [cursor=pointer]:
+            - generic [ref=e161]: Discussion
+          - tab "Leaderboard, 6 of 7" [ref=e162] [cursor=pointer]:
+            - generic [ref=e163]: Leaderboard
+          - tab "Rules, 7 of 7" [ref=e164] [cursor=pointer]:
+            - generic [ref=e165]: Rules
+        - separator [ref=e167]
+      - generic [ref=e177]:
+        - generic [ref=e178]:
+          - generic [ref=e179]:
+            - generic [ref=e180]:
+              - link "Bovard Doerschuk-Tiberi's profile" [ref=e181] [cursor=pointer]:
+                - /url: /bovard
+                - generic "Bovard Doerschuk-Tiberi" [ref=e182]
+                - img [ref=e183]
+              - generic [ref=e186]:
+                - link "Bovard Doerschuk-Tiberi" [ref=e187] [cursor=pointer]:
+                  - /url: /bovard
+                - text: ·
+                - generic [ref=e188]: Posted 14 days ago
+              - text: ·
+              - generic [ref=e189]: Kaggle Staff
+            - generic [ref=e190]:
+              - generic [ref=e191]:
+                - button "Upvote" [ref=e192] [cursor=pointer]:
+                  - generic [ref=e193]: arrow_drop_up
+                - button "37 votes" [ref=e194] [cursor=pointer]: "37"
+              - button "More Options for this Topic" [ref=e195] [cursor=pointer]: more_vert
+            - heading "Orbit Wars top-10% daily episode replay datasets" [level=3] [ref=e196]
+            - generic [ref=e199]:
+              - paragraph [ref=e200]:
+                - text: I've published a per-day series of replay datasets covering
+                - link "Orbit Wars (opens in a new tab)" [ref=e201] [cursor=pointer]:
+                  - /url: https://www.kaggle.com/competitions/orbit-wars
+                  - text: Orbit Wars
+                - text: ", one dataset per UTC day from"
+                - strong [ref=e202]: 2026-04-16 through 2026-05-04
+                - text: . Each dataset contains the highest-quality matchups of that day - useful for opponent analysis, imitation learning, or just spectating top-of-leaderboard play.
+              - heading "Methodology" [level=2] [ref=e203]
+              - paragraph [ref=e204]: "For each UTC day:"
+              - list [ref=e205]:
+                - listitem [ref=e206]:
+                  - text: Query for every
+                  - code [ref=e207]: Orbit Wars
+                  - text: episode created that day.
+                - listitem [ref=e208]:
+                  - text: For each episode, sum
+                  - strong [ref=e209]: both agents' post-episode rating
+                  - text: (
+                  - code [ref=e210]: UpdatedScore
+                  - text: ). This biases toward matchups where strong bots played strong bots.
+                - listitem [ref=e211]:
+                  - text: Keep the
+                  - strong [ref=e212]: top 10%
+                  - text: of episodes by that summed rating.
+                - listitem [ref=e213]: Download replay JSONs in priority order (highest sum first).
+                - listitem [ref=e214]:
+                  - text: Stop as soon as the next replay would push the total over
+                  - strong [ref=e215]: 20 GiB
+                  - text: (most days are well under).
+                - listitem [ref=e216]: Bundle the chosen replays and publish.
+              - paragraph [ref=e217]: "Each dataset contains:"
+              - list [ref=e218]:
+                - listitem [ref=e219]:
+                  - code [ref=e220]: episodes.tar.gz
+                  - text: — the replay JSONs, extracts to
+                  - code [ref=e221]: "episodes/{episode_id}.json"
+                - listitem [ref=e222]:
+                  - code [ref=e223]: manifest.csv
+                  - text: — episode_id, create_time, sum_score, min_score, avg_score, scores, submission_ids, size_bytes (in priority order)
+              - heading "Datasets" [level=2] [ref=e224]
+              - table [ref=e225]:
+                - rowgroup [ref=e226]:
+                  - row "Date Dataset" [ref=e227]:
+                    - columnheader "Date" [ref=e228]
+                    - columnheader "Dataset" [ref=e229]
+                - rowgroup [ref=e230]:
+                  - row "2026-04-16 bovard/orbit-wars-top10-episodes-2026-04-16 (opens in a new tab)" [ref=e231]:
+                    - cell "2026-04-16" [ref=e232]
+                    - cell "bovard/orbit-wars-top10-episodes-2026-04-16 (opens in a new tab)" [ref=e233]:
+                      - link "bovard/orbit-wars-top10-episodes-2026-04-16 (opens in a new tab)" [ref=e234] [cursor=pointer]:
+                        - /url: https://www.kaggle.com/datasets/bovard/orbit-wars-top10-episodes-2026-04-16
+                        - text: bovard/orbit-wars-top10-episodes-2026-04-16
+                  - row "2026-04-17 bovard/orbit-wars-top10-episodes-2026-04-17 (opens in a new tab)" [ref=e235]:
+                    - cell "2026-04-17" [ref=e236]
+                    - cell "bovard/orbit-wars-top10-episodes-2026-04-17 (opens in a new tab)" [ref=e237]:
+                      - link "bovard/orbit-wars-top10-episodes-2026-04-17 (opens in a new tab)" [ref=e238] [cursor=pointer]:
+                        - /url: https://www.kaggle.com/datasets/bovard/orbit-wars-top10-episodes-2026-04-17
+                        - text: bovard/orbit-wars-top10-episodes-2026-04-17
+                  - row "2026-04-18 bovard/orbit-wars-top10-episodes-2026-04-18 (opens in a new tab)" [ref=e239]:
+                    - cell "2026-04-18" [ref=e240]
+                    - cell "bovard/orbit-wars-top10-episodes-2026-04-18 (opens in a new tab)" [ref=e241]:
+                      - link "bovard/orbit-wars-top10-episodes-2026-04-18 (opens in a new tab)" [ref=e242] [cursor=pointer]:
+                        - /url: https://www.kaggle.com/datasets/bovard/orbit-wars-top10-episodes-2026-04-18
+                        - text: bovard/orbit-wars-top10-episodes-2026-04-18
+                  - row "2026-04-19 bovard/orbit-wars-top10-episodes-2026-04-19 (opens in a new tab)" [ref=e243]:
+                    - cell "2026-04-19" [ref=e244]
+                    - cell "bovard/orbit-wars-top10-episodes-2026-04-19 (opens in a new tab)" [ref=e245]:
+                      - link "bovard/orbit-wars-top10-episodes-2026-04-19 (opens in a new tab)" [ref=e246] [cursor=pointer]:
+                        - /url: https://www.kaggle.com/datasets/bovard/orbit-wars-top10-episodes-2026-04-19
+                        - text: bovard/orbit-wars-top10-episodes-2026-04-19
+                  - row "2026-04-20 bovard/orbit-wars-top10-episodes-2026-04-20 (opens in a new tab)" [ref=e247]:
+                    - cell "2026-04-20" [ref=e248]
+                    - cell "bovard/orbit-wars-top10-episodes-2026-04-20 (opens in a new tab)" [ref=e249]:
+                      - link "bovard/orbit-wars-top10-episodes-2026-04-20 (opens in a new tab)" [ref=e250] [cursor=pointer]:
+                        - /url: https://www.kaggle.com/datasets/bovard/orbit-wars-top10-episodes-2026-04-20
+                        - text: bovard/orbit-wars-top10-episodes-2026-04-20
+                  - row "2026-04-21 bovard/orbit-wars-top10-episodes-2026-04-21 (opens in a new tab)" [ref=e251]:
+                    - cell "2026-04-21" [ref=e252]
+                    - cell "bovard/orbit-wars-top10-episodes-2026-04-21 (opens in a new tab)" [ref=e253]:
+                      - link "bovard/orbit-wars-top10-episodes-2026-04-21 (opens in a new tab)" [ref=e254] [cursor=pointer]:
+                        - /url: https://www.kaggle.com/datasets/bovard/orbit-wars-top10-episodes-2026-04-21
+                        - text: bovard/orbit-wars-top10-episodes-2026-04-21
+                  - row "2026-04-22 bovard/orbit-wars-top10-episodes-2026-04-22 (opens in a new tab)" [ref=e255]:
+                    - cell "2026-04-22" [ref=e256]
+                    - cell "bovard/orbit-wars-top10-episodes-2026-04-22 (opens in a new tab)" [ref=e257]:
+                      - link "bovard/orbit-wars-top10-episodes-2026-04-22 (opens in a new tab)" [ref=e258] [cursor=pointer]:
+                        - /url: https://www.kaggle.com/datasets/bovard/orbit-wars-top10-episodes-2026-04-22
+                        - text: bovard/orbit-wars-top10-episodes-2026-04-22
+                  - row "2026-04-23 bovard/orbit-wars-top10-episodes-2026-04-23 (opens in a new tab)" [ref=e259]:
+                    - cell "2026-04-23" [ref=e260]
+                    - cell "bovard/orbit-wars-top10-episodes-2026-04-23 (opens in a new tab)" [ref=e261]:
+                      - link "bovard/orbit-wars-top10-episodes-2026-04-23 (opens in a new tab)" [ref=e262] [cursor=pointer]:
+                        - /url: https://www.kaggle.com/datasets/bovard/orbit-wars-top10-episodes-2026-04-23
+                        - text: bovard/orbit-wars-top10-episodes-2026-04-23
+                  - row "2026-04-24 bovard/orbit-wars-top10-episodes-2026-04-24 (opens in a new tab)" [ref=e263]:
+                    - cell "2026-04-24" [ref=e264]
+                    - cell "bovard/orbit-wars-top10-episodes-2026-04-24 (opens in a new tab)" [ref=e265]:
+                      - link "bovard/orbit-wars-top10-episodes-2026-04-24 (opens in a new tab)" [ref=e266] [cursor=pointer]:
+                        - /url: https://www.kaggle.com/datasets/bovard/orbit-wars-top10-episodes-2026-04-24
+                        - text: bovard/orbit-wars-top10-episodes-2026-04-24
+                  - row "2026-04-25 bovard/orbit-wars-top10-episodes-2026-04-25 (opens in a new tab)" [ref=e267]:
+                    - cell "2026-04-25" [ref=e268]
+                    - cell "bovard/orbit-wars-top10-episodes-2026-04-25 (opens in a new tab)" [ref=e269]:
+                      - link "bovard/orbit-wars-top10-episodes-2026-04-25 (opens in a new tab)" [ref=e270] [cursor=pointer]:
+                        - /url: https://www.kaggle.com/datasets/bovard/orbit-wars-top10-episodes-2026-04-25
+                        - text: bovard/orbit-wars-top10-episodes-2026-04-25
+                  - row "2026-04-26 bovard/orbit-wars-top10-episodes-2026-04-26 (opens in a new tab)" [ref=e271]:
+                    - cell "2026-04-26" [ref=e272]
+                    - cell "bovard/orbit-wars-top10-episodes-2026-04-26 (opens in a new tab)" [ref=e273]:
+                      - link "bovard/orbit-wars-top10-episodes-2026-04-26 (opens in a new tab)" [ref=e274] [cursor=pointer]:
+                        - /url: https://www.kaggle.com/datasets/bovard/orbit-wars-top10-episodes-2026-04-26
+                        - text: bovard/orbit-wars-top10-episodes-2026-04-26
+                  - row "2026-04-27 bovard/orbit-wars-top10-episodes-2026-04-27 (opens in a new tab)" [ref=e275]:
+                    - cell "2026-04-27" [ref=e276]
+                    - cell "bovard/orbit-wars-top10-episodes-2026-04-27 (opens in a new tab)" [ref=e277]:
+                      - link "bovard/orbit-wars-top10-episodes-2026-04-27 (opens in a new tab)" [ref=e278] [cursor=pointer]:
+                        - /url: https://www.kaggle.com/datasets/bovard/orbit-wars-top10-episodes-2026-04-27
+                        - text: bovard/orbit-wars-top10-episodes-2026-04-27
+                  - row "2026-04-28 bovard/orbit-wars-top10-episodes-2026-04-28 (opens in a new tab)" [ref=e279]:
+                    - cell "2026-04-28" [ref=e280]
+                    - cell "bovard/orbit-wars-top10-episodes-2026-04-28 (opens in a new tab)" [ref=e281]:
+                      - link "bovard/orbit-wars-top10-episodes-2026-04-28 (opens in a new tab)" [ref=e282] [cursor=pointer]:
+                        - /url: https://www.kaggle.com/datasets/bovard/orbit-wars-top10-episodes-2026-04-28
+                        - text: bovard/orbit-wars-top10-episodes-2026-04-28
+                  - row "2026-04-29 bovard/orbit-wars-top10-episodes-2026-04-29 (opens in a new tab)" [ref=e283]:
+                    - cell "2026-04-29" [ref=e284]
+                    - cell "bovard/orbit-wars-top10-episodes-2026-04-29 (opens in a new tab)" [ref=e285]:
+                      - link "bovard/orbit-wars-top10-episodes-2026-04-29 (opens in a new tab)" [ref=e286] [cursor=pointer]:
+                        - /url: https://www.kaggle.com/datasets/bovard/orbit-wars-top10-episodes-2026-04-29
+                        - text: bovard/orbit-wars-top10-episodes-2026-04-29
+                  - row "2026-04-30 bovard/orbit-wars-top10-episodes-2026-04-30 (opens in a new tab)" [ref=e287]:
+                    - cell "2026-04-30" [ref=e288]
+                    - cell "bovard/orbit-wars-top10-episodes-2026-04-30 (opens in a new tab)" [ref=e289]:
+                      - link "bovard/orbit-wars-top10-episodes-2026-04-30 (opens in a new tab)" [ref=e290] [cursor=pointer]:
+                        - /url: https://www.kaggle.com/datasets/bovard/orbit-wars-top10-episodes-2026-04-30
+                        - text: bovard/orbit-wars-top10-episodes-2026-04-30
+                  - row "2026-05-01 bovard/orbit-wars-top10-episodes-2026-05-01 (opens in a new tab)" [ref=e291]:
+                    - cell "2026-05-01" [ref=e292]
+                    - cell "bovard/orbit-wars-top10-episodes-2026-05-01 (opens in a new tab)" [ref=e293]:
+                      - link "bovard/orbit-wars-top10-episodes-2026-05-01 (opens in a new tab)" [ref=e294] [cursor=pointer]:
+                        - /url: https://www.kaggle.com/datasets/bovard/orbit-wars-top10-episodes-2026-05-01
+                        - text: bovard/orbit-wars-top10-episodes-2026-05-01
+                  - row "2026-05-02 bovard/orbit-wars-top10-episodes-2026-05-02 (opens in a new tab)" [ref=e295]:
+                    - cell "2026-05-02" [ref=e296]
+                    - cell "bovard/orbit-wars-top10-episodes-2026-05-02 (opens in a new tab)" [ref=e297]:
+                      - link "bovard/orbit-wars-top10-episodes-2026-05-02 (opens in a new tab)" [ref=e298] [cursor=pointer]:
+                        - /url: https://www.kaggle.com/datasets/bovard/orbit-wars-top10-episodes-2026-05-02
+                        - text: bovard/orbit-wars-top10-episodes-2026-05-02
+                  - row "2026-05-03 bovard/orbit-wars-top10-episodes-2026-05-03 (opens in a new tab)" [ref=e299]:
+                    - cell "2026-05-03" [ref=e300]
+                    - cell "bovard/orbit-wars-top10-episodes-2026-05-03 (opens in a new tab)" [ref=e301]:
+                      - link "bovard/orbit-wars-top10-episodes-2026-05-03 (opens in a new tab)" [ref=e302] [cursor=pointer]:
+                        - /url: https://www.kaggle.com/datasets/bovard/orbit-wars-top10-episodes-2026-05-03
+                        - text: bovard/orbit-wars-top10-episodes-2026-05-03
+                  - row "2026-05-04 bovard/orbit-wars-top10-episodes-2026-05-04 (opens in a new tab)" [ref=e303]:
+                    - cell "2026-05-04" [ref=e304]
+                    - cell "bovard/orbit-wars-top10-episodes-2026-05-04 (opens in a new tab)" [ref=e305]:
+                      - link "bovard/orbit-wars-top10-episodes-2026-05-04 (opens in a new tab)" [ref=e306] [cursor=pointer]:
+                        - /url: https://www.kaggle.com/datasets/bovard/orbit-wars-top10-episodes-2026-05-04
+                        - text: bovard/orbit-wars-top10-episodes-2026-05-04
+              - heading "Use it in a Kaggle notebook" [level=2] [ref=e307]
+              - paragraph [ref=e308]:
+                - text: Add the dataset(s) you want via
+                - strong [ref=e309]: + Add Data
+                - text: → search
+                - code [ref=e310]: orbit-wars-top10-episodes
+                - text: . Each one mounts at
+                - code [ref=e311]: /kaggle/input/<dataset-slug>/
+                - text: .
+              - code [ref=e313]:
+                - text: import csv, json, tarfile from pathlib import Path DAY = "2026-05-04" ROOT = Path(
+                - generic [ref=e314]: "f\"/kaggle/input/orbit-wars-top10-episodes-{DAY}\""
+                - text: ") # Manifest: one row per episode, in priority (highest sum_score first) with (ROOT / \"manifest.csv\").open() as f: manifest = list(csv.DictReader(f)) print("
+                - generic [ref=e315]:
+                  - text: f"
+                  - generic [ref=e316]: "{len(manifest)}"
+                  - text: episodes; top sum_score =
+                  - generic [ref=e317]: "{manifest[0]['sum_score']}"
+                  - text: "\""
+                - text: ") # Stream replays straight out of the tarball — no need to fully extract with tarfile.open(ROOT / \"episodes.tar.gz\", \"r:gz\") as tar: for row in manifest[:5]: member = tar.getmember("
+                - generic [ref=e318]:
+                  - text: f"episodes/
+                  - generic [ref=e319]: "{row['episode_id']}"
+                  - text: .json"
+                - text: ") replay = json.load(tar.extractfile(member)) # ... do something with `replay` ..."
+              - heading "Download with the Kaggle CLI" [level=2] [ref=e320]
+              - code [ref=e322]: "pip install kaggle # if needed; ensure ~/.kaggle/kaggle.json is set up kaggle datasets download bovard/orbit-wars-top10-episodes-2026-05-04 --unzip tar -xzf episodes.tar.gz # extracts to episodes/{episode_id}.json"
+              - paragraph [ref=e323]: "Or grab the whole series:"
+              - code [ref=e325]: "for d in 2026-04-{16..30} 2026-05-{01..04}; do kaggle datasets download \"bovard/orbit-wars-top10-episodes-$d\" --unzip -p \"$d\" done"
+              - paragraph [ref=e326]: "License: CC0-1.0. Replay JSON schema follows the standard Kaggle Environments format."
+            - generic [ref=e329]:
+              - generic [ref=e331]:
+                - img [ref=e333]
+                - generic [ref=e334]: "8"
+              - generic [ref=e336]:
+                - img [ref=e338]
+                - generic [ref=e339]: "5"
+          - separator [ref=e340]
+        - generic [ref=e341]:
+          - generic [ref=e342]:
+            - paragraph [ref=e345]:
+              - paragraph [ref=e346]:
+                - text: Please
+                - link "sign in opens in new window" [ref=e347] [cursor=pointer]:
+                  - /url: /account/login
+                  - text: sign in
+                - text: to reply to this topic.
+            - separator [ref=e348]
+          - generic [ref=e350]:
+            - generic [ref=e351]:
+              - generic [ref=e352]: comment
+              - generic [ref=e353]:
+                - heading "13 Comments" [level=2] [ref=e354]
+                - link "Go To Appreciation Comments (3 total)" [ref=e355] [cursor=pointer]:
+                  - /url: /competitions/orbit-wars/discussion/697413#appreciation
+                  - text: 3 appreciation comments
+            - generic [ref=e358]:
+              - combobox "Select combobox. Hotness currently selected." [ref=e359] [cursor=pointer]:
+                - generic [ref=e361]: Hotness
+              - textbox: Hotness
+              - img
+          - generic [ref=e362]:
+            - generic [ref=e363]:
+              - generic [ref=e367]:
+                - link "Bovard Doerschuk-Tiberi's profile" [ref=e368] [cursor=pointer]:
+                  - /url: /bovard
+                  - generic "Bovard Doerschuk-Tiberi" [ref=e369]
+                  - img [ref=e370]
+                - generic [ref=e375]:
+                  - generic [ref=e376]:
+                    - link "Bovard Doerschuk-Tiberi" [ref=e377] [cursor=pointer]:
+                      - /url: /bovard
+                      - heading "Bovard Doerschuk-Tiberi" [level=3] [ref=e378]
+                    - generic [ref=e380]: Kaggle Staff
+                  - paragraph [ref=e382]: Posted 8 days ago
+                - generic [ref=e384]:
+                  - generic [ref=e385]:
+                    - button "Upvote" [ref=e386] [cursor=pointer]:
+                      - generic [ref=e387]: arrow_drop_up
+                    - button "2 votes" [ref=e388] [cursor=pointer]: "2"
+                  - button "More Options for this Comment" [ref=e389] [cursor=pointer]: more_vert
+                - paragraph [ref=e393]: I'm out this week but I'll redo these and get the dataset caught up (with 2p and 4p) when I get back next week!
+              - separator [ref=e394]
+            - generic [ref=e395]:
+              - generic [ref=e399]:
+                - link "Son Pham's profile" [ref=e400] [cursor=pointer]:
+                  - /url: /sonphamorg
+                  - generic "Son Pham" [ref=e401]
+                  - img [ref=e402]
+                - generic [ref=e407]:
+                  - link "Son Pham" [ref=e409] [cursor=pointer]:
+                    - /url: /sonphamorg
+                    - heading "Son Pham" [level=3] [ref=e410]
+                  - generic [ref=e411]:
+                    - paragraph [ref=e412]: Posted 14 days ago
+                    - paragraph [ref=e414]: · 69th in this Competition
+                - generic [ref=e416]:
+                  - generic [ref=e417]:
+                    - button "Upvote" [ref=e418] [cursor=pointer]:
+                      - generic [ref=e419]: arrow_drop_up
+                    - button "1 votes" [ref=e420] [cursor=pointer]: "1"
+                  - button "More Options for this Comment" [ref=e421] [cursor=pointer]: more_vert
+                - paragraph [ref=e425]: This is very welcome especially for RL Training :)). Thank you!
+              - separator [ref=e426]
+            - generic [ref=e427]:
+              - generic [ref=e431]:
+                - link "Slawek Biel's profile" [ref=e432] [cursor=pointer]:
+                  - /url: /slawekbiel
+                  - generic "Slawek Biel" [ref=e433]
+                  - img [ref=e434]
+                - generic [ref=e439]:
+                  - link "Slawek Biel" [ref=e441] [cursor=pointer]:
+                    - /url: /slawekbiel
+                    - heading "Slawek Biel" [level=3] [ref=e442]
+                  - generic [ref=e443]:
+                    - paragraph [ref=e444]: Posted 13 days ago
+                    - paragraph [ref=e446]: · 58th in this Competition
+                - generic [ref=e448]:
+                  - generic [ref=e449]:
+                    - button "Upvote" [ref=e450] [cursor=pointer]:
+                      - generic [ref=e451]: arrow_drop_up
+                    - button "2 votes" [ref=e452] [cursor=pointer]: "2"
+                  - button "More Options for this Comment" [ref=e453] [cursor=pointer]: more_vert
+                - paragraph [ref=e457]:
+                  - text: It looks like some of them only have two actual json files in it?
+                  - link "https://www.kaggle.com/datasets/bovard/orbit-wars-top10-episodes-2026-04-20 (opens in a new tab)" [ref=e458] [cursor=pointer]:
+                    - /url: https://www.kaggle.com/datasets/bovard/orbit-wars-top10-episodes-2026-04-20
+                    - text: https://www.kaggle.com/datasets/bovard/orbit-wars-top10-episodes-2026-04-20
+                - generic [ref=e464]:
+                  - link "greySnow's profile" [ref=e465] [cursor=pointer]:
+                    - /url: /shlomoron
+                    - generic "greySnow" [ref=e466]
+                    - img [ref=e467]
+                  - generic [ref=e472]:
+                    - link "greySnow" [ref=e474] [cursor=pointer]:
+                      - /url: /shlomoron
+                      - heading "greySnow" [level=3] [ref=e475]
+                    - generic [ref=e476]:
+                      - paragraph [ref=e477]: Posted 13 days ago
+                      - paragraph [ref=e479]: · 807th in this Competition
+                  - generic [ref=e481]:
+                    - generic [ref=e482]:
+                      - button "Upvote" [ref=e483] [cursor=pointer]:
+                        - generic [ref=e484]: arrow_drop_up
+                      - button "2 votes" [ref=e485] [cursor=pointer]: "2"
+                    - button "More Options for this Comment" [ref=e486] [cursor=pointer]: more_vert
+                  - paragraph [ref=e490]:
+                    - text: Actually, most of them are only handful of episodes so it seems.
+                    - link "@bovard (opens in a new tab)" [ref=e491] [cursor=pointer]:
+                      - /url: https://www.kaggle.com/bovard
+                      - text: "@bovard"
+                    - text: please look into it. The idea is great but the bug should be fixed.
+                  - generic [ref=e492]:
+                    - generic [ref=e497]:
+                      - link "Harui-ig's profile" [ref=e498] [cursor=pointer]:
+                        - /url: /haruiig
+                        - generic "Harui-ig" [ref=e499]
+                        - img [ref=e500]
+                      - generic [ref=e505]:
+                        - link "Harui-ig" [ref=e507] [cursor=pointer]:
+                          - /url: /haruiig
+                          - heading "Harui-ig" [level=3] [ref=e508]
+                        - generic [ref=e509]:
+                          - paragraph [ref=e510]: Posted 11 days ago
+                          - paragraph [ref=e512]: · 1526th in this Competition
+                      - generic [ref=e514]:
+                        - generic [ref=e515]:
+                          - button "Upvote" [ref=e516] [cursor=pointer]:
+                            - generic [ref=e517]: arrow_drop_up
+                          - button "1 votes" [ref=e518] [cursor=pointer]: "1"
+                        - button "More Options for this Comment" [ref=e519] [cursor=pointer]: more_vert
+                      - generic [ref=e522]:
+                        - paragraph [ref=e523]: I really want bovard's help about this problem.
+                        - paragraph [ref=e524]: In addition, as far as i(and codex) know, there is no 2-player replay jsons, even though there are 2p game rows in manifest.csv, but the replay doesn't exist)
+                    - generic [ref=e529]:
+                      - link "Harui-ig's profile" [ref=e530] [cursor=pointer]:
+                        - /url: /haruiig
+                        - generic "Harui-ig" [ref=e531]
+                        - img [ref=e532]
+                      - generic [ref=e537]:
+                        - link "Harui-ig" [ref=e539] [cursor=pointer]:
+                          - /url: /haruiig
+                          - heading "Harui-ig" [level=3] [ref=e540]
+                        - generic [ref=e541]:
+                          - paragraph [ref=e542]: Posted 9 days ago
+                          - paragraph [ref=e544]: · 1526th in this Competition
+                      - generic [ref=e546]:
+                        - generic [ref=e547]:
+                          - button "Upvote" [ref=e548] [cursor=pointer]:
+                            - generic [ref=e549]: arrow_drop_up
+                          - button "1 votes" [ref=e550] [cursor=pointer]: "1"
+                        - button "More Options for this Comment" [ref=e551] [cursor=pointer]: more_vert
+                      - generic [ref=e554]:
+                        - paragraph [ref=e555]: "Extra detail here:"
+                        - paragraph [ref=e556]:
+                          - link "@bovrd (opens in a new tab)" [ref=e557] [cursor=pointer]:
+                            - /url: https://www.kaggle.com/bovrd
+                            - text: "@bovrd"
+                          - text: Could you please look into this problem? there's so many excluded episodes than manifest.csv claims.
+                        - code [ref=e559]: date 2p present 2p missing 4p present 4p missing 2026-04-16 0 0 11 0 2026-04-17 0 0 261 0 2026-04-18 0 0 604 0 2026-04-19 0 0 2 890 2026-04-20 0 5 2 1108 2026-04-21 0 52 2 1499 2026-04-22 0 23 2 1983 2026-04-23 0 11 2 2268 2026-04-24 0 33 2 2504 2026-04-25 0 5 2 2614 2026-04-26 0 10 2 2548 2026-04-27 0 3 2 2672 2026-04-28 0 0 2 2612 2026-04-29 0 0 2 2751 2026-04-30 0 0 2 2719 2026-05-01 0 0 2 2608 2026-05-02 0 0 2 2637 2026-05-03 0 0 2 2669 2026-05-04 0 0 2630 0
+                        - paragraph [ref=e560]: "Totals:"
+                        - code [ref=e562]: "2p present: 0 2p missing: 142 4p present: 3536 4p missing: 34082"
+                        - paragraph [ref=e563]: In other words, the manifest contains 37,760 expected episodes, but only 3,536 replay JSON files are present. The missing files are not only 2-player episodes; most of the missing entries are 4-player episodes from 2026-04-19 through 2026-05-03.
+              - separator [ref=e564]
+            - generic [ref=e565]:
+              - generic [ref=e569]:
+                - link "Wasiq Ali's profile" [ref=e570] [cursor=pointer]:
+                  - /url: /wasiqaliyasir
+                  - generic "Wasiq Ali" [ref=e571]
+                  - img [ref=e572]
+                - generic [ref=e577]:
+                  - link "Wasiq Ali" [ref=e579] [cursor=pointer]:
+                    - /url: /wasiqaliyasir
+                    - heading "Wasiq Ali" [level=3] [ref=e580]
+                  - generic [ref=e581]:
+                    - paragraph [ref=e582]: Posted 13 days ago
+                    - paragraph [ref=e584]: · 794th in this Competition
+                - generic [ref=e586]:
+                  - generic [ref=e587]:
+                    - button "Upvote" [ref=e588] [cursor=pointer]:
+                      - generic [ref=e589]: arrow_drop_up
+                    - button "0 votes" [ref=e590] [cursor=pointer]: "0"
+                  - button "More Options for this Comment" [ref=e591] [cursor=pointer]: more_vert
+                - paragraph [ref=e595]: ok thats great and thanks for saring the intrested information to us it can help us a lot and it is best for visualizaing and analyzing the results to make it accordingly in organized and well structured way
+              - separator [ref=e596]
+            - generic [ref=e597]:
+              - generic [ref=e601]:
+                - link "faizan's profile" [ref=e602] [cursor=pointer]:
+                  - /url: /faizan729
+                  - generic "faizan" [ref=e603]
+                  - img [ref=e604]
+                - generic [ref=e609]:
+                  - link "faizan" [ref=e611] [cursor=pointer]:
+                    - /url: /faizan729
+                    - heading "faizan" [level=3] [ref=e612]
+                  - paragraph [ref=e614]: Posted 10 days ago
+                - generic [ref=e616]:
+                  - generic [ref=e617]:
+                    - button "Upvote" [ref=e618] [cursor=pointer]:
+                      - generic [ref=e619]: arrow_drop_up
+                    - button "0 votes" [ref=e620] [cursor=pointer]: "0"
+                  - button "More Options for this Comment" [ref=e621] [cursor=pointer]: more_vert
+                - paragraph [ref=e625]: ok thats great and thanks for saring the intrested information to us it can help us a lot
+              - separator [ref=e626]
+            - generic [ref=e627]:
+              - generic [ref=e631]:
+                - link "Aniket Kumar's profile" [ref=e632] [cursor=pointer]:
+                  - /url: /kalkiavatar3
+                  - generic "Aniket Kumar" [ref=e633]
+                  - img [ref=e634]
+                - generic [ref=e639]:
+                  - link "Aniket Kumar" [ref=e641] [cursor=pointer]:
+                    - /url: /kalkiavatar3
+                    - heading "Aniket Kumar" [level=3] [ref=e642]
+                  - generic [ref=e643]:
+                    - paragraph [ref=e644]: Posted 12 days ago
+                    - paragraph [ref=e646]: · 724th in this Competition
+                - generic [ref=e648]:
+                  - generic [ref=e649]:
+                    - button "Upvote" [ref=e650] [cursor=pointer]:
+                      - generic [ref=e651]: arrow_drop_up
+                    - button "0 votes" [ref=e652] [cursor=pointer]: "0"
+                  - button "More Options for this Comment" [ref=e653] [cursor=pointer]: more_vert
+                - paragraph [ref=e657]: Thanks for this. Will check if it works well.
+              - separator [ref=e658]
+            - generic [ref=e659]:
+              - generic [ref=e663]:
+                - link "Giacomo Piatelli's profile" [ref=e664] [cursor=pointer]:
+                  - /url: /giacomopiatelli
+                  - generic "Giacomo Piatelli" [ref=e665]
+                  - img [ref=e666]
+                - generic [ref=e671]:
+                  - link "Giacomo Piatelli" [ref=e673] [cursor=pointer]:
+                    - /url: /giacomopiatelli
+                    - heading "Giacomo Piatelli" [level=3] [ref=e674]
+                  - generic [ref=e675]:
+                    - paragraph [ref=e676]: Posted 14 days ago
+                    - paragraph [ref=e678]: · 627th in this Competition
+                - generic [ref=e680]:
+                  - generic [ref=e681]:
+                    - button "Upvote" [ref=e682] [cursor=pointer]:
+                      - generic [ref=e683]: arrow_drop_up
+                    - button "0 votes" [ref=e684] [cursor=pointer]: "0"
+                  - button "More Options for this Comment" [ref=e685] [cursor=pointer]: more_vert
+                - paragraph [ref=e689]: It seems like in some folders what is written in the manifest doesn't coincide with the amount of logs.
+              - separator [ref=e690]
+            - generic [ref=e691]:
+              - generic [ref=e695]:
+                - link "Bovard Doerschuk-Tiberi's profile" [ref=e696] [cursor=pointer]:
+                  - /url: /bovard
+                  - generic "Bovard Doerschuk-Tiberi" [ref=e697]
+                  - img [ref=e698]
+                - generic [ref=e703]:
+                  - generic [ref=e704]:
+                    - link "Bovard Doerschuk-Tiberi" [ref=e705] [cursor=pointer]:
+                      - /url: /bovard
+                      - heading "Bovard Doerschuk-Tiberi" [level=3] [ref=e706]
+                    - generic [ref=e708]: Kaggle Staff
+                  - paragraph [ref=e710]: Posted 14 days ago
+                - generic [ref=e712]:
+                  - generic [ref=e713]:
+                    - button "Upvote" [ref=e714] [cursor=pointer]:
+                      - generic [ref=e715]: arrow_drop_up
+                    - button "0 votes" [ref=e716] [cursor=pointer]: "0"
+                  - button "More Options for this Comment" [ref=e717] [cursor=pointer]: more_vert
+                - paragraph [ref=e721]: I'm working on make this an automatic daily process for sims comps, but until they I'll update this list every few days
+                - generic [ref=e727]:
+                  - link "Son Pham's profile" [ref=e728] [cursor=pointer]:
+                    - /url: /sonphamorg
+                    - generic "Son Pham" [ref=e729]
+                    - img [ref=e730]
+                  - generic [ref=e735]:
+                    - link "Son Pham" [ref=e737] [cursor=pointer]:
+                      - /url: /sonphamorg
+                      - heading "Son Pham" [level=3] [ref=e738]
+                    - generic [ref=e739]:
+                      - paragraph [ref=e740]: Posted 21 hours ago
+                      - paragraph [ref=e742]: · 69th in this Competition
+                  - generic [ref=e744]:
+                    - generic [ref=e745]:
+                      - button "Upvote" [ref=e746] [cursor=pointer]:
+                        - generic [ref=e747]: arrow_drop_up
+                      - button "0 votes" [ref=e748] [cursor=pointer]: "0"
+                    - button "More Options for this Comment" [ref=e749] [cursor=pointer]: more_vert
+                  - paragraph [ref=e753]: How is the progress on this? Do we get the latest games from after 05-04 too?
+                  - generic [ref=e759]:
+                    - link "Bovard Doerschuk-Tiberi's profile" [ref=e760] [cursor=pointer]:
+                      - /url: /bovard
+                      - generic "Bovard Doerschuk-Tiberi" [ref=e761]
+                      - img [ref=e762]
+                    - generic [ref=e767]:
+                      - generic [ref=e768]:
+                        - link "Bovard Doerschuk-Tiberi" [ref=e769] [cursor=pointer]:
+                          - /url: /bovard
+                          - heading "Bovard Doerschuk-Tiberi" [level=3] [ref=e770]
+                        - generic [ref=e772]: Kaggle Staff
+                      - paragraph [ref=e774]: Posted 13 hours ago
+                    - generic [ref=e776]:
+                      - generic [ref=e777]:
+                        - button "Upvote" [ref=e778] [cursor=pointer]:
+                          - generic [ref=e779]: arrow_drop_up
+                        - button "2 votes" [ref=e780] [cursor=pointer]: "2"
+                      - button "More Options for this Comment" [ref=e781] [cursor=pointer]: more_vert
+                    - paragraph [ref=e785]: should have an update on this tomorrow!
+              - separator [ref=e786]
+          - generic [ref=e787]:
+            - heading "Appreciation (3)" [level=2] [ref=e789]
+            - generic [ref=e790]:
+              - generic [ref=e794]:
+                - link "Russell Kirk's profile" [ref=e795] [cursor=pointer]:
+                  - /url: /russcore
+                  - generic "Russell Kirk" [ref=e796]
+                  - img [ref=e797]
+                - generic [ref=e802]:
+                  - link "Russell Kirk" [ref=e804] [cursor=pointer]:
+                    - /url: /russcore
+                    - heading "Russell Kirk" [level=3] [ref=e805]
+                  - generic [ref=e806]:
+                    - paragraph [ref=e807]: Posted 14 days ago
+                    - paragraph [ref=e809]: · 1078th in this Competition
+                - generic [ref=e811]:
+                  - generic [ref=e812]:
+                    - button "Upvote" [ref=e813] [cursor=pointer]:
+                      - generic [ref=e814]: arrow_drop_up
+                    - button "2 votes" [ref=e815] [cursor=pointer]: "2"
+                  - button "More Options for this Comment" [ref=e816] [cursor=pointer]: more_vert
+                - paragraph [ref=e820]: Very helpful! Thanks!! (I keep meaning to do a regular reply, and it does this… I mean, it's appropriate, but not intended)
+              - separator [ref=e821]
+            - generic [ref=e822]:
+              - generic [ref=e826]:
+                - link "Janek Đào's profile" [ref=e827] [cursor=pointer]:
+                  - /url: /ojanek
+                  - generic "Janek Đào" [ref=e828]
+                  - img [ref=e829]
+                - generic [ref=e834]:
+                  - link "Janek Đào" [ref=e836] [cursor=pointer]:
+                    - /url: /ojanek
+                    - heading "Janek Đào" [level=3] [ref=e837]
+                  - generic [ref=e838]:
+                    - paragraph [ref=e839]: Posted 5 days ago
+                    - paragraph [ref=e841]: · 634th in this Competition
+                - generic [ref=e843]:
+                  - generic [ref=e844]:
+                    - button "Upvote" [ref=e845] [cursor=pointer]:
+                      - generic [ref=e846]: arrow_drop_up
+                    - button "0 votes" [ref=e847] [cursor=pointer]: "0"
+                  - button "More Options for this Comment" [ref=e848] [cursor=pointer]: more_vert
+                - paragraph [ref=e852]: woah this would helpful, thank you !!!!
+              - separator [ref=e853]
+            - generic [ref=e858]:
+              - link "Alexis Akanson's profile" [ref=e859] [cursor=pointer]:
+                - /url: /alexisakanson
+                - generic "Alexis Akanson" [ref=e860]
+                - img [ref=e861]
+              - generic [ref=e866]:
+                - link "Alexis Akanson" [ref=e868] [cursor=pointer]:
+                  - /url: /alexisakanson
+                  - heading "Alexis Akanson" [level=3] [ref=e869]
+                - paragraph [ref=e871]: Posted 11 days ago
+              - generic [ref=e873]:
+                - generic [ref=e874]:
+                  - button "Upvote" [ref=e875] [cursor=pointer]:
+                    - generic [ref=e876]: arrow_drop_up
+                  - button "0 votes" [ref=e877] [cursor=pointer]: "0"
+                - button "More Options for this Comment" [ref=e878] [cursor=pointer]: more_vert
+              - paragraph [ref=e882]: Thanks for this. Godbless
+  - alert [ref=e176]

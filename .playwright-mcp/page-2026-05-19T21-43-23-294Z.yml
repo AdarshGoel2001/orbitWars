@@ -1,0 +1,350 @@
+- generic [ref=e2]:
+  - navigation "Main Kaggle page navigation" [ref=e3]:
+    - generic [ref=e5]:
+      - button "Navigation menu" [ref=e7] [cursor=pointer]: menu
+      - link "Skip to content" [ref=e8] [cursor=pointer]:
+        - /url: "#site-content"
+        - text: Skip to
+        - text: content
+      - link "Return to Kaggle home page" [ref=e10] [cursor=pointer]:
+        - /url: /
+        - img "Kaggle" [ref=e11]
+    - button "Create" [ref=e13] [cursor=pointer]:
+      - img [ref=e14]
+      - generic [ref=e19]: Create
+    - generic [ref=e22]:
+      - list [ref=e23]:
+        - listitem "Home List Item" [ref=e24]:
+          - link "Home" [ref=e26] [cursor=pointer]:
+            - /url: /
+            - generic [ref=e27]:
+              - generic [ref=e30]: explore
+              - paragraph [ref=e32]: Home
+        - listitem "Competitions List Item" [ref=e33]:
+          - link "Competitions" [ref=e35] [cursor=pointer]:
+            - /url: /competitions
+            - generic [ref=e36]:
+              - generic [ref=e39]: emoji_events
+              - paragraph [ref=e41]: Competitions
+        - listitem "Benchmarks List Item" [ref=e43]:
+          - link "Benchmarks" [ref=e45] [cursor=pointer]:
+            - /url: /benchmarks
+            - generic [ref=e46]:
+              - generic [ref=e49]: leaderboard
+              - paragraph [ref=e51]: Benchmarks
+        - listitem "Game Arena List Item" [ref=e52]:
+          - link "Game Arena" [ref=e54] [cursor=pointer]:
+            - /url: /game-arena
+            - generic [ref=e55]:
+              - generic [ref=e58]: smart_toy
+              - paragraph [ref=e60]: Game Arena
+      - list [ref=e61]:
+        - listitem "Data Hub List Item" [ref=e62]:
+          - generic [ref=e63]:
+            - link "Data Hub" [ref=e64] [cursor=pointer]:
+              - /url: "#"
+              - generic [ref=e65]:
+                - generic [ref=e68]: code
+                - paragraph [ref=e70]: Data Hub
+            - button "Expand" [ref=e72] [cursor=pointer]: expand_more
+      - list [ref=e73]:
+        - listitem "More on Kaggle List Item" [ref=e74]:
+          - generic [ref=e75]:
+            - link "More on Kaggle" [ref=e76] [cursor=pointer]:
+              - /url: "#"
+              - generic [ref=e77]:
+                - generic [ref=e80]: format_list_bulleted
+                - paragraph [ref=e82]: More
+            - button "Expand" [ref=e84] [cursor=pointer]: expand_more
+  - navigation "Main menu, search and your account" [ref=e86]:
+    - generic [ref=e87]:
+      - generic [ref=e91]:
+        - generic [ref=e92]: search
+        - textbox "Search" [ref=e93]
+        - group
+      - generic [ref=e95]:
+        - link "Sign In" [ref=e97] [cursor=pointer]:
+          - /url: /account/login?phase=startSignInTab&returnUrl=%2Fcompetitions%2Forbit-wars%2Fdiscussion%2F700191
+          - button "Sign In" [ref=e98]:
+            - generic [ref=e99]: Sign In
+        - link "Register" [ref=e101] [cursor=pointer]:
+          - /url: /account/login?phase=startRegisterTab&returnUrl=%2Fcompetitions%2Forbit-wars%2Fdiscussion%2F700191
+          - button "Register" [ref=e102]:
+            - generic [ref=e103]: Register
+  - main [ref=e104]:
+    - generic [ref=e106]:
+      - generic [ref=e107]: Kaggle uses cookies from Google to deliver and enhance the quality of its services and to analyze traffic.
+      - generic [ref=e108]:
+        - link "Learn more" [ref=e109] [cursor=pointer]:
+          - /url: /cookies
+          - generic [ref=e110]: Learn more
+        - generic [ref=e111] [cursor=pointer]: OK, Got it.
+    - generic [ref=e114]:
+      - generic [ref=e116]:
+        - generic [ref=e117]:
+          - link "Kaggle's profile" [ref=e118] [cursor=pointer]:
+            - /url: /organizations/kaggle
+            - generic "Kaggle" [ref=e119]
+            - img [ref=e120]
+          - generic [ref=e123]:
+            - generic [ref=e125]: Kaggle
+            - generic [ref=e126]: · Featured Simulation Competition · a month to go
+          - generic [ref=e127]:
+            - button "Play in Browser" [ref=e128] [cursor=pointer]:
+              - generic [ref=e129]: chevron_right
+              - generic [ref=e130]: Play in Browser
+            - button "Join Competition" [ref=e132] [cursor=pointer]:
+              - generic [ref=e133]: Join Competition
+            - button "Competition options menu collapsed" [ref=e135] [cursor=pointer]: more_horiz
+        - generic [ref=e137]:
+          - heading "Orbit Wars" [level=1] [ref=e138]
+          - paragraph [ref=e140]: Conquer planets rotating around a sun in continuous 2D space. A real-time strategy game for 2 or 4 players.
+      - generic [ref=e144]:
+        - tablist [ref=e151]:
+          - tab "Overview, 1 of 7" [ref=e152] [cursor=pointer]:
+            - generic [ref=e153]: Overview
+          - tab "Data, 2 of 7" [ref=e154] [cursor=pointer]:
+            - generic [ref=e155]: Data
+          - tab "Code, 3 of 7" [ref=e156] [cursor=pointer]:
+            - generic [ref=e157]: Code
+          - tab "Models, 4 of 7" [ref=e158] [cursor=pointer]:
+            - generic [ref=e159]: Models
+          - tab "Discussion, 5 of 7" [selected] [ref=e160] [cursor=pointer]:
+            - generic [ref=e161]: Discussion
+          - tab "Leaderboard, 6 of 7" [ref=e162] [cursor=pointer]:
+            - generic [ref=e163]: Leaderboard
+          - tab "Rules, 7 of 7" [ref=e164] [cursor=pointer]:
+            - generic [ref=e165]: Rules
+        - separator [ref=e167]
+      - generic [ref=e171]:
+        - generic [ref=e172]:
+          - generic [ref=e173]:
+            - generic [ref=e174]:
+              - link "Pizzaboi's profile" [ref=e175] [cursor=pointer]:
+                - /url: /asimandia
+                - generic "Pizzaboi" [ref=e176]
+                - img [ref=e177]
+              - generic [ref=e180]:
+                - link "Pizzaboi" [ref=e181] [cursor=pointer]:
+                  - /url: /asimandia
+                - text: ·
+                - generic [ref=e182]: 151st in this Competition ·
+                - generic [ref=e183]: Posted 3 days ago
+            - generic [ref=e184]:
+              - generic [ref=e185]:
+                - button "Upvote" [ref=e186] [cursor=pointer]:
+                  - generic [ref=e187]: arrow_drop_up
+                - button "28 votes" [ref=e188] [cursor=pointer]: "28"
+              - button "More Options for this Topic" [ref=e189] [cursor=pointer]: more_vert
+            - heading "Clarification on Orbit Wars runtime environment specs?" [level=3] [ref=e190]
+            - generic [ref=e193]:
+              - paragraph [ref=e194]: Hi organizers,
+              - paragraph [ref=e195]: Could you clarify a few details about the execution environment used for Orbit Wars submissions?
+              - paragraph [ref=e196]:
+                - text: I am trying to make sure my agent stays comfortably within the per-turn
+                - code [ref=e197]: actTimeout
+                - text: ", especially in late-game 4-player matches where the state can become much larger."
+              - paragraph [ref=e198]: "The main questions:"
+              - list [ref=e199]:
+                - listitem [ref=e200]:
+                  - paragraph [ref=e201]:
+                    - strong [ref=e202]: CPU architecture
+                  - list [ref=e203]:
+                    - listitem [ref=e204]:
+                      - text: Is the runtime always
+                      - code [ref=e205]: linux/amd64
+                      - text: "?"
+                    - listitem [ref=e206]:
+                      - text: Is there a guaranteed minimum x86-64 feature level, e.g.
+                      - code [ref=e207]: x86-64-v2
+                      - text: ","
+                      - code [ref=e208]: x86-64-v3
+                      - text: ", AVX2, FMA, BMI2?"
+                    - listitem [ref=e209]: Or should native code target only baseline x86-64 for maximum compatibility?
+                - listitem [ref=e210]:
+                  - paragraph [ref=e211]:
+                    - strong [ref=e212]: CPU allocation
+                  - list [ref=e213]:
+                    - listitem [ref=e214]: How many physical/logical CPU cores are available to a single episode runner?
+                    - listitem [ref=e215]: Are submissions limited to one core, or can native code use multiple threads?
+                    - listitem [ref=e216]: If multithreading is allowed, is there a recommended upper bound to avoid contention with the environment / opponent agents?
+                - listitem [ref=e217]:
+                  - paragraph [ref=e218]:
+                    - strong [ref=e219]: Memory limit
+                  - list [ref=e220]:
+                    - listitem [ref=e221]: What is the memory limit per submission process?
+                    - listitem [ref=e222]: Is the limit shared across all agents in one episode, or per agent?
+                - listitem [ref=e223]:
+                  - paragraph [ref=e224]:
+                    - strong [ref=e225]: Timeout semantics
+                  - list [ref=e226]:
+                    - listitem [ref=e227]:
+                      - text: Is
+                      - code [ref=e228]: actTimeout
+                      - text: measured as wall-clock time or CPU time?
+                    - listitem [ref=e229]: If native code uses multiple threads, does the timeout count wall time only, or cumulative CPU time?
+                    - listitem [ref=e230]: What happens if an agent occasionally exceeds the timeout but returns valid actions on other turns — is only that turn skipped, or can repeated timeouts terminate the episode/submission?
+                - listitem [ref=e231]:
+                  - paragraph [ref=e232]:
+                    - strong [ref=e233]: Process reuse
+                  - list [ref=e234]:
+                    - listitem [ref=e235]: Is a submission process reused across multiple episodes, or does each episode start a fresh process?
+                    - listitem [ref=e236]: Can agents safely keep module-level caches between turns within the same episode?
+                    - listitem [ref=e237]: Are module-level caches ever shared across games, or should we assume fresh state per game?
+                - listitem [ref=e238]:
+                  - paragraph [ref=e239]:
+                    - strong [ref=e240]: Python / native extension support
+                  - list [ref=e241]:
+                    - listitem [ref=e242]: Which Python version and OS image are currently used?
+                    - listitem [ref=e243]:
+                      - text: Are self-contained native shared libraries loaded from
+                      - code [ref=e244]: /tmp
+                      - text: or the working directory supported?
+                    - listitem [ref=e245]: Are there restrictions on spawning threads from native code?
+                - listitem [ref=e246]:
+                  - paragraph [ref=e247]:
+                    - strong [ref=e248]: Hardware variability
+                  - list [ref=e249]:
+                    - listitem [ref=e250]: Are all evaluation workers roughly the same hardware, or can CPU generation vary significantly between matches?
+                    - listitem [ref=e251]: Should we expect performance differences between public LB validation and final/private evaluation?
+              - paragraph [ref=e252]: I am not asking for exact machine model if that is not publishable — even conservative guarantees like “target baseline x86-64, assume 1 CPU core, wall-clock timeout, N GB RAM” would be very helpful for building robust submissions.
+              - paragraph [ref=e253]: Thanks!
+            - generic [ref=e256]:
+              - generic [ref=e258]:
+                - img [ref=e260]
+                - generic [ref=e261]: "2"
+              - generic [ref=e263]:
+                - img [ref=e265]
+                - generic [ref=e266]: "4"
+              - generic [ref=e268]:
+                - img [ref=e270]
+                - generic [ref=e271]: "2"
+          - separator [ref=e272]
+        - generic [ref=e273]:
+          - generic [ref=e274]:
+            - paragraph [ref=e277]:
+              - paragraph [ref=e278]:
+                - text: Please
+                - link "sign in opens in new window" [ref=e279] [cursor=pointer]:
+                  - /url: /account/login
+                  - text: sign in
+                - text: to reply to this topic.
+            - separator [ref=e280]
+          - generic [ref=e282]:
+            - generic [ref=e283]:
+              - generic [ref=e284]: comment
+              - generic [ref=e285]:
+                - heading "5 Comments" [level=2] [ref=e286]
+                - link "Go To Appreciation Comments (1 total)" [ref=e287] [cursor=pointer]:
+                  - /url: /competitions/orbit-wars/discussion/700191#appreciation
+                  - text: 1 appreciation comment
+            - generic [ref=e290]:
+              - combobox "Select combobox. Hotness currently selected." [ref=e291] [cursor=pointer]:
+                - generic [ref=e293]: Hotness
+              - textbox: Hotness
+              - img
+          - generic [ref=e294]:
+            - generic [ref=e295]:
+              - generic [ref=e299]:
+                - link "Bovard Doerschuk-Tiberi's profile" [ref=e300] [cursor=pointer]:
+                  - /url: /bovard
+                  - generic "Bovard Doerschuk-Tiberi" [ref=e301]
+                  - img [ref=e302]
+                - generic [ref=e307]:
+                  - generic [ref=e308]:
+                    - link "Bovard Doerschuk-Tiberi" [ref=e309] [cursor=pointer]:
+                      - /url: /bovard
+                      - heading "Bovard Doerschuk-Tiberi" [level=3] [ref=e310]
+                    - generic [ref=e312]: Kaggle Staff
+                  - paragraph [ref=e314]: Posted 13 hours ago
+                - generic [ref=e316]:
+                  - generic [ref=e317]:
+                    - button "Upvote" [ref=e318] [cursor=pointer]:
+                      - generic [ref=e319]: arrow_drop_up
+                    - button "3 votes" [ref=e320] [cursor=pointer]: "3"
+                  - button "More Options for this Comment" [ref=e321] [cursor=pointer]: more_vert
+                - generic [ref=e324]:
+                  - paragraph [ref=e325]:
+                    - text: The
+                    - link "kaggle environment dockerfile (opens in a new tab)" [ref=e326] [cursor=pointer]:
+                      - /url: https://github.com/Kaggle/kaggle-environments/tree/master/docker
+                      - text: kaggle environment dockerfile
+                    - text: answers 1, 6.
+                  - paragraph [ref=e327]: 2 you get 1 and 3/5 of a CPU
+                  - paragraph [ref=e328]: 3 around 8 GB
+                  - paragraph [ref=e329]:
+                    - text: 4 wall-clock time, if you go past
+                    - code [ref=e330]: actTimeout
+                    - text: (1s) you eat into your
+                    - code [ref=e331]: overrageTime
+                    - text: (60s). once that is exhausted, you forfeit.
+                  - paragraph [ref=e332]: 5 each episode starts are fresh process. within an episode your model elvel caches will work
+                  - paragraph [ref=e333]: 7 hardware is the same every game, will the bsame for LB validation.
+                - generic [ref=e339]:
+                  - link "Pizzaboi's profile" [ref=e340] [cursor=pointer]:
+                    - /url: /asimandia
+                    - generic "Pizzaboi" [ref=e341]
+                    - img [ref=e342]
+                  - generic [ref=e347]:
+                    - generic [ref=e348]:
+                      - link "Pizzaboi" [ref=e349] [cursor=pointer]:
+                        - /url: /asimandia
+                        - heading "Pizzaboi" [level=3] [ref=e350]
+                      - generic [ref=e352]: Topic Author
+                    - generic [ref=e353]:
+                      - paragraph [ref=e354]: Posted 13 hours ago
+                      - paragraph [ref=e356]: · 151st in this Competition
+                  - generic [ref=e358]:
+                    - generic [ref=e359]:
+                      - button "Upvote" [ref=e360] [cursor=pointer]:
+                        - generic [ref=e361]: arrow_drop_up
+                      - button "0 votes" [ref=e362] [cursor=pointer]: "0"
+                    - button "More Options for this Comment" [ref=e363] [cursor=pointer]: more_vert
+                  - paragraph [ref=e367]: Could you tell the range/series of cpus?
+              - separator [ref=e368]
+            - generic [ref=e369]:
+              - generic [ref=e373]:
+                - link "Navneet's profile" [ref=e374] [cursor=pointer]:
+                  - /url: /navneetbende
+                  - generic "Navneet" [ref=e375]
+                  - img [ref=e376]
+                - generic [ref=e381]:
+                  - link "Navneet" [ref=e383] [cursor=pointer]:
+                    - /url: /navneetbende
+                    - heading "Navneet" [level=3] [ref=e384]
+                  - paragraph [ref=e386]: Posted 14 hours ago
+                - generic [ref=e388]:
+                  - generic [ref=e389]:
+                    - button "Upvote" [ref=e390] [cursor=pointer]:
+                      - generic [ref=e391]: arrow_drop_up
+                    - button "-1 votes" [ref=e392] [cursor=pointer]: "-1"
+                  - button "More Options for this Comment" [ref=e393] [cursor=pointer]: more_vert
+                - paragraph [ref=e397]:
+                  - text: Thanks for the info and clarification on Orbit Wars
+                  - link "@asimandia (opens in a new tab)" [ref=e398] [cursor=pointer]:
+                    - /url: https://www.kaggle.com/asimandia
+                    - text: "@asimandia"
+              - separator [ref=e399]
+            - generic [ref=e400]:
+              - paragraph [ref=e406]: This comment has been deleted.
+              - separator [ref=e407]
+          - generic [ref=e408]:
+            - heading "Appreciation (1)" [level=2] [ref=e410]
+            - generic [ref=e415]:
+              - link "Ali's profile" [ref=e416] [cursor=pointer]:
+                - /url: /martinsertin
+                - generic "Ali" [ref=e417]
+                - img [ref=e418]
+              - generic [ref=e423]:
+                - link "Ali" [ref=e425] [cursor=pointer]:
+                  - /url: /martinsertin
+                  - heading "Ali" [level=3] [ref=e426]
+                - paragraph [ref=e428]: Posted 3 days ago
+              - generic [ref=e430]:
+                - generic [ref=e431]:
+                  - button "Upvote" [ref=e432] [cursor=pointer]:
+                    - generic [ref=e433]: arrow_drop_up
+                  - button "-6 votes" [ref=e434] [cursor=pointer]: "-6"
+                - button "More Options for this Comment" [ref=e435] [cursor=pointer]: more_vert
+              - paragraph [ref=e439]: Thank you so much dear
+  - alert [ref=e442]

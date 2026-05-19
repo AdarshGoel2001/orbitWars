@@ -1,0 +1,121 @@
+- generic [ref=e2]:
+  - navigation "Main Kaggle page navigation" [ref=e3]:
+    - generic [ref=e5]:
+      - button "Navigation menu" [ref=e7] [cursor=pointer]: menu
+      - link "Skip to content" [ref=e8] [cursor=pointer]:
+        - /url: "#site-content"
+        - text: Skip to
+        - text: content
+      - link "Return to Kaggle home page" [ref=e10] [cursor=pointer]:
+        - /url: /
+        - img "Kaggle" [ref=e11]
+    - button "Create" [ref=e13] [cursor=pointer]:
+      - img [ref=e14]
+      - generic [ref=e19]: Create
+    - generic [ref=e22]:
+      - list [ref=e23]:
+        - listitem "Home List Item" [ref=e24]:
+          - link "Home" [ref=e26] [cursor=pointer]:
+            - /url: /
+            - generic [ref=e27]:
+              - generic [ref=e30]: explore
+              - paragraph [ref=e32]: Home
+        - listitem "Competitions List Item" [ref=e33]:
+          - link "Competitions" [ref=e35] [cursor=pointer]:
+            - /url: /competitions
+            - generic [ref=e36]:
+              - generic [ref=e39]: emoji_events
+              - paragraph [ref=e41]: Competitions
+        - listitem "Benchmarks List Item" [ref=e43]:
+          - link "Benchmarks" [ref=e45] [cursor=pointer]:
+            - /url: /benchmarks
+            - generic [ref=e46]:
+              - generic [ref=e49]: leaderboard
+              - paragraph [ref=e51]: Benchmarks
+        - listitem "Game Arena List Item" [ref=e52]:
+          - link "Game Arena" [ref=e54] [cursor=pointer]:
+            - /url: /game-arena
+            - generic [ref=e55]:
+              - generic [ref=e58]: smart_toy
+              - paragraph [ref=e60]: Game Arena
+      - list [ref=e61]:
+        - listitem "Data Hub List Item" [ref=e62]:
+          - generic [ref=e63]:
+            - link "Data Hub" [ref=e64] [cursor=pointer]:
+              - /url: "#"
+              - generic [ref=e65]:
+                - generic [ref=e68]: code
+                - paragraph [ref=e70]: Data Hub
+            - button "Expand" [ref=e72] [cursor=pointer]: expand_more
+      - list [ref=e73]:
+        - listitem "More on Kaggle List Item" [ref=e74]:
+          - generic [ref=e75]:
+            - link "More on Kaggle" [ref=e76] [cursor=pointer]:
+              - /url: "#"
+              - generic [ref=e77]:
+                - generic [ref=e80]: format_list_bulleted
+                - paragraph [ref=e82]: More
+            - button "Expand" [ref=e84] [cursor=pointer]: expand_more
+  - navigation "Main menu, search and your account" [ref=e86]:
+    - generic [ref=e87]:
+      - generic [ref=e91]:
+        - generic [ref=e92]: search
+        - textbox "Search" [ref=e93]
+        - group
+      - generic [ref=e95]:
+        - link "Sign In" [ref=e97] [cursor=pointer]:
+          - /url: /account/login?phase=startSignInTab&returnUrl=%2Fcompetitions%2Forbit-wars%2Fdiscussion%2F697413
+          - button "Sign In" [ref=e98]:
+            - generic [ref=e99]: Sign In
+        - link "Register" [ref=e101] [cursor=pointer]:
+          - /url: /account/login?phase=startRegisterTab&returnUrl=%2Fcompetitions%2Forbit-wars%2Fdiscussion%2F697413
+          - button "Register" [ref=e102]:
+            - generic [ref=e103]: Register
+  - main [ref=e104]:
+    - generic [ref=e106]:
+      - generic [ref=e107]: Kaggle uses cookies from Google to deliver and enhance the quality of its services and to analyze traffic.
+      - generic [ref=e108]:
+        - link "Learn more" [ref=e109] [cursor=pointer]:
+          - /url: /cookies
+          - generic [ref=e110]: Learn more
+        - generic [ref=e111] [cursor=pointer]: OK, Got it.
+    - generic [ref=e114]:
+      - generic [ref=e116]:
+        - generic [ref=e117]:
+          - link "Kaggle's profile" [ref=e118] [cursor=pointer]:
+            - /url: /organizations/kaggle
+            - generic "Kaggle" [ref=e119]
+            - img [ref=e120]
+          - generic [ref=e123]:
+            - generic [ref=e125]: Kaggle
+            - generic [ref=e126]: · Featured Simulation Competition · a month to go
+          - generic [ref=e127]:
+            - button "Play in Browser" [ref=e128] [cursor=pointer]:
+              - generic [ref=e129]: chevron_right
+              - generic [ref=e130]: Play in Browser
+            - button "Join Competition" [ref=e132] [cursor=pointer]:
+              - generic [ref=e133]: Join Competition
+            - button "Competition options menu collapsed" [ref=e135] [cursor=pointer]: more_horiz
+        - generic [ref=e137]:
+          - heading "Orbit Wars" [level=1] [ref=e138]
+          - paragraph [ref=e140]: Conquer planets rotating around a sun in continuous 2D space. A real-time strategy game for 2 or 4 players.
+      - generic [ref=e144]:
+        - tablist [ref=e151]:
+          - tab "Overview, 1 of 7" [ref=e152] [cursor=pointer]:
+            - generic [ref=e153]: Overview
+          - tab "Data, 2 of 7" [ref=e154] [cursor=pointer]:
+            - generic [ref=e155]: Data
+          - tab "Code, 3 of 7" [ref=e156] [cursor=pointer]:
+            - generic [ref=e157]: Code
+          - tab "Models, 4 of 7" [ref=e158] [cursor=pointer]:
+            - generic [ref=e159]: Models
+          - tab "Discussion, 5 of 7" [selected] [ref=e160] [cursor=pointer]:
+            - generic [ref=e161]: Discussion
+          - tab "Leaderboard, 6 of 7" [ref=e162] [cursor=pointer]:
+            - generic [ref=e163]: Leaderboard
+          - tab "Rules, 7 of 7" [ref=e164] [cursor=pointer]:
+            - generic [ref=e165]: Rules
+        - separator [ref=e167]
+      - progressbar "Loading" [ref=e172]:
+        - img [ref=e173]
+  - alert [ref=e176]
