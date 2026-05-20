@@ -13,7 +13,12 @@ import torch
 from kaggle_environments import make
 
 from agents_cpu import heuristic_agent_cpu
-from chunked_bc_cpu import build_teacher_chunk, chunked_bc_loss, collate_chunk_examples
+from chunked_bc_cpu import (
+    build_teacher_chunk,
+    chunked_bc_loss,
+    collate_chunk_examples,
+    load_chunk_examples_from_cpu_shards,
+)
 from chunked_model_cpu import ChunkedEdgePolicy
 
 
@@ -135,6 +140,13 @@ def parse_args():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--games", type=int, default=10)
     parser.add_argument("--max-turns", type=int, default=100)
+    parser.add_argument(
+        "--data",
+        nargs="*",
+        type=Path,
+        default=[],
+        help="Existing CPU BC shard files/directories. If set, skip fresh capture.",
+    )
     parser.add_argument("--max-slots", type=int, default=10)
     parser.add_argument("--epochs", type=int, default=5)
     parser.add_argument("--batch-size", type=int, default=16)
@@ -148,7 +160,7 @@ def parse_args():
 
 def main():
     args = parse_args()
-    if args.games < 1:
+    if not args.data and args.games < 1:
         raise SystemExit("--games must be >= 1")
     if args.max_slots < 1:
         raise SystemExit("--max-slots must be >= 1")
@@ -158,7 +170,18 @@ def main():
     torch.manual_seed(args.seed)
 
     device = choose_device(args.device)
-    examples, capture = capture_examples(args.games, args.max_turns, args.max_slots)
+    if args.data:
+        examples = load_chunk_examples_from_cpu_shards(args.data, args.max_slots)
+        if not examples:
+            raise SystemExit(f"no CPU BC examples found under: {args.data}")
+        capture = {
+            "source": "cpu_shards",
+            "paths": [str(path) for path in args.data],
+            "examples": len(examples),
+        }
+        print(f"loaded chunk examples from CPU shards: examples={len(examples)}", flush=True)
+    else:
+        examples, capture = capture_examples(args.games, args.max_turns, args.max_slots)
     train_examples, val_examples = split_examples(examples, args.val_fraction, args.seed)
     print(
         f"device={device} train_examples={len(train_examples)} "

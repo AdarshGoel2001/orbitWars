@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import math
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Iterable
 
 import numpy as np
@@ -18,7 +19,14 @@ import torch
 import torch.nn.functional as F
 
 from agents_cpu import choose_heuristic_token_cpu
-from harness_cpu import FEATURE_DIM, GameView_CPU
+from harness_cpu import (
+    FEATURE_DIM,
+    FEATURE_KIND_REINFORCE,
+    FEATURE_SHIPS_NEEDED,
+    FEATURE_SRC_SHIPS,
+    FEATURE_TGT_WILL_FALL,
+    GameView_CPU,
+)
 
 
 @dataclass
@@ -91,6 +99,107 @@ def build_teacher_chunk(obs, max_slots: int) -> ChunkExample:
         active=active,
         ship_delta=ship_delta,
     )
+
+
+def _discover_npz(paths: Iterable[str | Path]) -> list[Path]:
+    files: list[Path] = []
+    for raw in paths:
+        path = Path(raw)
+        if path.is_dir():
+            files.extend(sorted(path.rglob("*.npz")))
+        elif path.suffix == ".npz":
+            files.append(path)
+    return sorted(dict.fromkeys(files))
+
+
+def _base_ships_from_features(edge: np.ndarray, safety_margin: int = 1) -> int:
+    src_ships = max(1, int(edge[FEATURE_SRC_SHIPS]))
+    if edge[FEATURE_KIND_REINFORCE] > 0.5 and edge[FEATURE_TGT_WILL_FALL] < 0.5:
+        need = 1
+    else:
+        need = max(1, int(math.ceil(float(edge[FEATURE_SHIPS_NEEDED]))) + safety_margin)
+    return max(1, min(src_ships, need))
+
+
+def _row_edges(shard, row: int) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    start = int(shard["offsets"][row])
+    end = int(shard["offsets"][row + 1])
+    return (
+        shard["edges_packed"][start:end].astype(np.float32, copy=False),
+        shard["src_ids_packed"][start:end].astype(np.int32, copy=False),
+        shard["tgt_ids_packed"][start:end].astype(np.int32, copy=False),
+    )
+
+
+def load_chunk_examples_from_cpu_shards(
+    paths: Iterable[str | Path],
+    max_slots: int,
+) -> list[ChunkExample]:
+    """Reconstruct chunk targets from stored sequential CPU BC shards.
+
+    The CPU shards contain one row per sequential teacher decision.  Within a
+    turn, planet slots are stable, so later submoves can be mapped back to the
+    initial candidate list by ``(src_slot, tgt_slot)``.
+    """
+    if max_slots < 1:
+        raise ValueError("max_slots must be >= 1")
+
+    examples: list[ChunkExample] = []
+    for path in _discover_npz(paths):
+        shard = np.load(path)
+        groups: dict[tuple[int, int, int], list[int]] = {}
+        for row in range(int(shard["action_idx"].shape[0])):
+            key = (
+                int(shard["game"][row]),
+                int(shard["step"][row]),
+                int(shard["player"][row]),
+            )
+            groups.setdefault(key, []).append(row)
+
+        for rows in groups.values():
+            rows.sort(key=lambda r: int(shard["submove"][r]))
+            first = rows[0]
+            edges, src_ids, tgt_ids = _row_edges(shard, first)
+            n_tokens = int(shard["n_tokens"][first])
+            edges = edges[:n_tokens].copy()
+            src_ids = src_ids[:n_tokens].copy()
+            tgt_ids = tgt_ids[:n_tokens].copy()
+
+            lookup = {
+                (int(src_ids[idx]), int(tgt_ids[idx])): idx
+                for idx in range(n_tokens)
+            }
+            pointer_idx = np.full(max_slots, n_tokens, dtype=np.int64)
+            active = np.zeros(max_slots, dtype=np.bool_)
+            ship_delta = np.zeros(max_slots, dtype=np.float32)
+
+            for slot, row in enumerate(rows[:max_slots]):
+                action_idx = int(shard["action_idx"][row])
+                row_n = int(shard["n_tokens"][row])
+                if action_idx < 0 or action_idx >= row_n:
+                    break
+                src_slot = int(shard["src_slot"][row])
+                tgt_slot = int(shard["tgt_slot"][row])
+                initial_idx = lookup.get((src_slot, tgt_slot))
+                if initial_idx is None:
+                    break
+                teacher_ships = max(1, int(shard["ships"][row]))
+                base_ships = _base_ships_from_features(edges[initial_idx])
+                pointer_idx[slot] = initial_idx
+                active[slot] = True
+                ship_delta[slot] = float(math.log(teacher_ships / base_ships))
+
+            examples.append(ChunkExample(
+                edges=edges,
+                src_ids=src_ids,
+                tgt_ids=tgt_ids,
+                n_tokens=n_tokens,
+                pointer_idx=pointer_idx,
+                active=active,
+                ship_delta=ship_delta,
+            ))
+
+    return examples
 
 
 def collate_chunk_examples(examples: Iterable[ChunkExample]) -> dict[str, torch.Tensor]:
@@ -187,4 +296,3 @@ def chunked_bc_loss(
         "pointer_accuracy": float(pointer_correct.float().mean().item()),
     }
     return loss, metrics
-
