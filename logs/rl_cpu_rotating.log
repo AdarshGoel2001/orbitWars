@@ -1,0 +1,238 @@
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO: Successfully loaded OpenSpiel environments: 16.
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_backgammon
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_checkers
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_chess
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_connect_four
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_gin_rummy
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_go
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_goofspiel
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_hearts
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_hex
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_matching_pennies_3p
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_othello
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_repeated_game
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_tic_tac_toe
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_universal_poker
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_repeated_poker
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_python_repeated_pokerkit
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO: OpenSpiel games skipped: 1.
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    snake
+resumed checkpoints/rl_cpu_model.last.pt at iteration 174 with 8 snapshots
+{
+  "device": "cpu",
+  "params": 46723,
+  "inference_params": 17634,
+  "checkpoint": "checkpoints/bc_cpu_model.pt",
+  "resume": "checkpoints/rl_cpu_model.last.pt",
+  "out": "checkpoints/rl_cpu_model.pt",
+  "start_iteration": 174,
+  "iterations": 2000,
+  "games_per_iter": 16,
+  "max_turns": 500,
+  "lr": 0.0001,
+  "ppo_batch_size": 64,
+  "target_kl": 0.03,
+  "tb_logdir": "runs/rl_cpu_rotating"
+}
+async rotating-learner: 8 workers, games-per-update=16, queue_cap=32, weights=checkpoints/rl_cpu_model.weights.pt
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO: Successfully loaded OpenSpiel environments: 16.
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_backgammon
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_checkers
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_chess
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_connect_four
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_gin_rummy
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_go
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_goofspiel
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_hearts
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_hex
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_matching_pennies_3p
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_othello
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_repeated_game
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_tic_tac_toe
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_universal_poker
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_repeated_poker
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_python_repeated_pokerkit
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO: OpenSpiel games skipped: 1.
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    snake
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO: Successfully loaded OpenSpiel environments: 16.
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_backgammon
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_checkers
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_chess
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_connect_four
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_gin_rummy
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_go
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_goofspiel
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_hearts
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_hex
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_matching_pennies_3p
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_othello
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_repeated_game
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_tic_tac_toe
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_universal_poker
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_repeated_poker
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_python_repeated_pokerkit
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO: OpenSpiel games skipped: 1.
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    snake
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO: Successfully loaded OpenSpiel environments: 16.
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_backgammon
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_checkers
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_chess
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_connect_four
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_gin_rummy
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_go
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_goofspiel
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_hearts
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_hex
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_matching_pennies_3p
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_othello
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_repeated_game
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_tic_tac_toe
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_universal_poker
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_repeated_poker
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_python_repeated_pokerkit
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO: OpenSpiel games skipped: 1.
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    snake
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO: Successfully loaded OpenSpiel environments: 16.
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_backgammon
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_checkers
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_chess
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_connect_four
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_gin_rummy
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_go
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_goofspiel
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_hearts
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_hex
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_matching_pennies_3p
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_othello
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_repeated_game
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_tic_tac_toe
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_universal_poker
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_repeated_poker
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_python_repeated_pokerkit
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO: OpenSpiel games skipped: 1.
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    snake
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO: Successfully loaded OpenSpiel environments: 16.
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_backgammon
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_checkers
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_chess
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_connect_four
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_gin_rummy
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_go
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_goofspiel
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_hearts
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_hex
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_matching_pennies_3p
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_othello
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_repeated_game
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_tic_tac_toe
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_universal_poker
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_repeated_poker
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_python_repeated_pokerkit
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO: OpenSpiel games skipped: 1.
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    snake
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO: Successfully loaded OpenSpiel environments: 16.
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_backgammon
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_checkers
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_chess
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_connect_four
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_gin_rummy
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_go
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_goofspiel
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_hearts
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_hex
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_matching_pennies_3p
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_othello
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_repeated_game
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_tic_tac_toe
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_universal_poker
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_repeated_poker
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_python_repeated_pokerkit
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO: OpenSpiel games skipped: 1.
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    snake
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO: Successfully loaded OpenSpiel environments: 16.
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO: Successfully loaded OpenSpiel environments: 16.
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_backgammon
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_backgammon
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_checkers
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_checkers
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_chess
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_chess
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_connect_four
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_connect_four
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_gin_rummy
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_gin_rummy
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_go
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_go
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_goofspiel
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_goofspiel
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_hearts
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_hearts
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_hex
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_hex
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_matching_pennies_3p
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_matching_pennies_3p
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_othello
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_othello
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_repeated_game
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_repeated_game
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_tic_tac_toe
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_tic_tac_toe
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_universal_poker
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_universal_poker
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_repeated_poker
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_repeated_poker
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_python_repeated_pokerkit
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_python_repeated_pokerkit
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO: OpenSpiel games skipped: 1.
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO: OpenSpiel games skipped: 1.
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    snake
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    snake
+{"approx_kl": 0.00333, "clip_frac": 0.0247, "early_stop": false, "entropy": 0.5126, "games": 16, "iteration": 174, "loss": -0.00167, "mean_margin": 0.0, "mean_turns": 169.4, "mode": "async_rotating", "policy_loss": -0.00029, "pool_snapshots": 8, "ppo_dispatch_s": 166.8, "rollout_s": 643.4, "stale_max": 0, "stale_mean": 0.0, "stale_p99": 0.0, "submoves": 5303, "update_s": 166.8, "updates": 332, "value_loss": 0.00237, "win_rate_overall": 0.5, "win_rate_vs_heuristic": 0.5}
+{"approx_kl": 0.00638, "clip_frac": 0.049, "early_stop": false, "entropy": 0.58623, "games": 16, "iteration": 175, "loss": -0.00199, "mean_margin": -0.125, "mean_turns": 185.2, "mode": "async_rotating", "policy_loss": -0.00024, "pool_snapshots": 8, "ppo_dispatch_s": 310.6, "rollout_s": 516.5, "stale_max": 1, "stale_mean": 0.56, "stale_p99": 1.0, "submoves": 5674, "update_s": 310.7, "updates": 356, "value_loss": 0.00236, "win_rate_overall": 0.438, "win_rate_vs_heuristic": 0.5}
+{"approx_kl": 0.00328, "clip_frac": 0.042, "early_stop": false, "entropy": 0.521, "games": 16, "iteration": 176, "loss": -0.00174, "mean_margin": -0.25, "mean_turns": 173.8, "mode": "async_rotating", "policy_loss": 0.00018, "pool_snapshots": 8, "ppo_dispatch_s": 245.9, "rollout_s": 228.7, "stale_max": 1, "stale_mean": 0.94, "stale_p99": 1.0, "submoves": 5690, "update_s": 245.9, "updates": 356, "value_loss": 0.00137, "win_rate_overall": 0.375, "win_rate_vs_heuristic": 0.286}
+{"approx_kl": 0.00636, "clip_frac": 0.0419, "early_stop": false, "entropy": 0.59124, "games": 16, "iteration": 177, "loss": -0.00401, "mean_margin": 0.125, "mean_turns": 169.4, "mode": "async_rotating", "policy_loss": -0.00215, "pool_snapshots": 8, "ppo_dispatch_s": 178.0, "rollout_s": 340.2, "stale_max": 2, "stale_mean": 1.0, "stale_p99": 2.0, "submoves": 5639, "update_s": 178.0, "updates": 356, "value_loss": 0.00219, "win_rate_overall": 0.562, "win_rate_vs_heuristic": 0.25}
+{"approx_kl": 0.00722, "clip_frac": 0.0561, "early_stop": false, "entropy": 0.57966, "games": 16, "iteration": 178, "loss": -0.0025, "mean_margin": 0.0, "mean_turns": 164.5, "mode": "async_rotating", "policy_loss": -0.00061, "pool_snapshots": 8, "ppo_dispatch_s": 355.5, "rollout_s": 393.1, "stale_max": 2, "stale_mean": 1.0, "stale_p99": 1.85, "submoves": 5531, "update_s": 355.5, "updates": 348, "value_loss": 0.00203, "win_rate_overall": 0.5, "win_rate_vs_heuristic": 0.6}
+{"approx_kl": 0.00828, "clip_frac": 0.05, "early_stop": false, "entropy": 0.63806, "games": 16, "iteration": 179, "loss": -0.00244, "mean_margin": 0.0, "mean_turns": 167.9, "mode": "async_rotating", "policy_loss": -0.00031, "pool_snapshots": 8, "ppo_dispatch_s": 244.2, "rollout_s": 247.9, "stale_max": 2, "stale_mean": 1.06, "stale_p99": 1.85, "submoves": 5681, "update_s": 244.2, "updates": 356, "value_loss": 0.00212, "win_rate_overall": 0.5, "win_rate_vs_heuristic": 0.667}
+{"approx_kl": 0.00538, "clip_frac": 0.0432, "early_stop": false, "entropy": 0.46549, "games": 16, "iteration": 180, "loss": 0.00053, "mean_margin": -0.25, "mean_turns": 190.7, "mode": "async_rotating", "policy_loss": 0.00166, "pool_snapshots": 8, "ppo_dispatch_s": 254.7, "rollout_s": 348.5, "stale_max": 2, "stale_mean": 0.88, "stale_p99": 2.0, "submoves": 6178, "update_s": 254.7, "updates": 388, "value_loss": 0.0024, "win_rate_overall": 0.375, "win_rate_vs_heuristic": 0.2}
+{"approx_kl": 0.01289, "clip_frac": 0.0497, "early_stop": false, "entropy": 0.59925, "games": 16, "iteration": 181, "loss": 0.00185, "mean_margin": 0.0, "mean_turns": 171.8, "mode": "async_rotating", "policy_loss": 0.00365, "pool_snapshots": 8, "ppo_dispatch_s": 164.9, "rollout_s": 379.9, "stale_max": 2, "stale_mean": 0.81, "stale_p99": 1.85, "submoves": 5506, "update_s": 164.9, "updates": 348, "value_loss": 0.00238, "win_rate_overall": 0.5, "win_rate_vs_heuristic": 0.714}
+{"approx_kl": 0.00318, "clip_frac": 0.038, "early_stop": false, "entropy": 0.5304, "games": 16, "iteration": 182, "loss": -0.00149, "mean_margin": -0.25, "mean_turns": 179.6, "mode": "async_rotating", "policy_loss": 0.00027, "pool_snapshots": 8, "ppo_dispatch_s": 148.2, "rollout_s": 487.3, "stale_max": 2, "stale_mean": 0.69, "stale_p99": 2.0, "submoves": 5602, "update_s": 148.2, "updates": 352, "value_loss": 0.00179, "win_rate_overall": 0.375, "win_rate_vs_heuristic": 0.429}
+{"approx_kl": 0.00587, "clip_frac": 0.0482, "early_stop": false, "entropy": 0.62972, "games": 16, "iteration": 183, "loss": -0.00214, "mean_margin": 0.0, "mean_turns": 184.5, "mode": "async_rotating", "policy_loss": -3e-05, "pool_snapshots": 8, "ppo_dispatch_s": 226.8, "rollout_s": 490.7, "stale_max": 2, "stale_mean": 0.75, "stale_p99": 2.0, "submoves": 6183, "update_s": 226.8, "updates": 388, "value_loss": 0.00208, "win_rate_overall": 0.5, "win_rate_vs_heuristic": 0.0}
+{"approx_kl": 0.0076, "clip_frac": 0.0575, "early_stop": false, "entropy": 0.68301, "games": 16, "iteration": 184, "loss": -0.00304, "mean_margin": 0.0, "mean_turns": 171.5, "mode": "async_rotating", "policy_loss": -0.00071, "pool_snapshots": 8, "ppo_dispatch_s": 198.1, "rollout_s": 256.7, "stale_max": 1, "stale_mean": 0.81, "stale_p99": 1.0, "submoves": 5431, "update_s": 198.1, "updates": 340, "value_loss": 0.00217, "win_rate_overall": 0.5, "win_rate_vs_heuristic": 0.667}
+{"approx_kl": 0.00462, "clip_frac": 0.0419, "early_stop": false, "entropy": 0.4259, "games": 16, "iteration": 185, "loss": -0.00088, "mean_margin": -0.5, "mean_turns": 205.3, "mode": "async_rotating", "policy_loss": -7e-05, "pool_snapshots": 8, "ppo_dispatch_s": 257.7, "rollout_s": 498.0, "stale_max": 2, "stale_mean": 0.75, "stale_p99": 1.85, "submoves": 6338, "update_s": 257.7, "updates": 400, "value_loss": 0.00264, "win_rate_overall": 0.25, "win_rate_vs_heuristic": 0.167}
+{"approx_kl": 0.00191, "clip_frac": 0.0429, "early_stop": false, "entropy": 0.6728, "games": 16, "iteration": 186, "loss": -0.00213, "mean_margin": 0.5, "mean_turns": 166.4, "mode": "async_rotating", "policy_loss": 0.00024, "pool_snapshots": 8, "ppo_dispatch_s": 198.9, "rollout_s": 213.2, "stale_max": 1, "stale_mean": 0.94, "stale_p99": 1.0, "submoves": 5855, "update_s": 198.9, "updates": 368, "value_loss": 0.00198, "win_rate_overall": 0.75, "win_rate_vs_heuristic": 0.6}
+{"approx_kl": 0.00717, "clip_frac": 0.0689, "early_stop": false, "entropy": 0.63191, "games": 16, "iteration": 187, "loss": -0.00381, "mean_margin": 0.0, "mean_turns": 155.2, "mode": "async_rotating", "policy_loss": -0.00184, "pool_snapshots": 8, "ppo_dispatch_s": 174.6, "rollout_s": 323.0, "stale_max": 2, "stale_mean": 0.88, "stale_p99": 2.0, "submoves": 4865, "update_s": 174.6, "updates": 308, "value_loss": 0.00237, "win_rate_overall": 0.5, "win_rate_vs_heuristic": 0.5}
+{"approx_kl": 0.00836, "clip_frac": 0.0438, "early_stop": false, "entropy": 0.61105, "games": 16, "iteration": 188, "loss": 0.0029, "mean_margin": 0.0, "mean_turns": 190.6, "mode": "async_rotating", "policy_loss": 0.00496, "pool_snapshots": 8, "ppo_dispatch_s": 247.8, "rollout_s": 576.3, "stale_max": 2, "stale_mean": 0.81, "stale_p99": 1.85, "submoves": 6283, "update_s": 247.8, "updates": 396, "value_loss": 0.002, "win_rate_overall": 0.5, "win_rate_vs_heuristic": 0.4}
+{"approx_kl": 0.0127, "clip_frac": 0.0632, "early_stop": false, "entropy": 0.63528, "games": 16, "iteration": 189, "loss": -0.00169, "mean_margin": -0.125, "mean_turns": 163.8, "mode": "async_rotating", "policy_loss": -1e-05, "pool_snapshots": 8, "ppo_dispatch_s": 210.6, "rollout_s": 319.3, "stale_max": 1, "stale_mean": 0.75, "stale_p99": 1.0, "submoves": 4950, "update_s": 210.6, "updates": 312, "value_loss": 0.003, "win_rate_overall": 0.438, "win_rate_vs_heuristic": 1.0}
+{"approx_kl": 0.00654, "clip_frac": 0.0484, "early_stop": false, "entropy": 0.59353, "games": 16, "iteration": 190, "loss": 0.00118, "mean_margin": -0.125, "mean_turns": 164.4, "mode": "async_rotating", "policy_loss": 0.00314, "pool_snapshots": 8, "ppo_dispatch_s": 152.8, "rollout_s": 426.2, "stale_max": 1, "stale_mean": 0.75, "stale_p99": 1.0, "submoves": 5507, "update_s": 152.8, "updates": 348, "value_loss": 0.00202, "win_rate_overall": 0.438, "win_rate_vs_heuristic": 0.667}
+{"approx_kl": 0.00611, "clip_frac": 0.0666, "early_stop": false, "entropy": 0.82981, "games": 16, "iteration": 191, "loss": -0.00149, "mean_margin": 0.125, "mean_turns": 152.7, "mode": "async_rotating", "policy_loss": 0.00139, "pool_snapshots": 8, "ppo_dispatch_s": 334.5, "rollout_s": 417.9, "stale_max": 1, "stale_mean": 0.81, "stale_p99": 1.0, "submoves": 5302, "update_s": 334.5, "updates": 332, "value_loss": 0.00255, "win_rate_overall": 0.562, "win_rate_vs_heuristic": 0.6}
+{"approx_kl": 0.0046, "clip_frac": 0.0455, "early_stop": false, "entropy": 0.53612, "games": 16, "iteration": 192, "loss": -0.0016, "mean_margin": -0.125, "mean_turns": 168.4, "mode": "async_rotating", "policy_loss": 1e-05, "pool_snapshots": 8, "ppo_dispatch_s": 125.3, "rollout_s": 332.2, "stale_max": 1, "stale_mean": 0.88, "stale_p99": 1.0, "submoves": 5351, "update_s": 125.3, "updates": 336, "value_loss": 0.00215, "win_rate_overall": 0.438, "win_rate_vs_heuristic": 0.0}
+{"approx_kl": 0.00752, "clip_frac": 0.0527, "early_stop": false, "entropy": 0.68973, "games": 16, "iteration": 193, "loss": -0.00269, "mean_margin": 0.0, "mean_turns": 168.5, "mode": "async_rotating", "policy_loss": -0.00012, "pool_snapshots": 8, "ppo_dispatch_s": 243.5, "rollout_s": 484.5, "stale_max": 2, "stale_mean": 0.69, "stale_p99": 1.85, "submoves": 5654, "update_s": 243.5, "updates": 356, "value_loss": 0.00174, "win_rate_overall": 0.5, "win_rate_vs_heuristic": 0.75}
+{"approx_kl": 0.00492, "clip_frac": 0.0322, "early_stop": false, "entropy": 0.49161, "games": 16, "iteration": 194, "loss": -0.00096, "mean_margin": -0.5, "mean_turns": 165.6, "mode": "async_rotating", "policy_loss": 0.00024, "pool_snapshots": 8, "ppo_dispatch_s": 248.2, "rollout_s": 320.3, "stale_max": 1, "stale_mean": 0.81, "stale_p99": 1.0, "submoves": 4798, "update_s": 248.2, "updates": 300, "value_loss": 0.00253, "win_rate_overall": 0.25, "win_rate_vs_heuristic": 0.2}
+{"approx_kl": 0.00416, "clip_frac": 0.0384, "early_stop": false, "entropy": 0.78353, "games": 16, "iteration": 195, "loss": -0.00311, "mean_margin": 0.125, "mean_turns": 166.8, "mode": "async_rotating", "policy_loss": -0.00016, "pool_snapshots": 8, "ppo_dispatch_s": 268.9, "rollout_s": 382.2, "stale_max": 2, "stale_mean": 0.69, "stale_p99": 1.85, "submoves": 5794, "update_s": 268.9, "updates": 364, "value_loss": 0.00193, "win_rate_overall": 0.562, "win_rate_vs_heuristic": 0.5}
+{"approx_kl": 0.00473, "clip_frac": 0.0475, "early_stop": false, "entropy": 0.71809, "games": 16, "iteration": 196, "loss": -0.00364, "mean_margin": 0.0, "mean_turns": 166.1, "mode": "async_rotating", "policy_loss": -0.0009, "pool_snapshots": 8, "ppo_dispatch_s": 237.6, "rollout_s": 325.6, "stale_max": 1, "stale_mean": 0.88, "stale_p99": 1.0, "submoves": 5651, "update_s": 237.6, "updates": 356, "value_loss": 0.0017, "win_rate_overall": 0.5, "win_rate_vs_heuristic": 0.6}
+{"approx_kl": 0.00428, "clip_frac": 0.0427, "early_stop": false, "entropy": 0.6163, "games": 16, "iteration": 197, "loss": -0.0024, "mean_margin": -0.125, "mean_turns": 187.9, "mode": "async_rotating", "policy_loss": -0.0005, "pool_snapshots": 8, "ppo_dispatch_s": 194.9, "rollout_s": 377.1, "stale_max": 2, "stale_mean": 0.75, "stale_p99": 1.85, "submoves": 5736, "update_s": 194.9, "updates": 360, "value_loss": 0.00237, "win_rate_overall": 0.438, "win_rate_vs_heuristic": 0.667}
+{"approx_kl": 0.00476, "clip_frac": 0.043, "early_stop": false, "entropy": 0.76488, "games": 16, "iteration": 198, "loss": -0.0014, "mean_margin": 0.125, "mean_turns": 173.0, "mode": "async_rotating", "policy_loss": 0.00124, "pool_snapshots": 8, "ppo_dispatch_s": 465.8, "rollout_s": 357.2, "stale_max": 2, "stale_mean": 0.88, "stale_p99": 2.0, "submoves": 5832, "update_s": 465.8, "updates": 368, "value_loss": 0.00235, "win_rate_overall": 0.562, "win_rate_vs_heuristic": 0.6}
+{"approx_kl": 0.0081, "clip_frac": 0.0537, "early_stop": false, "entropy": 0.62973, "games": 16, "iteration": 199, "loss": -0.00257, "mean_margin": -0.125, "mean_turns": 166.3, "mode": "async_rotating", "policy_loss": -0.00087, "pool_snapshots": 8, "ppo_dispatch_s": 118.1, "rollout_s": 15.2, "stale_max": 2, "stale_mean": 1.06, "stale_p99": 1.85, "submoves": 5043, "update_s": 118.1, "updates": 316, "value_loss": 0.0029, "win_rate_overall": 0.438, "win_rate_vs_heuristic": 0.333}
+{"approx_kl": 0.00558, "clip_frac": 0.052, "early_stop": false, "entropy": 0.69963, "games": 16, "iteration": 200, "loss": -0.00155, "mean_margin": 0.125, "mean_turns": 182.1, "mode": "async_rotating", "policy_loss": 0.00065, "pool_snapshots": 8, "ppo_dispatch_s": 312.4, "rollout_s": 379.1, "stale_max": 2, "stale_mean": 1.12, "stale_p99": 2.0, "submoves": 5949, "update_s": 312.4, "updates": 372, "value_loss": 0.00259, "win_rate_overall": 0.562, "win_rate_vs_heuristic": 0.714}
+{"approx_kl": 0.00816, "clip_frac": 0.0656, "early_stop": false, "entropy": 0.85845, "games": 16, "iteration": 201, "loss": -0.00187, "mean_margin": 0.25, "mean_turns": 168.4, "mode": "async_rotating", "policy_loss": 0.00107, "pool_snapshots": 8, "ppo_dispatch_s": 387.4, "rollout_s": 265.3, "stale_max": 2, "stale_mean": 0.94, "stale_p99": 1.85, "submoves": 5881, "update_s": 387.4, "updates": 368, "value_loss": 0.0027, "win_rate_overall": 0.625, "win_rate_vs_heuristic": 0.8}
+{"approx_kl": 0.00607, "clip_frac": 0.0539, "early_stop": false, "entropy": 0.6347, "games": 16, "iteration": 202, "loss": -0.00312, "mean_margin": -0.375, "mean_turns": 179.3, "mode": "async_rotating", "policy_loss": -0.00077, "pool_snapshots": 8, "ppo_dispatch_s": 371.5, "rollout_s": 434.2, "stale_max": 2, "stale_mean": 0.88, "stale_p99": 2.0, "submoves": 5913, "update_s": 371.5, "updates": 372, "value_loss": 0.00165, "win_rate_overall": 0.312, "win_rate_vs_heuristic": 0.167}
+{"approx_kl": 0.00311, "clip_frac": 0.0423, "early_stop": false, "entropy": 0.61344, "games": 16, "iteration": 203, "loss": -0.0019, "mean_margin": -0.375, "mean_turns": 171.7, "mode": "async_rotating", "policy_loss": -0.00011, "pool_snapshots": 8, "ppo_dispatch_s": 123.2, "rollout_s": 140.9, "stale_max": 2, "stale_mean": 1.19, "stale_p99": 2.0, "submoves": 5210, "update_s": 123.2, "updates": 328, "value_loss": 0.00257, "win_rate_overall": 0.312, "win_rate_vs_heuristic": 0.286}
+{"approx_kl": 0.00729, "clip_frac": 0.0629, "early_stop": false, "entropy": 0.89839, "games": 16, "iteration": 204, "loss": -0.00242, "mean_margin": 0.25, "mean_turns": 168.6, "mode": "async_rotating", "policy_loss": 0.00108, "pool_snapshots": 8, "ppo_dispatch_s": 543.0, "rollout_s": 490.9, "stale_max": 2, "stale_mean": 0.88, "stale_p99": 2.0, "submoves": 5809, "update_s": 543.0, "updates": 364, "value_loss": 0.00199, "win_rate_overall": 0.625, "win_rate_vs_heuristic": 0.4}
+{"approx_kl": 0.00656, "clip_frac": 0.0637, "early_stop": false, "entropy": 0.81457, "games": 16, "iteration": 205, "loss": -0.00547, "mean_margin": 0.25, "mean_turns": 172.4, "mode": "async_rotating", "policy_loss": -0.00218, "pool_snapshots": 8, "ppo_dispatch_s": 338.7, "rollout_s": 153.1, "stale_max": 1, "stale_mean": 0.94, "stale_p99": 1.0, "submoves": 6514, "update_s": 338.7, "updates": 408, "value_loss": 0.00157, "win_rate_overall": 0.625, "win_rate_vs_heuristic": 0.75}
+{"approx_kl": 0.00788, "clip_frac": 0.0658, "early_stop": false, "entropy": 0.83028, "games": 16, "iteration": 206, "loss": -0.00271, "mean_margin": 0.5, "mean_turns": 161.0, "mode": "async_rotating", "policy_loss": 0.00036, "pool_snapshots": 8, "ppo_dispatch_s": 346.2, "rollout_s": 160.2, "stale_max": 2, "stale_mean": 1.12, "stale_p99": 2.0, "submoves": 5964, "update_s": 346.2, "updates": 376, "value_loss": 0.00218, "win_rate_overall": 0.75, "win_rate_vs_heuristic": 0.667}
+{"approx_kl": 0.01094, "clip_frac": 0.0682, "early_stop": false, "entropy": 0.7244, "games": 16, "iteration": 207, "loss": -0.00078, "mean_margin": 0.25, "mean_turns": 167.7, "mode": "async_rotating", "policy_loss": 0.00224, "pool_snapshots": 8, "ppo_dispatch_s": 427.8, "rollout_s": 316.2, "stale_max": 2, "stale_mean": 1.12, "stale_p99": 2.0, "submoves": 6110, "update_s": 427.8, "updates": 384, "value_loss": 0.00121, "win_rate_overall": 0.625, "win_rate_vs_heuristic": 0.667}
+{"approx_kl": 0.00805, "clip_frac": 0.0615, "early_stop": false, "entropy": 0.73914, "games": 16, "iteration": 208, "loss": -0.00379, "mean_margin": 0.0, "mean_turns": 173.7, "mode": "async_rotating", "policy_loss": -0.00106, "pool_snapshots": 8, "ppo_dispatch_s": 438.8, "rollout_s": 160.0, "stale_max": 2, "stale_mean": 1.19, "stale_p99": 2.0, "submoves": 5753, "update_s": 438.8, "updates": 360, "value_loss": 0.00194, "win_rate_overall": 0.5, "win_rate_vs_heuristic": 0.375}
+{"approx_kl": 0.00964, "clip_frac": 0.0716, "early_stop": false, "entropy": 0.83372, "games": 16, "iteration": 209, "loss": -0.00255, "mean_margin": 0.25, "mean_turns": 157.4, "mode": "async_rotating", "policy_loss": 0.00065, "pool_snapshots": 8, "ppo_dispatch_s": 357.1, "rollout_s": 266.5, "stale_max": 2, "stale_mean": 1.0, "stale_p99": 2.0, "submoves": 5591, "update_s": 357.2, "updates": 352, "value_loss": 0.00194, "win_rate_overall": 0.625, "win_rate_vs_heuristic": 0.667}
+{"approx_kl": 0.00939, "clip_frac": 0.057, "early_stop": false, "entropy": 0.65773, "games": 16, "iteration": 210, "loss": -0.00328, "mean_margin": -0.25, "mean_turns": 175.1, "mode": "async_rotating", "policy_loss": -0.00102, "pool_snapshots": 8, "ppo_dispatch_s": 527.6, "rollout_s": 198.1, "stale_max": 2, "stale_mean": 1.19, "stale_p99": 2.0, "submoves": 5993, "update_s": 527.6, "updates": 376, "value_loss": 0.00207, "win_rate_overall": 0.375, "win_rate_vs_heuristic": 0.375}
+{"approx_kl": 0.01194, "clip_frac": 0.0751, "early_stop": false, "entropy": 0.89518, "games": 16, "iteration": 211, "loss": -0.00263, "mean_margin": 0.375, "mean_turns": 165.9, "mode": "async_rotating", "policy_loss": 0.00067, "pool_snapshots": 8, "ppo_dispatch_s": 414.3, "rollout_s": 119.5, "stale_max": 2, "stale_mean": 1.0, "stale_p99": 1.85, "submoves": 5874, "update_s": 414.3, "updates": 368, "value_loss": 0.00236, "win_rate_overall": 0.688, "win_rate_vs_heuristic": 0.667}
+{"approx_kl": 0.00927, "clip_frac": 0.0694, "early_stop": false, "entropy": 0.7965, "games": 16, "iteration": 212, "loss": -0.00209, "mean_margin": 0.0, "mean_turns": 164.2, "mode": "async_rotating", "policy_loss": 0.00087, "pool_snapshots": 8, "ppo_dispatch_s": 364.5, "rollout_s": 371.4, "stale_max": 2, "stale_mean": 1.19, "stale_p99": 2.0, "submoves": 5542, "update_s": 364.5, "updates": 348, "value_loss": 0.00204, "win_rate_overall": 0.5, "win_rate_vs_heuristic": 0.5}
+{"approx_kl": 0.00657, "clip_frac": 0.0551, "early_stop": false, "entropy": 0.8651, "games": 16, "iteration": 213, "loss": -0.0015, "mean_margin": -0.125, "mean_turns": 177.4, "mode": "async_rotating", "policy_loss": 0.00166, "pool_snapshots": 8, "ppo_dispatch_s": 267.0, "rollout_s": 281.8, "stale_max": 2, "stale_mean": 0.94, "stale_p99": 2.0, "submoves": 5524, "update_s": 267.0, "updates": 348, "value_loss": 0.00233, "win_rate_overall": 0.438, "win_rate_vs_heuristic": 0.25}
+{"approx_kl": 0.00543, "clip_frac": 0.0549, "early_stop": false, "entropy": 0.76157, "games": 16, "iteration": 214, "loss": -0.00219, "mean_margin": 0.25, "mean_turns": 168.7, "mode": "async_rotating", "policy_loss": 0.00012, "pool_snapshots": 8, "ppo_dispatch_s": 430.9, "rollout_s": 266.9, "stale_max": 2, "stale_mean": 0.94, "stale_p99": 2.0, "submoves": 5883, "update_s": 430.9, "updates": 368, "value_loss": 0.00301, "win_rate_overall": 0.625, "win_rate_vs_heuristic": 0.625}
+{"approx_kl": 0.00477, "clip_frac": 0.0572, "early_stop": false, "entropy": 0.66341, "games": 16, "iteration": 215, "loss": -0.00034, "mean_margin": -0.125, "mean_turns": 183.6, "mode": "async_rotating", "policy_loss": 0.00138, "pool_snapshots": 8, "ppo_dispatch_s": 300.4, "rollout_s": 249.8, "stale_max": 2, "stale_mean": 1.19, "stale_p99": 2.0, "submoves": 5732, "update_s": 300.4, "updates": 360, "value_loss": 0.0032, "win_rate_overall": 0.438, "win_rate_vs_heuristic": 0.571}
+{"approx_kl": 0.00744, "clip_frac": 0.0591, "early_stop": false, "entropy": 0.87983, "games": 16, "iteration": 216, "loss": -0.00392, "mean_margin": -0.125, "mean_turns": 170.8, "mode": "async_rotating", "policy_loss": -0.00066, "pool_snapshots": 8, "ppo_dispatch_s": 131.9, "rollout_s": 423.4, "stale_max": 2, "stale_mean": 0.94, "stale_p99": 2.0, "submoves": 5694, "update_s": 131.9, "updates": 356, "value_loss": 0.00228, "win_rate_overall": 0.438, "win_rate_vs_heuristic": 0.6}
+{"approx_kl": 0.0041, "clip_frac": 0.0437, "early_stop": false, "entropy": 0.66844, "games": 16, "iteration": 217, "loss": -0.00148, "mean_margin": -0.25, "mean_turns": 171.8, "mode": "async_rotating", "policy_loss": 0.00066, "pool_snapshots": 8, "ppo_dispatch_s": 343.3, "rollout_s": 545.9, "stale_max": 2, "stale_mean": 0.88, "stale_p99": 2.0, "submoves": 5860, "update_s": 343.3, "updates": 368, "value_loss": 0.00241, "win_rate_overall": 0.375, "win_rate_vs_heuristic": 0.75}
+{"approx_kl": 0.00686, "clip_frac": 0.0559, "early_stop": false, "entropy": 0.88954, "games": 16, "iteration": 218, "loss": -0.00414, "mean_margin": 0.375, "mean_turns": 182.6, "mode": "async_rotating", "policy_loss": -0.00069, "pool_snapshots": 8, "ppo_dispatch_s": 291.6, "rollout_s": 287.4, "stale_max": 2, "stale_mean": 1.0, "stale_p99": 1.85, "submoves": 6431, "update_s": 291.6, "updates": 404, "value_loss": 0.002, "win_rate_overall": 0.688, "win_rate_vs_heuristic": 0.833}
+{"approx_kl": 0.00404, "clip_frac": 0.0427, "early_stop": false, "entropy": 0.78549, "games": 16, "iteration": 219, "loss": -0.00319, "mean_margin": -0.25, "mean_turns": 180.4, "mode": "async_rotating", "policy_loss": -0.00083, "pool_snapshots": 8, "ppo_dispatch_s": 381.2, "rollout_s": 328.0, "stale_max": 2, "stale_mean": 0.94, "stale_p99": 1.85, "submoves": 5423, "update_s": 381.2, "updates": 340, "value_loss": 0.00314, "win_rate_overall": 0.375, "win_rate_vs_heuristic": 0.0}
+{"approx_kl": 0.00685, "clip_frac": 0.0553, "early_stop": false, "entropy": 0.64427, "games": 16, "iteration": 220, "loss": -0.00334, "mean_margin": -0.25, "mean_turns": 176.2, "mode": "async_rotating", "policy_loss": -0.00169, "pool_snapshots": 8, "ppo_dispatch_s": 240.6, "rollout_s": 244.1, "stale_max": 2, "stale_mean": 1.0, "stale_p99": 1.85, "submoves": 5640, "update_s": 240.6, "updates": 356, "value_loss": 0.00316, "win_rate_overall": 0.375, "win_rate_vs_heuristic": 0.667}
+/home/martian/.local/share/uv/python/cpython-3.13.13-linux-x86_64-gnu/lib/python3.13/multiprocessing/resource_tracker.py:400: UserWarning: resource_tracker: There appear to be 14 leaked semaphore objects to clean up at shutdown: {'/mp-xfr3h098', '/mp-drg61xzr', '/mp-2vubc2yy', '/mp-5e_pa9c8', '/mp-uatebeki', '/mp-5kn1dmoq', '/mp-0njgyc1h', '/mp-gf30bpdv', '/mp-zmp1z2qr', '/mp-2mv2nz5p', '/mp-7johf_b9', '/mp-dg95maql', '/mp-ytkv9_30', '/mp-jo7qauwn'}
+  warnings.warn(

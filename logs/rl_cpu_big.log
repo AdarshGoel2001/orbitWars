@@ -1,0 +1,263 @@
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO: Successfully loaded OpenSpiel environments: 16.
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_backgammon
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_checkers
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_chess
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_connect_four
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_gin_rummy
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_go
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_goofspiel
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_hearts
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_hex
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_matching_pennies_3p
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_othello
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_repeated_game
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_tic_tac_toe
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_universal_poker
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_repeated_poker
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_python_repeated_pokerkit
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO: OpenSpiel games skipped: 1.
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    snake
+resumed checkpoints/rl_cpu_model.last.pt at iteration 41 with 8 snapshots
+{
+  "device": "cpu",
+  "params": 46723,
+  "inference_params": 17634,
+  "checkpoint": "checkpoints/bc_cpu_model.pt",
+  "resume": "checkpoints/rl_cpu_model.last.pt",
+  "out": "checkpoints/rl_cpu_model.pt",
+  "start_iteration": 41,
+  "iterations": 1000,
+  "games_per_iter": 16,
+  "max_turns": 500,
+  "lr": 0.0001,
+  "ppo_batch_size": 64,
+  "target_kl": 0.03,
+  "tb_logdir": "runs/rl_cpu_big"
+}
+parallel rollout: 8 worker processes (CPU, 1 BLAS thread each)
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO: Successfully loaded OpenSpiel environments: 16.
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_backgammon
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_checkers
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_chess
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_connect_four
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_gin_rummy
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_go
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_goofspiel
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_hearts
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_hex
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_matching_pennies_3p
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_othello
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_repeated_game
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_tic_tac_toe
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_universal_poker
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_repeated_poker
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_python_repeated_pokerkit
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO: OpenSpiel games skipped: 1.
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    snake
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO: Successfully loaded OpenSpiel environments: 16.
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_backgammon
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_checkers
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_chess
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_connect_four
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_gin_rummy
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_go
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_goofspiel
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_hearts
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_hex
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_matching_pennies_3p
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_othello
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_repeated_game
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_tic_tac_toe
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_universal_poker
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_repeated_poker
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_python_repeated_pokerkit
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO: OpenSpiel games skipped: 1.
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    snake
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO: Successfully loaded OpenSpiel environments: 16.
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_backgammon
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_checkers
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_chess
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_connect_four
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_gin_rummy
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_go
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_goofspiel
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_hearts
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_hex
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_matching_pennies_3p
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_othello
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_repeated_game
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_tic_tac_toe
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_universal_poker
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_repeated_poker
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_python_repeated_pokerkit
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO: OpenSpiel games skipped: 1.
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    snake
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO: Successfully loaded OpenSpiel environments: 16.
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_backgammon
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_checkers
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_chess
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_connect_four
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_gin_rummy
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_go
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_goofspiel
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_hearts
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_hex
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_matching_pennies_3p
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_othello
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_repeated_game
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_tic_tac_toe
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_universal_poker
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_repeated_poker
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_python_repeated_pokerkit
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO: OpenSpiel games skipped: 1.
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    snake
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO: Successfully loaded OpenSpiel environments: 16.
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_backgammon
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_checkers
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_chess
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_connect_four
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_gin_rummy
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_go
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_goofspiel
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_hearts
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_hex
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_matching_pennies_3p
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_othello
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_repeated_game
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_tic_tac_toe
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_universal_poker
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_repeated_poker
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_python_repeated_pokerkit
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO: OpenSpiel games skipped: 1.
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    snake
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO: Successfully loaded OpenSpiel environments: 16.
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_backgammon
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_checkers
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_chess
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_connect_four
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_gin_rummy
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_go
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_goofspiel
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_hearts
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_hex
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_matching_pennies_3p
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_othello
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_repeated_game
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_tic_tac_toe
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_universal_poker
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_repeated_poker
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_python_repeated_pokerkit
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO: OpenSpiel games skipped: 1.
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    snake
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO: Successfully loaded OpenSpiel environments: 16.
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_backgammon
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_checkers
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_chess
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_connect_four
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_gin_rummy
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_go
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_goofspiel
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_hearts
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_hex
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_matching_pennies_3p
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_othello
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_repeated_game
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_tic_tac_toe
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_universal_poker
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_repeated_poker
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_python_repeated_pokerkit
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO: OpenSpiel games skipped: 1.
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    snake
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO: Successfully loaded OpenSpiel environments: 16.
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_backgammon
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_checkers
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_chess
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_connect_four
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_gin_rummy
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_go
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_goofspiel
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_hearts
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_hex
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_matching_pennies_3p
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_othello
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_repeated_game
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_tic_tac_toe
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_universal_poker
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_repeated_poker
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    open_spiel_python_repeated_pokerkit
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO: OpenSpiel games skipped: 1.
+[kaggle_environments.envs.open_spiel_env.open_spiel_env] INFO:    snake
+  game 0: submoves=295 turns=126 margin=+1.000 vs snapshot_iter_30
+  game 1: submoves=335 turns=170 margin=-1.000 vs snapshot_iter_15
+  game 15: submoves=381 turns=182 margin=-1.000 vs snapshot_iter_15
+{"approx_kl": 0.00408, "clip_frac": 0.0226, "early_stop": false, "entropy": 0.11811, "games": 16, "iteration": 41, "loss": -0.00221, "mean_margin": -0.125, "mean_turns": 177.7, "policy_loss": -0.00269, "pool_snapshots": 8, "rollout_s": 599.5, "submoves": 5575, "update_s": 61.4, "updates": 352, "value_loss": 0.00333, "win_rate_overall": 0.438, "win_rate_vs_heuristic": 0.5}
+  game 0: submoves=375 turns=153 margin=+1.000 vs snapshot_iter_35
+  game 1: submoves=295 turns=151 margin=-1.000 vs snapshot_iter_25
+  game 15: submoves=404 turns=155 margin=+1.000 vs snapshot_iter_30
+{"approx_kl": 0.00599, "clip_frac": 0.0211, "early_stop": false, "entropy": 0.12785, "games": 16, "iteration": 42, "loss": 0.00043, "mean_margin": 0.0, "mean_turns": 153.2, "policy_loss": 0.00038, "pool_snapshots": 8, "rollout_s": 436.9, "submoves": 5017, "update_s": 33.6, "updates": 316, "value_loss": 0.00265, "win_rate_overall": 0.5, "win_rate_vs_heuristic": 0.333}
+  game 0: submoves=394 turns=203 margin=-1.000 vs snapshot_iter_25
+  game 1: submoves=513 turns=244 margin=+1.000 vs snapshot_iter_15
+  game 15: submoves=382 turns=186 margin=+1.000 vs snapshot_iter_35
+{"approx_kl": 0.00798, "clip_frac": 0.0231, "early_stop": false, "entropy": 0.11438, "games": 16, "iteration": 43, "loss": -0.0002, "mean_margin": 0.5, "mean_turns": 189.5, "policy_loss": -0.00017, "pool_snapshots": 8, "rollout_s": 756.6, "submoves": 6375, "update_s": 63.6, "updates": 400, "value_loss": 0.00222, "win_rate_overall": 0.75, "win_rate_vs_heuristic": 1.0}
+  game 0: submoves=233 turns=127 margin=-1.000 vs snapshot_iter_20
+  game 1: submoves=333 turns=152 margin=+1.000 vs heuristic
+  game 15: submoves=234 turns=167 margin=-1.000 vs snapshot_iter_5
+{"approx_kl": 0.00322, "clip_frac": 0.0171, "early_stop": false, "entropy": 0.11734, "games": 16, "iteration": 44, "loss": -0.00095, "mean_margin": -0.375, "mean_turns": 158.6, "policy_loss": -0.00137, "pool_snapshots": 8, "rollout_s": 501.7, "submoves": 4671, "update_s": 15.2, "updates": 292, "value_loss": 0.0032, "win_rate_overall": 0.312, "win_rate_vs_heuristic": 0.4}
+  game 0: submoves=237 turns=161 margin=-1.000 vs snapshot_iter_30
+  game 1: submoves=404 turns=179 margin=+1.000 vs snapshot_iter_5
+  game 15: submoves=303 turns=164 margin=-1.000 vs heuristic
+{"approx_kl": 0.00809, "clip_frac": 0.0249, "early_stop": false, "entropy": 0.13201, "games": 16, "iteration": 45, "loss": -0.00065, "mean_margin": 0.25, "mean_turns": 161.0, "policy_loss": -0.00078, "pool_snapshots": 8, "rollout_s": 535.3, "submoves": 5543, "update_s": 48.3, "updates": 348, "value_loss": 0.00292, "win_rate_overall": 0.625, "win_rate_vs_heuristic": 0.4}
+  game 0: submoves=292 turns=140 margin=+1.000 vs snapshot_iter_40
+  game 1: submoves=384 turns=149 margin=-1.000 vs snapshot_iter_30
+  game 15: submoves=309 turns=147 margin=-1.000 vs heuristic
+{"approx_kl": 0.00329, "clip_frac": 0.0215, "early_stop": false, "entropy": 0.12525, "games": 16, "iteration": 46, "loss": 0.00102, "mean_margin": -0.25, "mean_turns": 174.2, "policy_loss": 0.00057, "pool_snapshots": 8, "rollout_s": 544.3, "submoves": 5223, "update_s": 46.7, "updates": 328, "value_loss": 0.0034, "win_rate_overall": 0.375, "win_rate_vs_heuristic": 0.0}
+  game 0: submoves=463 turns=205 margin=-1.000 vs snapshot_iter_15
+  game 1: submoves=392 turns=161 margin=+1.000 vs snapshot_iter_30
+  game 15: submoves=240 turns=112 margin=+1.000 vs snapshot_iter_15
+{"approx_kl": 0.00411, "clip_frac": 0.0203, "early_stop": false, "entropy": 0.12649, "games": 16, "iteration": 47, "loss": 0.00015, "mean_margin": 0.25, "mean_turns": 177.3, "policy_loss": 6e-05, "pool_snapshots": 8, "rollout_s": 457.1, "submoves": 5547, "update_s": 45.7, "updates": 348, "value_loss": 0.00272, "win_rate_overall": 0.625, "win_rate_vs_heuristic": 1.0}
+  game 0: submoves=144 turns=145 margin=-1.000 vs snapshot_iter_40
+  game 1: submoves=189 turns=119 margin=-1.000 vs heuristic
+  game 15: submoves=290 turns=139 margin=+1.000 vs heuristic
+{"approx_kl": 0.00465, "clip_frac": 0.022, "early_stop": false, "entropy": 0.12251, "games": 16, "iteration": 48, "loss": -0.00059, "mean_margin": 0.0, "mean_turns": 166.8, "policy_loss": -0.00108, "pool_snapshots": 8, "rollout_s": 402.5, "submoves": 4975, "update_s": 24.7, "updates": 312, "value_loss": 0.00342, "win_rate_overall": 0.5, "win_rate_vs_heuristic": 0.5}
+  game 0: submoves=510 turns=264 margin=-1.000 vs snapshot_iter_40
+  game 1: submoves=396 turns=159 margin=+1.000 vs snapshot_iter_45
+  game 15: submoves=361 turns=171 margin=+1.000 vs heuristic
+{"approx_kl": 0.00367, "clip_frac": 0.0189, "early_stop": false, "entropy": 0.13778, "games": 16, "iteration": 49, "loss": 0.00025, "mean_margin": 0.0, "mean_turns": 173.2, "policy_loss": -1e-05, "pool_snapshots": 8, "rollout_s": 655.1, "submoves": 5402, "update_s": 41.0, "updates": 340, "value_loss": 0.00327, "win_rate_overall": 0.5, "win_rate_vs_heuristic": 0.6}
+  game 0: submoves=464 turns=188 margin=+1.000 vs snapshot_iter_10
+  game 1: submoves=67 turns=113 margin=-1.000 vs snapshot_iter_40
+  game 15: submoves=253 turns=128 margin=-1.000 vs snapshot_iter_25
+{"approx_kl": 0.0022, "clip_frac": 0.0201, "early_stop": false, "entropy": 0.12634, "games": 16, "iteration": 50, "loss": 0.00028, "mean_margin": 0.0, "mean_turns": 176.2, "policy_loss": 2e-05, "pool_snapshots": 8, "rollout_s": 479.9, "submoves": 5361, "update_s": 64.2, "updates": 336, "value_loss": 0.00305, "win_rate_overall": 0.5, "win_rate_vs_heuristic": 0.75}
+  game 0: submoves=332 turns=141 margin=+1.000 vs snapshot_iter_50
+  game 1: submoves=636 turns=243 margin=+1.000 vs snapshot_iter_30
+  game 15: submoves=435 turns=210 margin=+1.000 vs heuristic
+{"approx_kl": 0.00295, "clip_frac": 0.0191, "early_stop": false, "entropy": 0.13922, "games": 16, "iteration": 51, "loss": 0.00013, "mean_margin": -0.375, "mean_turns": 160.7, "policy_loss": 0.00013, "pool_snapshots": 8, "rollout_s": 604.4, "submoves": 4985, "update_s": 31.1, "updates": 312, "value_loss": 0.00279, "win_rate_overall": 0.312, "win_rate_vs_heuristic": 0.5}
+  game 0: submoves=312 turns=145 margin=+1.000 vs snapshot_iter_45
+  game 1: submoves=374 turns=150 margin=+1.000 vs snapshot_iter_15
+  game 15: submoves=338 turns=161 margin=-1.000 vs snapshot_iter_50
+{"approx_kl": 0.00508, "clip_frac": 0.0239, "early_stop": false, "entropy": 0.14753, "games": 16, "iteration": 52, "loss": -0.00012, "mean_margin": 0.125, "mean_turns": 149.9, "policy_loss": -0.00018, "pool_snapshots": 8, "rollout_s": 428.9, "submoves": 4736, "update_s": 31.2, "updates": 296, "value_loss": 0.00307, "win_rate_overall": 0.562, "win_rate_vs_heuristic": 1.0}
+  game 0: submoves=422 turns=200 margin=+1.000 vs snapshot_iter_30
+  game 1: submoves=379 turns=172 margin=+1.000 vs snapshot_iter_35
+  game 15: submoves=256 turns=139 margin=-1.000 vs snapshot_iter_25
+{"approx_kl": 0.00212, "clip_frac": 0.0148, "early_stop": false, "entropy": 0.15078, "games": 16, "iteration": 53, "loss": -0.00026, "mean_margin": 0.0, "mean_turns": 161.6, "policy_loss": -0.00033, "pool_snapshots": 8, "rollout_s": 474.4, "submoves": 5097, "update_s": 28.0, "updates": 320, "value_loss": 0.00315, "win_rate_overall": 0.5, "win_rate_vs_heuristic": 0.25}
+  game 0: submoves=181 turns=148 margin=-1.000 vs heuristic
+  game 1: submoves=293 turns=151 margin=+1.000 vs heuristic
+  game 15: submoves=360 turns=174 margin=+1.000 vs snapshot_iter_15
+{"approx_kl": 0.00441, "clip_frac": 0.0226, "early_stop": false, "entropy": 0.14434, "games": 16, "iteration": 54, "loss": -0.00105, "mean_margin": -0.25, "mean_turns": 150.4, "policy_loss": -0.00142, "pool_snapshots": 8, "rollout_s": 370.2, "submoves": 4393, "update_s": 46.0, "updates": 276, "value_loss": 0.00363, "win_rate_overall": 0.375, "win_rate_vs_heuristic": 0.5}
+  game 0: submoves=244 turns=149 margin=-1.000 vs snapshot_iter_15
+  game 1: submoves=403 turns=176 margin=+1.000 vs snapshot_iter_25
+  game 15: submoves=450 turns=247 margin=-1.000 vs heuristic
+{"approx_kl": 0.0033, "clip_frac": 0.0191, "early_stop": false, "entropy": 0.14485, "games": 16, "iteration": 55, "loss": -0.00151, "mean_margin": 0.375, "mean_turns": 173.8, "policy_loss": -0.00134, "pool_snapshots": 8, "rollout_s": 458.0, "submoves": 5607, "update_s": 62.9, "updates": 352, "value_loss": 0.00257, "win_rate_overall": 0.688, "win_rate_vs_heuristic": 0.75}
+  game 0: submoves=263 turns=148 margin=-1.000 vs heuristic
+  game 1: submoves=540 turns=204 margin=+1.000 vs snapshot_iter_40
+  game 15: submoves=449 turns=168 margin=+1.000 vs snapshot_iter_40
+{"approx_kl": 0.00501, "clip_frac": 0.0261, "early_stop": false, "entropy": 0.1563, "games": 16, "iteration": 56, "loss": -0.00127, "mean_margin": 0.0, "mean_turns": 180.4, "policy_loss": -0.00091, "pool_snapshots": 8, "rollout_s": 650.4, "submoves": 6047, "update_s": 34.2, "updates": 380, "value_loss": 0.00241, "win_rate_overall": 0.5, "win_rate_vs_heuristic": 0.429}
+  game 0: submoves=492 turns=195 margin=+1.000 vs snapshot_iter_45
+  game 1: submoves=304 turns=137 margin=+1.000 vs snapshot_iter_20
+  game 15: submoves=273 turns=175 margin=-1.000 vs snapshot_iter_35
+{"approx_kl": 0.00563, "clip_frac": 0.0255, "early_stop": false, "entropy": 0.1631, "games": 16, "iteration": 57, "loss": -0.00248, "mean_margin": 0.0, "mean_turns": 167.3, "policy_loss": -0.002, "pool_snapshots": 8, "rollout_s": 461.8, "submoves": 5524, "update_s": 27.5, "updates": 348, "value_loss": 0.0023, "win_rate_overall": 0.5, "win_rate_vs_heuristic": 0.333}
+  game 0: submoves=315 turns=162 margin=-1.000 vs snapshot_iter_30
+  game 1: submoves=361 turns=158 margin=+1.000 vs snapshot_iter_40
+  game 15: submoves=360 turns=162 margin=+1.000 vs snapshot_iter_40
+{"approx_kl": 0.00271, "clip_frac": 0.0254, "early_stop": false, "entropy": 0.14825, "games": 16, "iteration": 58, "loss": -0.00075, "mean_margin": -0.125, "mean_turns": 173.4, "policy_loss": -0.00095, "pool_snapshots": 8, "rollout_s": 501.1, "submoves": 5170, "update_s": 37.7, "updates": 324, "value_loss": 0.00337, "win_rate_overall": 0.438, "win_rate_vs_heuristic": 0.667}
+/home/martian/.local/share/uv/python/cpython-3.13.13-linux-x86_64-gnu/lib/python3.13/multiprocessing/resource_tracker.py:400: UserWarning: resource_tracker: There appear to be 5 leaked semaphore objects to clean up at shutdown: {'/mp-npl3hst0', '/mp-6phnmw7j', '/mp-8qkq7mvk', '/mp-z8n7x3gq', '/mp-3ncc1wyy'}
+  warnings.warn(
