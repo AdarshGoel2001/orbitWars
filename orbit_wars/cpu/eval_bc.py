@@ -10,7 +10,7 @@ import time
 from kaggle_environments import make
 
 from agents import nearest_planet_sniper
-from agents_cpu import heuristic_agent_cpu, load_cpu_model_agent
+from agents_cpu import heuristic_agent_cpu, load_chunked_model_agent, load_cpu_model_agent
 
 
 def total_ships(obs, player: int) -> int:
@@ -24,10 +24,12 @@ def total_ships(obs, player: int) -> int:
     return score
 
 
-def agent_factory(name: str, checkpoint: Path | None, device: str):
+def agent_factory(name: str, checkpoint: Path | None, device: str, model_kind: str):
     if name == "model":
         if checkpoint is None:
             raise ValueError("model agent requires --checkpoint")
+        if model_kind == "chunked":
+            return load_chunked_model_agent(checkpoint, device=device)
         return load_cpu_model_agent(checkpoint, device=device)
     if name == "heuristic_cpu":
         return heuristic_agent_cpu
@@ -68,6 +70,7 @@ def run_game(left, right):
 def parse_args():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--checkpoint", type=Path, default=Path("checkpoints/bc_cpu_model.pt"))
+    parser.add_argument("--model-kind", choices=["edge", "chunked"], default="edge")
     parser.add_argument("--opponent", choices=["heuristic_cpu", "sniper"], default="heuristic_cpu")
     parser.add_argument("--games", type=int, default=10)
     parser.add_argument("--device", default="cpu")
@@ -86,8 +89,8 @@ def main():
     for game_idx in range(args.games):
         # Alternate seats to avoid seat-specific map effects.
         model_left = (game_idx % 2 == 0)
-        model_agent = agent_factory("model", args.checkpoint, args.device)
-        opp_agent = agent_factory(args.opponent, args.checkpoint, args.device)
+        model_agent = agent_factory("model", args.checkpoint, args.device, args.model_kind)
+        opp_agent = agent_factory(args.opponent, args.checkpoint, args.device, args.model_kind)
         if model_left:
             result = run_game(model_agent, opp_agent)
             model_margin = result["margin0"]
@@ -112,6 +115,7 @@ def main():
 
     summary = {
         "checkpoint": str(args.checkpoint),
+        "model_kind": args.model_kind,
         "opponent": args.opponent,
         "games": args.games,
         "model_wins": model_wins,

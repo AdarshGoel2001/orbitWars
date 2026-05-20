@@ -20,6 +20,11 @@ from harness_cpu import (
     GameView_CPU,
 )
 from model_cpu import OrbitWarsEdgeTransformer
+from chunked_model_cpu import (
+    ChunkedEdgePolicy,
+    decode_chunk_actions,
+    multiplier_from_delta,
+)
 
 
 HOARD_WINDOW = 20
@@ -148,6 +153,66 @@ def model_agent_actions_cpu(model, obs, max_moves: int = MAX_MODEL_MOVES,
     return moves
 
 
+def _bundle_to_chunk_tensors(bundle, device: torch.device):
+    valid_mask = torch.ones(1, bundle.n, dtype=torch.bool, device=device)
+    return (
+        torch.from_numpy(bundle.edges).unsqueeze(0).to(device),
+        torch.from_numpy(bundle.src_ids).long().unsqueeze(0).to(device),
+        torch.from_numpy(bundle.tgt_ids).long().unsqueeze(0).to(device),
+        valid_mask,
+    )
+
+
+def model_agent_actions_chunked(
+    model,
+    obs,
+    max_moves: int = MAX_MODEL_MOVES,
+    deterministic: bool = True,
+    active_threshold: float = 0.0,
+    view: GameView_CPU | None = None,
+    device: torch.device | str = "cpu",
+):
+    """Decode a chunked edge policy into one turn of env actions."""
+    device = torch.device(device)
+    if view is None:
+        view = GameView_CPU(obs)
+
+    bundle = view.tokens()
+    if bundle.n == 0 or max_moves <= 0:
+        return []
+
+    was_training = model.training
+    model.eval()
+    try:
+        with torch.no_grad():
+            edges, src_ids, tgt_ids, valid_mask = _bundle_to_chunk_tensors(bundle, device)
+            out = model(
+                edges,
+                src_ids,
+                tgt_ids,
+                valid_mask=valid_mask,
+                compute_value=False,
+            )
+        pointer_logits = out.pointer_logits[0, :max_moves]
+        active_logits = out.active_logits[0, :max_moves]
+        ship_delta = out.ship_delta_mu[0, :max_moves]
+
+        if deterministic:
+            token_indices = torch.argmax(pointer_logits, dim=-1).cpu().tolist()
+            deltas = ship_delta.cpu().tolist()
+        else:
+            probs = torch.softmax(pointer_logits, dim=-1)
+            token_indices = torch.multinomial(probs, 1).squeeze(-1).cpu().tolist()
+            std = out.ship_delta_log_std[0, :max_moves].exp()
+            deltas = torch.normal(ship_delta, std).cpu().tolist()
+
+        active = (active_logits > float(active_threshold)).cpu().tolist()
+        multipliers = [multiplier_from_delta(delta) for delta in deltas]
+        return decode_chunk_actions(view, token_indices, multipliers, active=active)
+    finally:
+        model.train(was_training)
+
+
 class StatefulCpuModelAgent:
     """Persistent ``GameView_CPU`` wrapper for Kaggle/server agent calls."""
 
@@ -178,6 +243,44 @@ class StatefulCpuModelAgent:
         self._view = None
 
 
+class StatefulChunkedModelAgent:
+    """Persistent ``GameView_CPU`` wrapper for chunked model calls."""
+
+    def __init__(
+        self,
+        model,
+        max_moves: int = MAX_MODEL_MOVES,
+        deterministic: bool = True,
+        active_threshold: float = 0.0,
+        device: torch.device | str = "cpu",
+    ):
+        self.model = model
+        self.max_moves = int(max_moves)
+        self.deterministic = bool(deterministic)
+        self.active_threshold = float(active_threshold)
+        self.device = torch.device(device)
+        self._view: GameView_CPU | None = None
+
+    def __call__(self, obs):
+        step = obs.get("step", 0) if isinstance(obs, dict) else getattr(obs, "step", 0)
+        if self._view is None or int(step) <= int(self._view.step):
+            self._view = GameView_CPU(obs)
+        else:
+            self._view.update_from_obs(obs)
+        return model_agent_actions_chunked(
+            self.model,
+            obs,
+            max_moves=self.max_moves,
+            deterministic=self.deterministic,
+            active_threshold=self.active_threshold,
+            view=self._view,
+            device=self.device,
+        )
+
+    def reset(self):
+        self._view = None
+
+
 def load_cpu_model_agent(checkpoint_path: str | Path,
                          device: torch.device | str = "cpu",
                          deterministic: bool = True) -> StatefulCpuModelAgent:
@@ -190,4 +293,27 @@ def load_cpu_model_agent(checkpoint_path: str | Path,
     model.eval()
     return StatefulCpuModelAgent(
         model, deterministic=deterministic, device=device,
+    )
+
+
+def load_chunked_model_agent(
+    checkpoint_path: str | Path,
+    device: torch.device | str = "cpu",
+    deterministic: bool = True,
+    active_threshold: float = 0.0,
+) -> StatefulChunkedModelAgent:
+    """Load a chunked BC/RL checkpoint as a callable agent."""
+    device = torch.device(device)
+    checkpoint = torch.load(Path(checkpoint_path), map_location=device, weights_only=False)
+    args = checkpoint.get("args", {})
+    model = ChunkedEdgePolicy(n_slots=int(args.get("max_slots", 10))).to(device)
+    state = checkpoint.get("model_state", checkpoint)
+    model.load_state_dict(state)
+    model.eval()
+    return StatefulChunkedModelAgent(
+        model,
+        max_moves=int(args.get("max_slots", MAX_MODEL_MOVES)),
+        deterministic=deterministic,
+        active_threshold=active_threshold,
+        device=device,
     )
